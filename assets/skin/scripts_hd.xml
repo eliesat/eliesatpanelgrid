@@ -1,0 +1,123 @@
+<screen name="Scripts" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder" title="Scripts">
+    <ePixmap position="0,0" zPosition="-1" size="1280,720"
+        pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
+
+    <!-- 🔹 Script list -->
+    <widget name="list" position="32,130" size="800,420"
+        font="Bold;24" halign="center" valign="center"
+        render="Listbox" itemHeight="46"
+        foregroundColor="yellow"
+        foregroundColorSelected="orange"
+        selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
+        transparent="1" scrollbarMode="showOnDemand" />
+
+    <!-- 🔹 Selected script bar at top -->
+    <widget name="script_name"
+        position="32,560" size="800,40" zPosition="12"
+        font="Bold;28" halign="center" valign="center"
+        foregroundColor="orange" backgroundColor="#000000"
+        transparent="1" />
+
+    <!-- 🔹 Page indicator -->
+    <widget name="page_info" position="1050,500" size="200,40" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+
+    <!-- 🔹 Info text -->
+    <eLabel text="Select and press OK to execute"
+        position="200,90" size="500,40" zPosition="1"
+        font="Bold;28" halign="center"
+        backgroundColor="#000000" foregroundColor="orange"
+        transparent="0" />
+
+    <!-- 🔹 Top black bar -->
+    <eLabel position="0,0" size="1280,90" zPosition="10" backgroundColor="#000000" />
+
+    <!-- 🔹 Title -->
+    <eLabel text="● Scripts Manager – Run, manage and control your scripts"
+        position="230,0" size="900,40" zPosition="11"
+        font="Bold;24" halign="left" valign="center" noWrap="1"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <!-- 🔹 Bottom color buttons (aligned like Iptvadder) -->
+    <eLabel position="0,717" size="320,3" zPosition="2" backgroundColor="red" />
+    <widget name="red" position="0,667" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text="Remove List"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <eLabel position="320,717" size="320,3" zPosition="2" backgroundColor="green" />
+    <widget name="green" position="320,667" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text="Update List"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <eLabel position="640,717" size="320,3" zPosition="2" backgroundColor="yellow" />
+    <widget name="yellow" position="640,667" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text="Background run"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <eLabel position="960,717" size="320,3" zPosition="2" backgroundColor="blue" />
+    <widget name="blue" position="960,667" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text="Restart Enigma2"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <!-- 🔹 Left / Right black bars -->
+    <eLabel position="0,90" size="50,580" zPosition="10" backgroundColor="#000000" />
+    <eLabel position="1230,90" size="50,580" zPosition="10" backgroundColor="#000000" />
+
+    <!-- 🔹 Date -->
+    <widget source="global.CurrentTime" render="Label"
+        position="900,100" size="350,25" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1">
+        <convert type="ClockToText">Format %A %d %B</convert>
+    </widget>
+
+    <!-- 🔹 Clock -->
+    <widget source="global.CurrentTime" render="Label"
+        position="900,130" size="350,25" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1">
+        <convert type="ClockToText">Format %H:%M:%S</convert>
+    </widget>
+
+    <!-- 🔹 System info -->
+    <widget name="image_name" position="980,280" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+    <widget name="python_ver" position="980,310" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+    <widget name="local_ip" position="980,340" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+    <widget name="StorageInfo" position="980,370" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+    <widget name="RAMInfo" position="980,400" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+    <widget name="net_status" position="980,430" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+
+    <!-- 🔹 Vertical text bars -->
+    <widget name="left_bar" position="15,110" size="40,500" zPosition="20"
+        font="Regular;18" halign="center" valign="top"
+        foregroundColor="yellow" transparent="1" noWrap="1" />
+    <widget name="right_bar" position="1240,110" size="40,500" zPosition="20"
+        font="Regular;18" halign="center" valign="top"
+        foregroundColor="yellow" transparent="1" noWrap="1" />
+</screen>
+

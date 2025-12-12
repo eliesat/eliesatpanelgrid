@@ -1,0 +1,100 @@
+<screen name="Imagesdownload" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder">
+    <!-- Background -->
+    <ePixmap position="0,0" zPosition="-1" size="1280,720"
+            pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
+
+    <!-- Header -->
+    <eLabel position="0,0" size="1280,87" zPosition="10" backgroundColor="#000000"/>
+    <eLabel text="● Images Downloader – Feeds: OpenSPA, OpenATV, OpenHDF, OpenViX, OpenPLI, OpenblackHole ....."
+            position="233,0" size="933,33" zPosition="11"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
+
+    <!-- Image & Download Info -->
+    <widget name="image_name" position="0,560" size="1280,40" zPosition="12"
+            font="Bold;24" halign="center" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+    <widget name="download_info" position="0,600" size="1280,33" zPosition="12"
+            font="Bold;21" halign="center" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+
+    <!-- Progress Bar -->
+    <widget name="progress" position="0,633" size="1280,40" zPosition="12"
+            foregroundColor="yellow" backgroundColor="#000000"/>
+
+    <!-- System Info -->
+    <widget name="python_ver" position="980,280" size="333,23" zPosition="12"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+    <widget name="local_ip" position="980,307" size="333,23" zPosition="12"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+    <widget name="StorageInfo" position="980,333" size="333,23" zPosition="12"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+    <widget name="RAMInfo" position="980,360" size="333,23" zPosition="12"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+    <widget name="net_status" position="980,387" size="333,23" zPosition="12"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+    <widget name="device_name" position="980,413" size="333,23" zPosition="12"
+            font="Bold;21" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+
+    <!-- Listbox -->
+    <widget name="list" position="32,133" size="827,447" scrollbarMode="showOnDemand"
+            font="Bold;24" render="Listbox" itemHeight="44"
+            selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
+            foregroundColor="yellow" transparent="1"/>
+
+    <!-- Clock -->
+    <widget source="global.CurrentTime" render="Label" position="900,120" size="333,23" zPosition="12"
+            font="Bold;21" halign="center" valign="center" foregroundColor="yellow"
+            backgroundColor="#000000" transparent="1">
+        <convert type="ClockToText">Format %A %d %B</convert>
+    </widget>
+    <widget source="global.CurrentTime" render="Label" position="900,147" size="333,23" zPosition="12"
+            font="Bold;21" halign="center" valign="center" foregroundColor="yellow"
+            backgroundColor="#000000" transparent="1">
+        <convert type="ClockToText">Format %H:%M:%S</convert>
+    </widget>
+
+    <!-- Bottom buttons -->
+    <eLabel position="0,715" size="320,3" zPosition="2" backgroundColor="red"/>
+    <widget name="red" position="0,667" size="320,50" zPosition="2"
+            font="Bold;21" halign="center" valign="center"
+            text="Cancel Download" foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
+    <eLabel position="320,715" size="320,3" zPosition="2" backgroundColor="green"/>
+    <widget name="green" position="320,667" size="320,50" zPosition="2"
+            font="Bold;21" halign="center" valign="center"
+            text="" foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
+    <eLabel position="640,715" size="320,3" zPosition="2" backgroundColor="yellow"/>
+    <widget name="yellow" position="640,667" size="320,50" zPosition="2"
+            font="Bold;21" halign="center" valign="center"
+            text="" foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
+    <eLabel position="960,715" size="320,3" zPosition="2" backgroundColor="blue"/>
+    <widget name="blue" position="960,667" size="320,50" zPosition="2"
+            font="Bold;21" halign="center" valign="center"
+            text="" foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
+
+    <!-- Side Bars Background -->
+    <eLabel position="0,87" size="70,628" zPosition="10" backgroundColor="#000000"/>
+    <eLabel position="1210,87" size="70,628" zPosition="10" backgroundColor="#000000"/>
+
+    <!-- Left / Right vertical bars (tall, top-aligned, large, polished) -->
+    <widget name="left_bar"
+        position="0,87" size="70,628" zPosition="20"
+        font="Regular;18" halign="center" valign="top"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" noWrap="1">
+        <convert type="Text">E\nl\ni\ne\nS\na\nt</convert>
+    </widget>
+
+    <widget name="right_bar"
+        position="1210,87" size="70,628" zPosition="20"
+        font="Regular;18" halign="center" valign="top"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" noWrap="1"/>
+</screen>
+

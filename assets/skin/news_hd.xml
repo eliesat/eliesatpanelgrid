@@ -1,0 +1,120 @@
+<screen name="News" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder" title="Info">
+    <ePixmap position="0,0" zPosition="-1" size="1280,720"
+        pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
+
+    <!-- 🔹 Top black bar -->
+    <eLabel position="0,0" size="1280,90" zPosition="10" backgroundColor="#000000" />
+
+    <!-- 🔹 Title -->
+    <eLabel text="● Addons update news."
+        position="230,0" size="900,40" zPosition="11"
+        font="Bold;24" halign="left" valign="center" noWrap="1"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <!-- 🔹 Bottom buttons -->
+    <eLabel position="0,715" size="320,5" zPosition="2" backgroundColor="red" />
+    <widget name="red" position="0,670" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text="Close"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+    <eLabel position="320,715" size="320,5" zPosition="2" backgroundColor="green" />
+    <widget name="green" position="320,670" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text=""
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+    <eLabel position="640,715" size="320,5" zPosition="2" backgroundColor="yellow" />
+    <widget name="yellow" position="640,670" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text=""
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+    <eLabel position="960,715" size="320,5" zPosition="2" backgroundColor="blue" />
+    <widget name="blue" position="960,670" size="320,50" zPosition="2"
+        font="Bold;24" halign="center" valign="center"
+        text=""
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+
+    <!-- 🔹 Left / Right bars -->
+    <eLabel position="0,90" size="50,580" zPosition="10" backgroundColor="#000000" />
+    <eLabel position="1230,90" size="50,580" zPosition="10" backgroundColor="#000000" />
+
+    <!-- 🔹 Scrollable GitHub Text -->
+    <widget name="github_text"
+        position="130,120" size="800,520" zPosition="12"
+        font="Bold;24" halign="left" valign="top"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+
+    <!-- 🔹 Page indicator -->
+    <widget name="page_info"
+        position="1130,620" size="300,40" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+
+    <!-- 🔹 Date -->
+    <widget source="global.CurrentTime" render="Label"
+        position="900,120" size="350,25" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1">
+        <convert type="ClockToText">Format %A %d %B</convert>
+    </widget>
+
+    <!-- 🔹 Clock -->
+    <widget source="global.CurrentTime" render="Label"
+        position="900,150" size="350,25" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1">
+        <convert type="ClockToText">Format %H:%M:%S</convert>
+    </widget>
+
+    <!-- 🔹 System Info -->
+    <widget name="image_name"
+        position="980,280" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+    <widget name="python_ver"
+        position="980,310" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+    <widget name="local_ip"
+        position="980,340" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+    <widget name="StorageInfo"
+        position="980,370" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+    <widget name="RAMInfo"
+        position="980,400" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+    <widget name="net_status"
+        position="980,430" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000"
+        transparent="1" />
+
+    <!-- 🔹 Vertical texts -->
+    <widget name="left_bar"
+        position="15,110" size="40,500" zPosition="20"
+        font="Regular;18" halign="center" valign="top"
+        noWrap="1" foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+    <widget name="right_bar"
+        position="1240,110" size="40,500" zPosition="20"
+        font="Regular;18" halign="center" valign="top"
+        noWrap="1" foregroundColor="yellow" backgroundColor="#000000"
+        transparent="0" />
+</screen>
