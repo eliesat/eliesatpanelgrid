@@ -659,7 +659,7 @@ class EliesatPanel(Screen):
 
             if data:
                 for line in data.split("\n"):
-                    if line.startswith("version"):
+                    if line.startswith("Version"):
                         remote_version = line.split("'")[1]
                     if line.startswith("changelog"):
                         remote_changelog = line.split("'")[1]
