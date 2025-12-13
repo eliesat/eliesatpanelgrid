@@ -11,7 +11,7 @@ Status: Plg
 Alajre='https://https://gitlab.com/eliesat/extensions/-/raw/main/alajre/alajre.shn/acherone/acherone.sh'
 
 Package: Advancedbootlogo
-Version: 1.1     إدارة صور الاقلاع
+Version: 1.0     إدارة صور الاقلاع
 Status: Plg
 Advancedbootlogo='https://gitlab.com/eliesat/extensions/-/raw/main/advancedbootlogo/advancedbootlogo.sh'
 
