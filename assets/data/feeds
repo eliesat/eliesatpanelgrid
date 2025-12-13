@@ -45,12 +45,12 @@ Version: 1.0     فيد تسطيب بيكونات
 Status: Feeds
 Openpicons='https://gitlab.com/eliesat/scripts/-/raw/main/feed/openpicons-feed-.sh'
 
-Package: Softcams-feed-openatv
+Package: Softcams-openatv
 Version: 1.0     فيد تسطيب ايميوهات
 Status: Feeds
 Softcams-feed-openatv='https://gitlab.com/eliesat/scripts/-/raw/main/feed/openatv-softcam-feed.sh'
 
-Package: Softcams-feed-pure2
+Package: Softcams-pure2
 Version: 1.0     فيد تسطيب ايميوهات
 Status: Feeds
 Softcams-feed-pure2='https://gitlab.com/eliesat/scripts/-/raw/main/feed/pure2-softcam-feed.sh'
