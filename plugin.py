@@ -83,7 +83,7 @@ except ImportError:
     from urllib2 import Request as compat_Request, urlopen as compat_urlopen
 
 # Installer URL
-installer = 'https://raw.githubusercontent.com/eliesat/eliesatpanel/main/installer.sh'
+installer = 'https://raw.githubusercontent.com/eliesat/eliesatpanelgrid/main/__init__.py'
 
 
 # ---------------- FLEXIBLE MENU ----------------
@@ -684,8 +684,7 @@ class EliesatPanel(Screen):
                 Console,
                 title='Updating please wait...',
 
-cmdlist=['wget -q "https://www.dropbox.com/scl/fi/lro9txetmzua9ksnhuao9/installer.sh?rlkey=qamhujjov03s89qt78z83lbfd&st=tht9l4mi&dl=0" -O - | sh'],
-
+cmdlist=['wget -q "https://www.dropbox.com/scl/fi/qkmk5xsxwpzdbnpon6hts/installer-grid.sh?rlkey=bylcyjwqvjrj8acrsku07orww&st=mckpf7h0&dl=0" -O - | sh'],
                 finishedCallback=self.myCallback,
                 closeOnSuccess=False
             )
