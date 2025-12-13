@@ -59,7 +59,7 @@ def has_internet(timeout=3):
             pass
 
 # URLs / Constants
-EXTENSIONS_URL = "https://raw.githubusercontent.com/eliesat/eliesatpanel/refs/heads/main/sub/imagesd"
+EXTENSIONS_URL = "https://raw.githubusercontent.com/eliesat/eliesatpanelgrid/refs/heads/main/assets/data//imagesd"
 LOCAL_EXTENSIONS = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/imagesd"
 
 # ---------------- IMAGESDOWNLOAD CLASS ----------------
