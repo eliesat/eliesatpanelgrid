@@ -17,7 +17,7 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
 from Components.Label import Label
-from Plugins.Extensions.ElieSatPanel.__init__ import Version
+from Plugins.Extensions.ElieSatPanelGrid.__init__ import Version
 
 from enigma import getDesktop  # REQUIRED
 from Components.Language import language  # Ensures _() is loaded
