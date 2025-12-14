@@ -101,12 +101,12 @@ Status: Freq
 Freq-Lyngsat='https://gitlab.com/eliesat/settings/-/raw/main/lyngsat/installer.sh'
 
 Package: Freq-Oe-alliance
-Version: always updated     ملف ترددات
+Version: uptodate     ملف ترددات
 Status: Freq
 Freq-Oe-alliance='https://gitlab.com/eliesat/settings/-/raw/main/oe-alliance/installer.sh'
 
 Package: Freq-Openpli
-Version: always updated     ملف ترددات
+Version: uptodate     ملف ترددات
 Status: Freq
 Freq-Openpli='https://gitlab.com/eliesat/settings/-/raw/main/eliesat/installer.sh'
 
