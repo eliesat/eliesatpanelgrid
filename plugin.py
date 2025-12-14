@@ -63,7 +63,6 @@ from Plugins.Extensions.ElieSatPanelGrid.menus.Toolsp import Toolsp
 from Plugins.Extensions.ElieSatPanelGrid.menus.About import Abt
 from Plugins.Extensions.ElieSatPanelGrid.menus.Imagesdownloader import Imagesdownloader
 from Plugins.Extensions.ElieSatPanelGrid.menus.Piconstudio import Piconstudio
-#from Plugins.Extensions.ElieSatPanelGrid.menus.Extra2 import Extra2
 from Plugins.Extensions.ElieSatPanelGrid.menus.Libraries import Libraries
 from Plugins.Extensions.ElieSatPanelGrid.menus.Helpers import (
     get_local_ip,
@@ -535,12 +534,6 @@ class EliesatPanel(Screen):
             ("Initializer", "Trial"),
             ("Backups", "Trial"),
             ("ListMode", "Trial"),
-            ("Extra1", "Extra menu slot 1"),
-            ("Extra2", "Extra menu slot 2"),
-            ("Extra3", "Extra menu slot 3"),
-            ("Extra4", "Extra menu slot 4"),
-            ("Extra5", "Extra menu slot 5"),
-            ("Extra6", "Extra menu slot 6"),
         ]
         self["menu"].setList(self.menuList)
 
