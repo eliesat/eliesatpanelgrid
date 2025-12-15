@@ -96,7 +96,7 @@ Status: Plg
 Bootlogoswapper='https://gitlab.com/eliesat/extensions/-/raw/main/bootlogoswapper/bootlogoswapper-eliesat-special-edition.sh'
 
 Package: Bouquetmakerxtream
-Version: 1.70     تحويل الاي بي تي في لمفضلات
+Version: 1.71     تحويل الاي بي تي في لمفضلات
 Status: Plg
 Bouquetmakerxtream='https://gitlab.com/eliesat/extensions/-/raw/main/bouquetmakerxtream/bouquetmakerxtream.sh'
 
@@ -270,7 +270,7 @@ Status: Plg
 Hardwareinfo='https://gitlab.com/eliesat/extensions/-/raw/main/hardwareinfo/hardwareinfo.sh'
 
 Package: Hasbahca
-Version: 1.8     اي بي تي في مجاني
+Version: 2.0     اي بي تي في مجاني
 Status: Plg
 Hasbahca='https://gitlab.com/eliesat/extensions/-/raw/main/hasbahca/hasbahca.sh'
 
