@@ -185,7 +185,7 @@ Status: Plg
 Easy-cccam='https://gitlab.com/eliesat/extensions/-/raw/main/easy-cccam/easy-cccam.sh'
 
 Package: Epggrabber-ziko
-Version: 24.6     الدليل الالكتروني
+Version: 24.7     الدليل الالكتروني
 Status: Plg
 Epggrabber-ziko='https://gitlab.com/eliesat/extensions/-/raw/main/epggrabber2/epggrabber.sh'
 
