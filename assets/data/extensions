@@ -189,11 +189,6 @@ Version: 24.7     الدليل الالكتروني
 Status: Plg
 Epggrabber-ziko='https://gitlab.com/eliesat/extensions/-/raw/main/epggrabber2/epggrabber.sh'
 
-Package: Epggrabber-mod-elie
-Version: 24.2     الدليل الالكتروني
-Status: Plg
-Epggrabber-mod-elie='https://gitlab.com/eliesat/extensions/-/raw/main/epggrabber/epggrabber.sh'
-
 Package: Epgimport
 Version: 2.0     قراءة و عرض ملفات الدليل الاكتروني
 Status: Plg
