@@ -370,7 +370,7 @@ Status: Plg
 Lamedbmerger='https://gitlab.com/eliesat/extensions/-/raw/main/lamedbmerger/lamedbmerger.sh'
 
 Package: Levi45emulator
-Version: 1.0     إدارة الايميوهات
+Version: 1.2     إدارة الايميوهات
 Status: Plg
 Levi45emulator='https://gitlab.com/eliesat/extensions/-/raw/main/levi45emulator/levi45emulator.sh'
 
@@ -1075,7 +1075,7 @@ Status: Free
 Emil-scripts='https://gitlab.com/eliesat/free/-/raw/main/emil/emil-scripts.sh'
 
 Package: Levi45-freeserver
-Version: 1.9     سسكام مجاني
+Version: 2.0     سسكام مجاني
 Status: Free
 Levi45-freeserver='https://gitlab.com/eliesat/extensions/-/raw/main/levi45-freeserver/levi45-freeserver.sh'
 
