@@ -907,12 +907,12 @@ Status: Pan
 Epanel='https://gitlab.com/eliesat/extensions/-/raw/main/epanel/epanel.sh'
 
 Package: Addonmanager
-Version: 10.2.r1     بانل تسطيب اضافات
+Version: 10.1.r30     بانل تسطيب اضافات
 Status: Pan
 Addonmanager='https://gitlab.com/eliesat/extensions/-/raw/main/levi45-addon-manager/levi45-addon-manager.sh'
 
 Package: Multicammanager
-Version: 10.2.r2     بانل تسطيب كامات
+Version: 10.2.r4     بانل تسطيب كامات
 Status: Pan
 Multicammanager='https://gitlab.com/eliesat/extensions/-/raw/main/levi45-addon-manager/levi45multicammanager.sh'
 
