@@ -299,6 +299,11 @@ Version: 1.7     اختبار سرعة الاتصال بالانترنيت
 Status: Plg
 Internetspeedtest='https://gitlab.com/eliesat/extensions/-/raw/main/internetspeedtest/internet-speed-test.sh'
 
+Package: Ipaudio-.mnasr
+Version: 8.5     اضافة الصوتيات على قنوات السات
+Status: Plg
+Ipaudio-mnasr='https://gitlab.com/eliesat/extensions/-/raw/main/ipaudio-mnasr/ipaudio.sh'
+
 Package: Ipaudio-1
 Version: 6.8     اضافة الصوتيات على قنوات السات
 Status: Plg
