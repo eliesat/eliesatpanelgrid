@@ -52,7 +52,7 @@ Linuxsat-panel='https://raw.githubusercontent.com/Belfagor2005/LinuxsatPanel/mai
 Package: Magicpanelpro
 Version: N/A     بانل تسطيب اضافات
 Status: Pan
-Magicpanel='https://raw.githubusercontent.com/Ham-ahmed/pro/refs/heads/main/MagicPanelPro_install.sh'
+Magicpanel='https://raw.githubusercontent.com/Ham-ahmed/pro/refs/heads/main/MagicPanelPro-v6.5_install.sh'
 
 Package: Novalerstore
 Version: N/A     بانل تسطيب اضافات
