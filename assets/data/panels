@@ -4,6 +4,11 @@ Version: N/A     ادارة الملفات و مجموعة الخدمات
 Status: Pan
 Ajpanel='https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh'
 
+Package: Ajpanel-Eliesatpanel
+Version: N/A     بانل تسطيب اضافات
+Status: Pan
+Ajpanel-Eliesatpanel='https://gitlab.com/eliesat/eliesatpanel/-/raw/main/eliesatpanel.sh'
+
 Package: Ciefp-plugins
 Version: N/A     بانل تسطيب اضافات خاصة ببافل سييف
 Status: Pan
@@ -13,11 +18,6 @@ Package: Ciefsettingspanel
 Version: N/A     بانل تسطيب اضافات
 Status: Pan
 Ciefsettingspanel='https://raw.githubusercontent.com/ciefp/CiefpsettingsPanel/main/installer.sh'
-
-Package: Ajpanel-Eliesatpanel
-Version: N/A     بانل تسطيب اضافات
-Status: Pan
-Ajpanel-Eliesatpanel='https://gitlab.com/eliesat/eliesatpanel/-/raw/main/eliesatpanel.sh'
 
 Package: Emilpanel
 Version: N/A     بانل تسطيب اضافات
@@ -34,15 +34,15 @@ Version: N/A     بانل خدمات متنوعة للصورة
 Status: Pan
 Epanel='https://gitlab.com/eliesat/extensions/-/raw/main/epanel/epanel.sh'
 
-Package: Addonmanager
+Package: LeviAddonmanager
 Version: N/A     بانل تسطيب اضافات
 Status: Pan
-Addonmanager='https://raw.githubusercontent.com/Belfagor2005/tvManager/main/installer.sh'
+LeviAddonmanager='https://raw.githubusercontent.com/Belfagor2005/tvManager/main/installer.sh'
 
-Package: Multicammanager
+Package: LeviMulticammanager
 Version: N/A     بانل تسطيب كامات
 Status: Pan
-Multicammanager='https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh'
+LeviMulticammanager='https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh'
 
 Package: Linuxsat-panel
 Version: N/A     بانل تسطيب اضافات
