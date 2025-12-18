@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # -----------------------------
 # IMPORTS
 # -----------------------------
@@ -10,7 +9,7 @@ from Plugins.Extensions.ElieSatPanelGrid.menus.Helpers import (
     get_python_version,
     get_storage_info,
     get_ram_info,
-    is_device_unlocked
+    is_device_unlocked,
 )
 
 from Screens.Screen import Screen
@@ -22,11 +21,11 @@ from Plugins.Extensions.ElieSatPanelGrid.__init__ import Version
 from enigma import getDesktop
 import os
 
+
 # -----------------------------
 # MAIN CLASS
 # -----------------------------
 class Piconstudio(Screen):
-
     width, height = getDesktop(0).size().width(), getDesktop(0).size().height()
 
     skin_file = (
@@ -46,71 +45,29 @@ class Piconstudio(Screen):
     # SATELLITE LIST
     # -----------------------------
     satellites = {
-        "45.0W": "Intelsat 14",
-        "43.0W": "Intelsat 11",
-        "40.5W": "SES-6",
-        "37.5W": "Eutelsat 37 West A",
-        "34.5W": "ABS 3A / Intelsat 903",
-        "30.0W": "Hispasat 30W-6/4",
-        "27.5W": "Intelsat 907",
-        "24.5W": "Intelsat 905",
-        "22.0W": "NSS-7",
-        "20.0W": "Intelsat 901",
-        "18.0W": "Intelsat 901 (18W)",
-        "15.0W": "Telstar 12 Vantage",
-        "14.0E": "Express AM8",
-        "12.5W": "Eutelsat 12 West B",
-        "11.0W": "Express AM44",
-        "8.0W": "Eutelsat 8 West B",
-        "7.0W": "Nilesat / Eutelsat 7W",
+        "All": "Satellites",
+        "30.0W": "Hispasat 30W 5/6",
+        "14.0W": "Express AM8",
+        "7.0W": "Nilesat 201/301 & Eutelsat 8 West B",
         "5.0W": "Eutelsat 5 West B",
-        "4.0W": "AMOS / Eutelsat 4W",
-        "1.0W": "Thor 5/6/7",
-        "0.8W": "Nilesat 101/102",
+        "4.0W": "AMOS 3 & Dror 1",
+        "0.8W": "Thor 5/6/7  & intelsat 10 02",
         "1.9E": "BulgariaSat 1",
-        "3.0E": "Eutelsat 3B",
-        "4.8E": "Astra 4A / SES-5",
-        "7.0E": "Eutelsat 7A/7B",
         "9.0E": "Eutelsat 9B",
-        "10.0E": "Eutelsat 10A",
-        "13.0E": "Hot Bird 13B/13C/13G",
+        "13.0E": "Hot Bird 13F/13G",
         "16.0E": "Eutelsat 16A",
-        "19.2E": "Astra 1KR/L/M/N",
-        "21.5E": "Eutelsat 21B",
-        "23.5E": "Astra 3B",
-        "26.0E": "Arabsat Badr 4/5/6/7",
+        "19.2E": "Astra 1KR/1M/1N/1P",
+        "23.5E": "Astra 3B/3C",
+        "26.0E": "Badr 7/8 & Es'hail 2",
         "28.2E": "Astra 2E/2F/2G",
-        "30.5E": "Arabsat 5A",
-        "31.5E": "Astra 5B",
-        "33.0E": "Eutelsat 33E",
-        "36.0E": "Eutelsat 36B / Express AMU1",
+        "36.0E": "Eutelsat 36D / Express AMU1",
         "39.0E": "Hellas Sat 3 / Eutelsat 39B",
-        "42.0E": "Turksat 3A/4A",
-        "45.0E": "Azerspace 2 / Intelsat 38",
-        "46.0E": "Azerspace 1 / Africasat 1A",
-        "51.5E": "Belintersat 1",
+        "42.0E": "Turksat 3A/4A/5A/6B",
+        "46.0E": "Azerspace 1",
         "52.0E": "TurkmenÄlem / MonacoSat",
-        "52.5E": "Yahsat 1B/1D",
+        "52.5E": "al Yah 1",
         "53.0E": "Express AM6",
-        "54.9E": "ABS 2A",
-        "56.0E": "Express AT1",
-        "57.0E": "NSS 12",
         "62.0E": "Intelsat 902",
-        "66.0E": "Intelsat 17",
-        "68.5E": "Intelsat 20",
-        "70.5E": "Eutelsat 70B",
-        "75.0E": "ABS 2",
-        "80.0E": "INSAT / GSAT",
-        "85.0E": "Intelsat 18",
-        "88.0E": "ST 2",
-        "90.0E": "Yamal 401",
-        "93.5E": "GSAT / Insat",
-        "95.0E": "NSS 6 / SES 8",
-        "100.5E": "AsiaSat 5",
-        "105.5E": "AsiaSat 7",
-        "108.2E": "Telkom 4",
-        "110.0E": "BSAT / Japan",
-        "115.0E": "ABS 7 / Apstar 7"
     }
 
     def __init__(self, session):
@@ -119,9 +76,11 @@ class Piconstudio(Screen):
         # -----------------------------
         # SECURITY CHECK
         # -----------------------------
-        if not (is_device_unlocked() and
-                os.path.exists("/etc/eliesat_unlocked.cfg") and
-                os.path.exists("/etc/eliesat_main_mac.cfg")):
+        if not (
+            is_device_unlocked()
+            and os.path.exists("/etc/eliesat_unlocked.cfg")
+            and os.path.exists("/etc/eliesat_main_mac.cfg")
+        ):
             self.close()
             return
 
@@ -155,9 +114,48 @@ class Piconstudio(Screen):
         self["blue"] = Label(_("Blue"))
 
         # -----------------------------
-        # SATELLITE MENU
+        # SATELLITE MENU (WEST → EAST + Specials)
         # -----------------------------
-        sat_list = [f"{key} - {value}" for key, value in sorted(self.satellites.items())]
+        west_sats = []
+        east_sats = []
+        special_sats = []
+
+        for k, v in Piconstudio.satellites.items():
+            try:
+                if k.endswith("W"):
+                    west_sats.append((float(k[:-1]), k, v))
+                elif k.endswith("E"):
+                    east_sats.append((float(k[:-1]), k, v))
+                else:
+                    special_sats.append((k, v))
+            except ValueError:
+                special_sats.append((k, v))
+
+        # Sort West descending (highest → lowest)
+        west_sorted = sorted(west_sats, key=lambda x: -x[0])
+
+        # Sort East ascending (lowest → highest)
+        east_sorted = sorted(east_sats, key=lambda x: x[0])
+
+        # Build final menu list
+        # Put 'All - Satellites' always on top
+        all_entry = []
+        other_specials = []
+
+        for k, v in special_sats:
+            if k == "All":
+                all_entry.append(f"{k} - {v}")
+            else:
+                other_specials.append(f"{k} - {v}")
+
+        sat_list = (
+            all_entry
+            + [f"{k} - {v}" for _, k, v in west_sorted + east_sorted]
+            + other_specials
+        )
+
+        # Assign MenuList
+
         self["sat_menu"] = MenuList(sat_list, enableWrapAround=True)
         self["sat_menu"].onSelectionChanged.append(self.update_sat_label)
 
@@ -174,7 +172,7 @@ class Piconstudio(Screen):
                 "ok": self.show_selected_sat,
                 "cancel": self.close,
             },
-            -1
+            -1,
         )
 
     # -----------------------------
@@ -185,7 +183,7 @@ class Piconstudio(Screen):
             MessageBox,
             _("This button is not linked yet."),
             MessageBox.TYPE_INFO,
-            timeout=3
+            timeout=3,
         )
 
     def show_selected_sat(self):
@@ -194,7 +192,7 @@ class Piconstudio(Screen):
             self.session.open(
                 MessageBox,
                 _("Selected satellite:\n%s") % sel,
-                MessageBox.TYPE_INFO
+                MessageBox.TYPE_INFO,
             )
 
     def update_sat_label(self):
