@@ -234,6 +234,11 @@ Version: 1.4     اي بي تي في مجاني
 Status: Plg
 Filmxy='https://gitlab.com/eliesat/extensions/-/raw/main/filmxy/filmxy.sh'
 
+Package: Footscores
+Version: 1.1     مواعيد مباريات كرة القدم مع القنوات الناقلة
+Status: Plg
+Footscores='https://gitlab.com/eliesat/extensions/-/raw/main/footscores/footscores.sh'
+
 Package: Footonsat
 Version: 5.5     مواعيد مباريات كرة القدم مع القنوات الناقلة
 Status: Plg
