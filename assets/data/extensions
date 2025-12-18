@@ -132,7 +132,7 @@ Status: Plg
 Chocholousek='https://gitlab.com/eliesat/extensions/-/raw/main/chocholousek-picons/chocholousek-picons.sh'
 
 Package: Crashlogviewer
-Version: 1.6     تصفح ملفات الكراش
+Version: 1.7     تصفح ملفات الكراش
 Status: Plg
 Crashlogviewer='https://gitlab.com/eliesat/extensions/-/raw/main/crashlogviewer/crashlogviewer.sh'
 
@@ -305,7 +305,7 @@ Status: Plg
 Internetspeedtest='https://gitlab.com/eliesat/extensions/-/raw/main/internetspeedtest/internet-speed-test.sh'
 
 Package: Ipaudio-.mnasr
-Version: 8.5     اضافة الصوتيات على قنوات السات
+Version: 8.7     اضافة الصوتيات على قنوات السات
 Status: Plg
 Ipaudio-mnasr='https://gitlab.com/eliesat/extensions/-/raw/main/ipaudio-mnasr/ipaudio.sh'
 
