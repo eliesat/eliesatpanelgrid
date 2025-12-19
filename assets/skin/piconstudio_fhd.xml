@@ -80,6 +80,10 @@ size="1100,700"
     backgroundColor="#000000"
     transparent="1" />
 
+        <widget name="image_name" position="1470,420" size="500,35" zPosition="12"
+            font="Bold;32" halign="left" valign="center"
+            foregroundColor="yellow" backgroundColor="#000000"
+            transparent="1" />
 
     <!-- 🔹 Python version -->
     <widget name="python_ver"
@@ -120,11 +124,13 @@ size="1100,700"
     <widget name="left_bar"
         position="20,160" size="60,760" zPosition="20"
         font="Regular;26" halign="center" valign="top"
+    backgroundColor="#000000"
         foregroundColor="yellow" transparent="1" noWrap="1" />
     <!-- 🔹 Custom text on RIGHT bar -->
     <widget name="right_bar"
         position="1850,160" size="60,760" zPosition="20"
         font="Regular;26" halign="center" valign="top"
+    backgroundColor="#000000"
         foregroundColor="yellow" transparent="1" noWrap="1" />
 
     <!-- 🔹 SATELLITE MENU -->

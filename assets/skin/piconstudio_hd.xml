@@ -111,11 +111,13 @@
     <widget name="left_bar"
         position="15,110" size="40,500" zPosition="20"
         font="Regular;22" halign="center" valign="top"
+    backgroundColor="#000000"
         foregroundColor="yellow" transparent="1" noWrap="1" />
 
     <widget name="right_bar"
         position="1230,110" size="40,500" zPosition="20"
         font="Regular;22" halign="center" valign="top"
+    backgroundColor="#000000"
         foregroundColor="yellow" transparent="1" noWrap="1" />
 
     <!-- SATELLITE MENU -->
