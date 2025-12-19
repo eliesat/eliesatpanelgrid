@@ -240,7 +240,7 @@ Status: Plg
 Footscores='https://gitlab.com/eliesat/extensions/-/raw/main/footscores/footscores.sh'
 
 Package: Footonsat
-Version: 5.5     مواعيد مباريات كرة القدم مع القنوات الناقلة
+Version: 5.7     مواعيد مباريات كرة القدم مع القنوات الناقلة
 Status: Plg
 Footonsat='https://gitlab.com/eliesat/extensions/-/raw/main/footonsat/footonsat.sh'
 
