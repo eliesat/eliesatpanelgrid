@@ -92,40 +92,40 @@
     <!-- ================= SYSTEM INFO ================= -->
     <widget name="image_name" position="1470,420" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <widget name="python_ver" position="1470,460" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <widget name="local_ip" position="1470,500" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <widget name="StorageInfo" position="1470,540" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <widget name="RAMInfo" position="1470,580" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <widget name="net_status" position="1470,620" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <!-- ================= DATE / CLOCK ================= -->
     <widget source="global.CurrentTime" render="Label"
         position="1350,180" size="500,35" zPosition="12"
         font="Bold;32" halign="center" valign="center"
-        foregroundColor="yellow" transparent="1">
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1">
         <convert type="ClockToText">Format %A %d %B</convert>
     </widget>
 
     <widget source="global.CurrentTime" render="Label"
         position="1350,220" size="500,35" zPosition="12"
         font="Bold;32" halign="center" valign="center"
-        foregroundColor="yellow" transparent="1">
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1">
         <convert type="ClockToText">Format %H:%M:%S</convert>
     </widget>
 
