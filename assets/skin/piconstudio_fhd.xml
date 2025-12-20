@@ -23,12 +23,12 @@
     <widget name="left_bar"
         position="20,160" size="60,760" zPosition="20"
         font="Regular;26" halign="center" valign="top"
-        foregroundColor="yellow" transparent="1" noWrap="1" />
+        foregroundColor="yellow" transparent="0" noWrap="1" />
 
     <widget name="right_bar"
         position="1850,160" size="60,760" zPosition="20"
         font="Regular;26" halign="center" valign="top"
-        foregroundColor="yellow" transparent="1" noWrap="1" />
+        foregroundColor="yellow" transparent="0" noWrap="1" />
 
     <!-- ================= MENU BACK PLATE ================= -->
     <eLabel position="48,200" size="1240,670"
@@ -53,7 +53,7 @@
                 font=0,
                 flags=RT_HALIGN_LEFT,
                 text=0,
-                color=0x00D4A017
+                color=0x00D2AC2B
             )
         ],
         "fonts": [gFont("Bold", 32), gFont("Regular", 25)],
