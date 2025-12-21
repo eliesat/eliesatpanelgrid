@@ -112,7 +112,7 @@ Boxtools='https://gitlab.com/eliesat/extensions/-/raw/main/boxtools/boxtools.sh'
 
 
 Package: Cacheflush
-Version: 2.0.r4     مسح ملفات الكاش من الذاكرة العشوائية
+Version: 2.2     مسح ملفات الكاش من الذاكرة العشوائية
 Status: Plg
 Cacheflush='https://gitlab.com/eliesat/extensions/-/raw/main/cacheflush/cacheflush.sh'
 
