@@ -3,13 +3,13 @@
     <!-- ================= BACKGROUND (MUST BE FIRST) ================= -->
     <ePixmap position="0,0" size="1920,1080" zPosition="0"
         pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"
-        transparent="1" />
+        transparent="0" />
 
     <!-- ================= TOP BAR ================= -->
     <eLabel position="0,0" size="1920,130" zPosition="10" backgroundColor="#000000" />
 
     <!-- Title -->
-    <eLabel text="● PiconStudio – download, manage and control your picons"
+    <eLabel text="● PiconStudio – Download, Manage and Control your picons"
         position="350,0" size="1400,50" zPosition="11"
         font="Bold;32" halign="left" valign="center" noWrap="1"
         foregroundColor="yellow" backgroundColor="#000000"
@@ -30,43 +30,30 @@
         font="Regular;26" halign="center" valign="top"
         foregroundColor="yellow" transparent="0" noWrap="1" />
 
-    <!-- ================= MENU BACK PLATE ================= -->
-    <eLabel position="48,200" size="1240,670"
-        zPosition="4"
-        backgroundColor="#000000"
-        transparent="1" />
-
-    <!-- ================= MENU LIST ================= -->
-<widget source="menu" render="Listbox"
-    position="74,200" size="1240,660"
-    zPosition="5"
-    scrollbarMode="showOnDemand"
+    <widget 
+    source="menu" 
     selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
-    transparent="1">
+    render="Listbox" 
+    position="48,170" size="1240,660" 
+    transparent="1" zPosition="15"
+    scrollbarMode="showOnDemand">
     <convert type="TemplatedMultiContent">
-    {
-        "template": [
-            MultiContentEntryPixmapAlphaTest(pos=(25,9), size=(50,40), png=2),
-            MultiContentEntryText(
-                pos=(100,10),
-                size=(1100,45),
-                font=0,
-                flags=RT_HALIGN_LEFT,
-                text=0,
-                color=0x00D2AC2B
-            )
-        ],
-        "fonts": [gFont("Bold", 32), gFont("Regular", 25)],
+        {"template": [
+            MultiContentEntryText(pos = (120, 10), size = (590, 45), font=0, flags = RT_HALIGN_LEFT,color=0x00D2AC2B, text = 0),
+            MultiContentEntryText(pos = (600, 19), size = (680, 35), font=1, flags = RT_HALIGN_LEFT,color=0x00D2AC2B, text = 1),
+            MultiContentEntryPixmapAlphaTest(pos = (60, 18), size = (50, 40), png = 2)
+            ],
+        "fonts": [gFont("Regular", 35),gFont("Regular", 25)],
         "itemHeight": 66
-    }
+        }
     </convert>
 </widget>
 
-   <!-- ================= SELECTED COUNT ================= -->
-    <widget name="selection_count" position="248,870" size="400,40" zPosition="6"
+    <!-- ================= SELECTED COUNT ================= -->
+    <widget name="selection_count" position="1470,660" size="400,40" zPosition="16"
         font="Bold;34" halign="left" valign="center"
         foregroundColor="yellow" backgroundColor="#000000"
-        transparent="0" />
+        transparent="1" />
 
     <!-- ================= COLOR BUTTONS ================= -->
     <eLabel position="0,1075" size="480,5" zPosition="2" backgroundColor="red" />
