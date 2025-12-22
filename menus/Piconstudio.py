@@ -104,7 +104,7 @@ class Piconstudio(Screen):
     # ---------------- FILE PATH ----------------
     def status_path(self):
         # Path to your picons text file
-        path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons.txt"
+        path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
         if os.path.exists(path):
             return path
         return None
