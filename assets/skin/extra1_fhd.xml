@@ -1,4 +1,4 @@
-<screen name="Imagesdownload" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
+<screen name="Imagesdownloader" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
     <!-- Background, header, labels, list, progress bar, buttons -->
     <ePixmap position="0,0" zPosition="-1" size="1920,1080"
             pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
@@ -33,7 +33,7 @@
     <widget name="device_name" position="1470,620" size="500,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="list" position="48,200" size="1240,670" scrollbarMode="showOnDemand"
+    <widget name="list" position="48,170" size="1240,670" scrollbarMode="showOnDemand"
             font="Bold;36" render="Listbox" itemHeight="66"
             selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
             foregroundColor="yellow" transparent="1"/>
