@@ -305,7 +305,7 @@ Status: Plg
 Internetspeedtest='https://gitlab.com/eliesat/extensions/-/raw/main/internetspeedtest/internet-speed-test.sh'
 
 Package: Ipaudio-.mnasr
-Version: 8.10     اضافة الصوتيات على قنوات السات
+Version: 8.11     اضافة الصوتيات على قنوات السات
 Status: Plg
 Ipaudio-mnasr='https://gitlab.com/eliesat/extensions/-/raw/main/ipaudio-mnasr/ipaudio.sh'
 
