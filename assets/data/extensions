@@ -121,6 +121,11 @@ Version: 2.2     مسح ملفات الكاش من الذاكرة العشوائ
 Status: Plg
 Cacheflush='https://gitlab.com/eliesat/extensions/-/raw/main/cacheflush/cacheflush.sh'
 
+Package: Calendar
+Version: 1.5     رزنامة
+Status: Plg
+Calendar='https://gitlab.com/eliesat/extensions/-/raw/main/calendar/calendar.sh'
+
 Package: Channel-logo-changer
 Version: 1.2     تخصيص شعار للقنوات من اختيارك
 Status: Plg
@@ -1103,4 +1108,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''
