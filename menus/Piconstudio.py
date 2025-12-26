@@ -97,11 +97,11 @@ class Piconstudio(Screen):
         self["right_bar"] = Label("\n".join(list("By ElieSat")))
 
         # ---- INSTALL UI ----
-        self["item_name"] = Label("")        # Line 1: status
-        self["download_info"] = Label("")    # Line 3: script output
+        self["item_name"] = Label("")
+        self["download_info"] = Label("")
         self["download_info"].show()
 
-        self["progress"] = ProgressBar()     # Line 2: progress bar
+        self["progress"] = ProgressBar()
         self["progress"].setRange((0, 100))
         self["progress"].setValue(0)
         self["progress"].hide()
@@ -165,7 +165,7 @@ class Piconstudio(Screen):
         path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
         return path if os.path.isfile(path) else None
 
-    # ================= LIST =================
+    # ================= LIST (FILE ORDER PRESERVED) =================
     def buildList(self):
         self.list = []
         self.selected_plugins = []
@@ -184,13 +184,14 @@ class Piconstudio(Screen):
 
             if line.lower().startswith("package:"):
                 name = line.split(":", 1)[1].strip()
+
             elif line.lower().startswith("version:"):
                 desc = line.split(":", 1)[1].strip()
+
             elif "=" in line and name:
                 self.list.append((name, desc, self.unchecked_icon))
                 name = desc = ""
 
-        self.list.sort(key=lambda x: x[0].lower())
         self["menu"].setList(self.list)
         self.updateCounter()
 
@@ -219,14 +220,12 @@ class Piconstudio(Screen):
             _("Selected: %d") % len(self.selected_plugins)
         )
 
-    # ================= SELECT/DESELECT ALL =================
+    # ================= SELECT / DESELECT ALL =================
     def toggleSelectAll(self):
         if len(self.selected_plugins) < len(self.list):
-            # Select all
             self.selected_plugins = [name for name, desc, icon in self.list]
             self.list = [(name, desc, self.checked_icon) for name, desc, icon in self.list]
         else:
-            # Deselect all
             self.selected_plugins = []
             self.list = [(name, desc, self.unchecked_icon) for name, desc, icon in self.list]
 
@@ -239,7 +238,7 @@ class Piconstudio(Screen):
             self.showError(_("Nothing selected"))
             return
 
-        self.installation_in_progress = True  # Start flag
+        self.installation_in_progress = True
         self.download_queue = list(self.selected_plugins)
         self.total_packages = len(self.download_queue)
         self.total_selected = self.total_packages
@@ -251,7 +250,7 @@ class Piconstudio(Screen):
 
     def startNext(self):
         if self.current_index >= self.total_packages:
-            self.installation_in_progress = False  # Installation finished
+            self.installation_in_progress = False
             failed_count = self.total_selected - self.success_installs
             self["item_name"].setText(
                 _("Done: %d/%d installed, %d failed")
@@ -384,13 +383,11 @@ class Piconstudio(Screen):
         if not self.installation_in_progress:
             return
 
-        # Stop timers
         if self.progressTimer.isActive():
             self.progressTimer.stop()
         if self.pauseTimer:
             self.pauseTimer.stop()
 
-        # Kill running container
         if self.container:
             try:
                 self.container.kill()
@@ -398,19 +395,16 @@ class Piconstudio(Screen):
                 pass
             self.container = None
 
-        # Reset progress & info
         self["progress"].setValue(0)
         self["item_name"].setText(_("Installation canceled"))
         self["download_info"].setText("")
 
-        # Clear queue & reset flag
         self.download_queue = []
         self.installation_in_progress = False
 
-        # Reset menu
         self.buildList()
 
-    # ================= BLUE BUTTON REPORT =================
+    # ================= REPORT =================
     def showReport(self):
         self.session.open(InstallationReport, self.installed_items, self.failed_items)
 
@@ -418,7 +412,7 @@ class Piconstudio(Screen):
     def showError(self, txt):
         self.session.open(MessageBox, txt, MessageBox.TYPE_ERROR)
 
-    # ================= OVERRIDE CLOSE =================
+    # ================= CLOSE =================
     def close(self):
         if self.installation_in_progress:
             self.showError(_("Cannot exit during installation"))
