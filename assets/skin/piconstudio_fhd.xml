@@ -116,18 +116,20 @@
         <convert type="ClockToText">Format %H:%M:%S</convert>
     </widget>
 
-   <!-- Download Info -->
-    <widget name="item_name" position="0,840" size="1920,60" zPosition="12"
-            font="Bold;36" halign="center" valign="center"
-            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="download_info" position="0,900" size="1920,50" zPosition="12"
-            font="Bold;32" halign="center" valign="center"
-            foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="progress"
-    position="560,950"
-    size="800,18"
-            foregroundColor="yellow" backgroundColor="#000000" transparent="1"
-    zPosition="5" />
+   <!-- Item Name -->
+<widget name="item_name" position="0,840" size="1920,60" zPosition="12"
+        font="Bold;36" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+
+<!-- Download Info (single line, full width) -->
+<widget name="download_info" position="0,910" size="1920,100" zPosition="12"
+        font="Bold;32" halign="center" valign="left"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+
+<!-- Progress Bar -->
+<widget name="progress" position="560,910" size="800,18"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1"
+        zPosition="13" />
 
 </screen>
 

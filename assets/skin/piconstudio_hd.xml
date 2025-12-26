@@ -1,137 +1,139 @@
-<screen name="bootlogos" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
+<screen name="bootlogos" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder">
 
-    <!-- ================= BACKGROUND (MUST BE FIRST) ================= -->
-    <ePixmap position="0,0" size="1920,1080" zPosition="0"
+    <!-- ================= BACKGROUND ================= -->
+    <ePixmap position="0,0" size="1280,720" zPosition="0"
         pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"
-        transparent="1" />
+        transparent="0" />
 
     <!-- ================= TOP BAR ================= -->
-    <eLabel position="0,0" size="1920,130" zPosition="10" backgroundColor="#000000" />
+    <eLabel position="0,0" size="1280,80" zPosition="10" backgroundColor="#000000" />
 
     <!-- Title -->
-    <eLabel text="● PiconStudio – download, manage and control your picons"
-        position="350,0" size="1400,50" zPosition="11"
-        font="Bold;32" halign="left" valign="center" noWrap="1"
+    <eLabel text="● PiconStudio – Download, Manage and Control your picons"
+        position="20,0" size="1240,40" zPosition="11"
+        font="Bold;24" halign="left" valign="center" noWrap="1"
         foregroundColor="yellow" backgroundColor="#000000"
         transparent="0" />
 
     <!-- ================= SIDE BARS ================= -->
-    <eLabel position="0,130" size="80,870" zPosition="10" backgroundColor="#000000" />
-    <eLabel position="1840,130" size="80,870" zPosition="10" backgroundColor="#000000" />
+    <eLabel position="0,80" size="50,640" zPosition="10" backgroundColor="#000000" />
+    <eLabel position="1230,80" size="50,640" zPosition="10" backgroundColor="#000000" />
 
     <!-- Left / Right bars text -->
     <widget name="left_bar"
-        position="20,160" size="60,760" zPosition="20"
-        font="Regular;26" halign="center" valign="top"
-        foregroundColor="yellow" transparent="1" noWrap="1" />
+        position="10,100" size="40,600" zPosition="20"
+        font="Regular;20" halign="center" valign="top"
+        foregroundColor="yellow" transparent="0" noWrap="1" />
 
     <widget name="right_bar"
-        position="1850,160" size="60,760" zPosition="20"
-        font="Regular;26" halign="center" valign="top"
-        foregroundColor="yellow" transparent="1" noWrap="1" />
+        position="1240,100" size="40,600" zPosition="20"
+        font="Regular;20" halign="center" valign="top"
+        foregroundColor="yellow" transparent="0" noWrap="1" />
 
-    <!-- ================= MENU BACK PLATE ================= -->
-    <eLabel position="40,190" size="1260,680"
-        zPosition="4"
-        backgroundColor="#000000"
-        transparent="0" />
-
-    <!-- ================= MENU LIST ================= -->
-<widget source="menu" render="Listbox"
-    position="48,200" size="1240,660"
-    zPosition="5"
-    scrollbarMode="showOnDemand"
-    transparent="1">
-    <convert type="TemplatedMultiContent">
-    {
-        "template": [
-            MultiContentEntryPixmapAlphaTest(
-                pos=(25,5),
-                size=(50,40),
-                png=2
-            ),
-            MultiContentEntryText(
-                pos=(100,10),
-                size=(1100,45),
-                font=0,
-                flags=RT_HALIGN_LEFT,
-                text=0,
-                color=0x00FFFF00,
-                colorSelected=0x00FFFFFF
-            )
-        ],
-        "fonts": [gFont("Regular", 35), gFont("Regular", 25)],
-        "itemHeight": 66
-    }
-    </convert>
-</widget>
+    <!-- ================= MENU LIST (HD) ================= -->
+    <widget 
+        name="menu" 
+        source="menu" 
+        render="Listbox" 
+        selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
+        position="60,100" size="1160,420" 
+        transparent="1" zPosition="15"
+        scrollbarMode="showOnDemand">
+        <convert type="TemplatedMultiContent">
+            {
+                "template": [
+                    MultiContentEntryText(pos = (70, 5), size = (520, 30), font=0, flags = RT_HALIGN_LEFT,
+                                          color=0x00D2AC2B, text = 0, transparent=1),
+                    MultiContentEntryText(pos = (600, 10), size = (400, 25), font=1, flags = RT_HALIGN_LEFT,
+                                          color=0x00D2AC2B, text = 1, transparent=1),
+                    MultiContentEntryPixmapAlphaTest(pos = (35, 9), size = (30, 25), png = 2)
+                ],
+                "fonts": [gFont("Regular", 24), gFont("Regular", 18)],
+                "itemHeight": 50
+            }
+        </convert>
+    </widget>
 
     <!-- ================= SELECTED COUNT ================= -->
-    <widget name="selection_count" position="248,870" size="400,40" zPosition="6"
-        font="Bold;34" halign="left" valign="center"
+    <widget name="selection_count" position="940,500" size="300,30" zPosition="16"
+        font="Bold;24" halign="left" valign="center"
         foregroundColor="yellow" backgroundColor="#000000"
-        transparent="0" />
+        transparent="1" />
 
     <!-- ================= COLOR BUTTONS ================= -->
-    <eLabel position="0,1075" size="480,5" zPosition="2" backgroundColor="red" />
-    <widget name="key_red" position="0,1000" size="480,75" zPosition="3"
-        font="Bold;32" halign="center" valign="center"
+    <eLabel position="0,690" size="320,5" zPosition="2" backgroundColor="red" />
+    <widget name="key_red" position="0,620" size="320,70" zPosition="3"
+        font="Bold;24" halign="center" valign="center"
         foregroundColor="yellow" backgroundColor="#000000" />
 
-    <eLabel position="480,1075" size="480,5" zPosition="2" backgroundColor="green" />
-    <widget name="key_green" position="480,1000" size="480,75" zPosition="3"
-        font="Bold;32" halign="center" valign="center"
+    <eLabel position="320,690" size="320,5" zPosition="2" backgroundColor="green" />
+    <widget name="key_green" position="320,620" size="320,70" zPosition="3"
+        font="Bold;24" halign="center" valign="center"
         foregroundColor="yellow" backgroundColor="#000000" />
 
-    <eLabel position="960,1075" size="480,5" zPosition="2" backgroundColor="yellow" />
-    <widget name="key_yellow" position="960,1000" size="480,75" zPosition="3"
-        font="Bold;32" halign="center" valign="center"
+    <eLabel position="640,690" size="320,5" zPosition="2" backgroundColor="yellow" />
+    <widget name="key_yellow" position="640,620" size="320,70" zPosition="3"
+        font="Bold;24" halign="center" valign="center"
         foregroundColor="yellow" backgroundColor="#000000" />
 
-    <eLabel position="1440,1075" size="480,5" zPosition="2" backgroundColor="blue" />
-    <widget name="key_blue" position="1440,1000" size="480,75" zPosition="3"
-        font="Bold;32" halign="center" valign="center"
+    <eLabel position="960,690" size="320,5" zPosition="2" backgroundColor="blue" />
+    <widget name="key_blue" position="960,620" size="320,70" zPosition="3"
+        font="Bold;24" halign="center" valign="center"
         foregroundColor="yellow" backgroundColor="#000000" />
 
     <!-- ================= SYSTEM INFO ================= -->
-    <widget name="image_name" position="1470,420" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+    <widget name="image_name" position="940,300" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
-    <widget name="python_ver" position="1470,460" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+    <widget name="python_ver" position="940,330" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
-    <widget name="local_ip" position="1470,500" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+    <widget name="local_ip" position="940,360" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
-    <widget name="StorageInfo" position="1470,540" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+    <widget name="StorageInfo" position="940,390" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
-    <widget name="RAMInfo" position="1470,580" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+    <widget name="RAMInfo" position="940,420" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
-    <widget name="net_status" position="1470,620" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" transparent="1" />
+    <widget name="net_status" position="940,450" size="300,25" zPosition="12"
+        font="Bold;24" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
     <!-- ================= DATE / CLOCK ================= -->
     <widget source="global.CurrentTime" render="Label"
-        position="1350,180" size="500,35" zPosition="12"
-        font="Bold;32" halign="center" valign="center"
-        foregroundColor="yellow" transparent="1">
+        position="900,100" size="380,25" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1">
         <convert type="ClockToText">Format %A %d %B</convert>
     </widget>
 
     <widget source="global.CurrentTime" render="Label"
-        position="1350,220" size="500,35" zPosition="12"
-        font="Bold;32" halign="center" valign="center"
-        foregroundColor="yellow" transparent="1">
+        position="900,130" size="380,25" zPosition="12"
+        font="Bold;24" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1">
         <convert type="ClockToText">Format %H:%M:%S</convert>
     </widget>
+
+    <!-- ================= ITEM & DOWNLOAD INFO ================= -->
+    <widget name="item_name" position="0,540" size="1280,40" zPosition="12"
+        font="Bold;28" halign="center" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
+
+    <widget name="download_info" position="10,580" size="1260,40" zPosition="12"
+        font="Bold;22" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+
+    <!-- ================= PROGRESS BAR ================= -->
+    <widget name="progress" position="40,620" size="1200,20"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1"
+        zPosition="13" />
 
 </screen>
 
