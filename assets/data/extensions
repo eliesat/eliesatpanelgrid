@@ -209,10 +209,10 @@ Version: 1.4.r2     ترجمة دليل الالكتروني
 Status: Plg
 Epgtranslator='https://gitlab.com/eliesat/extensions/-/raw/main/epgtranslator/epgtranslator.sh'
 
-Package: Estalker1
-Version: 1.26     مشغل بورتلات اي بي تي في
+Package: Estalker
+Version: 1.27     مشغل بورتلات اي بي تي في
 Status: Plg
-Estalker1='https://gitlab.com/eliesat/extensions/-/raw/main/estalker/estalker.sh'
+Estalker='https://gitlab.com/eliesat/extensions/-/raw/main/estalker/estalker.sh'
 
 Package: Estalker2webcontrol
 Version: 1.0     
@@ -245,7 +245,7 @@ Status: Plg
 Footscores='https://gitlab.com/eliesat/extensions/-/raw/main/footscores/footscores.sh'
 
 Package: Footonsat
-Version: 5.7     مواعيد مباريات كرة القدم مع القنوات الناقلة
+Version: 5.9     مواعيد مباريات كرة القدم مع القنوات الناقلة
 Status: Plg
 Footonsat='https://gitlab.com/eliesat/extensions/-/raw/main/footonsat/footonsat.sh'
 
