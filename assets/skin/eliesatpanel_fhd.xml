@@ -72,7 +72,7 @@
 
     <!-- Main menu -->
     <widget name="menu"
-        position="center,center" size="1660,585" zPosition="5"
+        position="center,center" size="1640,585" zPosition="5"
         boxSize="240" activeSize="285" panelheight="570"
         itemPerPage="12" margin="30"
         itemPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/Box_off.png"
