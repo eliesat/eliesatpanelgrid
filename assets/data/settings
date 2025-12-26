@@ -25,6 +25,11 @@ Version: 13.12.2025     ملف قنوات
 Status: Settings
 H.wahba-motor='https://gitlab.com/eliesat/settings/-/raw/main/h.wahba/h.wahba-motor.sh'
 
+Package: Islam-salama-motor
+Version: 23.12.2025     ملف قنوات
+Status: Settings
+Islam-salama-motor='https://gitlab.com/eliesat/settings/-/raw/main/a.salama/a.salama-motor.sh'
+
 Package: Morpheus883-motor
 Version: 02.12.2025     ملف قنوات
 Status: Settings
