@@ -36,6 +36,34 @@ def open_file(path, mode="r"):
     return open(path, mode)
 
 
+class InstallationReport(Screen):
+    skin = """
+    <screen name="InstallationReport" position="center,center" size="800,500" title="Installation Report">
+        <widget name="report" position="10,10" size="780,480" font="Regular;32" foregroundColor="#FFFFFF" backgroundColor="#000000" />
+    </screen>"""
+
+    def __init__(self, session, installed, failed):
+        Screen.__init__(self, session)
+        self["report"] = Label(self.buildText(installed, failed))
+
+        # Allow exiting with Return/Back button
+        self["actions"] = ActionMap(["OkCancelActions"], 
+                                    {"cancel": self.close, "ok": self.close}, -1)
+
+    def buildText(self, installed, failed):
+        text = "Installed Items:\n"
+        if installed:
+            text += "\n".join(installed)
+        else:
+            text += "None"
+        text += "\n\nFailed Items:\n"
+        if failed:
+            text += "\n".join(failed)
+        else:
+            text += "None"
+        return text
+
+
 class Piconstudio(Screen):
 
     width = getDesktop(0).size().width()
@@ -53,8 +81,10 @@ class Piconstudio(Screen):
         self["menu"] = List([])
         self["selection_count"] = Label(_("Selected: 0"))
 
-        self["key_red"] = Label(_("Exit"))
+        self["key_red"] = Label(_("Cancel"))
         self["key_green"] = Label(_("Install"))
+        self["key_yellow"] = Label(_("Select All"))
+        self["key_blue"] = Label(_("Report"))
 
         self["image_name"] = Label("Image: " + get_image_name())
         self["local_ip"] = Label("IP: " + get_local_ip())
@@ -82,8 +112,10 @@ class Piconstudio(Screen):
             {
                 "ok": self.toggleSelection,
                 "cancel": self.close,
-                "red": self.close,
+                "red": self.stopInstallation,
                 "green": self.installSelected,
+                "yellow": self.toggleSelectAll,
+                "blue": self.showReport,
             },
             -1
         )
@@ -120,6 +152,11 @@ class Piconstudio(Screen):
         # ===== RESULT TRACKING =====
         self.total_selected = 0
         self.success_installs = 0
+        self.installed_items = []
+        self.failed_items = []
+
+        # ===== INSTALLATION FLAG =====
+        self.installation_in_progress = False
 
         self.buildList()
 
@@ -182,12 +219,27 @@ class Piconstudio(Screen):
             _("Selected: %d") % len(self.selected_plugins)
         )
 
+    # ================= SELECT/DESELECT ALL =================
+    def toggleSelectAll(self):
+        if len(self.selected_plugins) < len(self.list):
+            # Select all
+            self.selected_plugins = [name for name, desc, icon in self.list]
+            self.list = [(name, desc, self.checked_icon) for name, desc, icon in self.list]
+        else:
+            # Deselect all
+            self.selected_plugins = []
+            self.list = [(name, desc, self.unchecked_icon) for name, desc, icon in self.list]
+
+        self["menu"].updateList(self.list)
+        self.updateCounter()
+
     # ================= INSTALL =================
     def installSelected(self):
         if not self.selected_plugins:
             self.showError(_("Nothing selected"))
             return
 
+        self.installation_in_progress = True  # Start flag
         self.download_queue = list(self.selected_plugins)
         self.total_packages = len(self.download_queue)
         self.total_selected = self.total_packages
@@ -199,10 +251,11 @@ class Piconstudio(Screen):
 
     def startNext(self):
         if self.current_index >= self.total_packages:
-            failed = self.total_selected - self.success_installs
+            self.installation_in_progress = False  # Installation finished
+            failed_count = self.total_selected - self.success_installs
             self["item_name"].setText(
                 _("Done: %d/%d installed, %d failed")
-                % (self.success_installs, self.total_selected, failed)
+                % (self.success_installs, self.total_selected, failed_count)
             )
             self["download_info"].setText("")
             self["progress"].setValue(100)
@@ -220,6 +273,7 @@ class Piconstudio(Screen):
                 break
 
         if not url:
+            self.failed_items.append(self.current_pkg)
             self.startNext()
             return
 
@@ -258,7 +312,7 @@ class Piconstudio(Screen):
                 self["item_name"].setText(
                     _("Downloading %s ... %d%%") % (self.current_pkg, percent)
                 )
-                self["download_info"].setText(text[-50:])  # last 50 chars
+                self["download_info"].setText(text[-50:])
         except:
             pass
 
@@ -286,11 +340,10 @@ class Piconstudio(Screen):
         self.container.appClosed.append(self._onScriptFinished)
         self.container.execute("sh %s" % self.download_file)
 
-    # Capture real-time script output during installation
     def _onInstallData(self, data):
         try:
             text = data.decode("utf-8", "ignore").strip().replace("\n", " ")
-            self["download_info"].setText(text[-50:])  # last 50 chars
+            self["download_info"].setText(text[-50:])
         except:
             pass
 
@@ -316,15 +369,59 @@ class Piconstudio(Screen):
 
         if ret == 0:
             self.success_installs += 1
+            self.installed_items.append(self.current_pkg)
+        else:
+            self.failed_items.append(self.current_pkg)
 
-        # append final message to download_info
         self["download_info"].setText("Script finished")
 
         self.pauseTimer = eTimer()
         self.pauseTimer.callback.append(self.startNext)
         self.pauseTimer.start(700, True)
 
+    # ================= STOP INSTALLATION =================
+    def stopInstallation(self):
+        if not self.installation_in_progress:
+            return
+
+        # Stop timers
+        if self.progressTimer.isActive():
+            self.progressTimer.stop()
+        if self.pauseTimer:
+            self.pauseTimer.stop()
+
+        # Kill running container
+        if self.container:
+            try:
+                self.container.kill()
+            except Exception:
+                pass
+            self.container = None
+
+        # Reset progress & info
+        self["progress"].setValue(0)
+        self["item_name"].setText(_("Installation canceled"))
+        self["download_info"].setText("")
+
+        # Clear queue & reset flag
+        self.download_queue = []
+        self.installation_in_progress = False
+
+        # Reset menu
+        self.buildList()
+
+    # ================= BLUE BUTTON REPORT =================
+    def showReport(self):
+        self.session.open(InstallationReport, self.installed_items, self.failed_items)
+
     # ================= ERROR =================
     def showError(self, txt):
         self.session.open(MessageBox, txt, MessageBox.TYPE_ERROR)
+
+    # ================= OVERRIDE CLOSE =================
+    def close(self):
+        if self.installation_in_progress:
+            self.showError(_("Cannot exit during installation"))
+            return
+        Screen.close(self)
 
