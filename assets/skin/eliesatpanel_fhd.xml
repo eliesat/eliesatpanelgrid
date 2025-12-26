@@ -78,14 +78,14 @@
         itemPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/Box_off.png"
         selPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/Box_on.png"
         foregroundColor="yellow"
-        transparent="1" />
+        transparent="0" />
 
     <!-- Description -->
-    <eLabel position="center,190" size="1200,45" zPosition="11"
+    <eLabel position="center,203" size="1200,45" zPosition="11"
         backgroundColor="#000000" transparent="0" />
 
     <widget name="description"
-        position="center,190" size="1200,45" zPosition="12"
+        position="center,195" size="1200,45" zPosition="12"
         font="Bold;32" halign="center" valign="center"
         foregroundColor="orange" backgroundColor="#000000"
         transparent="1"
