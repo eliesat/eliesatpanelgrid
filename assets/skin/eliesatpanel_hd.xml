@@ -85,7 +85,7 @@
         backgroundColor="#000000" transparent="0" />
 
     <widget name="description"
-        position="center,138" size="800,30" zPosition="12"
+        position="center,138" size="1100,30" zPosition="12"
         font="Bold;22" halign="center" valign="center"
         foregroundColor="orange" backgroundColor="#000000"
         transparent="1"
