@@ -56,7 +56,7 @@ Status: Lev
 Oscam-Levi45-3='https://gitlab.com/eliesat/softcams/-/raw/main/levi/oscam-11815.sh'
 
 Package: Oscam-Linuxsat25
-Version: 11726.emu.r798     .ipk
+Version: 11725.emu.r798     .ipk
 Status: Lin
 Oscam-Linuxsat25='https://gitlab.com/eliesat/softcams/-/raw/main/linuxsat25/oscam.sh'
 
