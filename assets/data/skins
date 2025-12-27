@@ -154,15 +154,15 @@ Version: 4.0
 Status: Soebased Sobh Spli3 Svix Segami Satv Sspa Spure
 Nitrohoneycomb='https://gitlab.com/eliesat/skins/-/raw/main/all/nitro/nitrohoneycomb.sh'
 
-Package: Premiumfhd
+Package: Premium-fhd
 Version: 3.1.black     
 Status: Soebased Sobh Spli3 Svix Segami Satv Sspa Spure
-Premiumfhd='https://gitlab.com/eliesat/skins/-/raw/main/all/premium-fhd/premiumfhd-black.sh'
+Premium-fhd='https://gitlab.com/eliesat/skins/-/raw/main/all/premium-fhd/premiumfhd-black.sh'
 
-Package: Premiumfhd
+Package: Premium-fhd
 Version: 3.1.blue     
 Status: Soebased Sobh Spli3 Svix Segami Satv Sspa Spure
-Premiumfhd='https://gitlab.com/eliesat/skins/-/raw/main/all/premium-fhd/premiumfhd-blue.sh'
+Premium-fhd='https://gitlab.com/eliesat/skins/-/raw/main/all/premium-fhd/premiumfhd-blue.sh'
 
 Package: Premium-fhd
 Version: 3.1.magneta     
