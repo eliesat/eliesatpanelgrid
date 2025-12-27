@@ -138,35 +138,35 @@ Version: 1.0       eliesatpanel حذف بلاجين
 Status: Rem
 Rm-Eliesatpanel='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-eliesatpanel.sh'
 
-Package: Rm-Emus-and-configs
+Package: Rm-Emus-configs
 Version: 1.0       حذف الايميوهات بالكامل
 Status: Rem
-Rm-Emus-and-configs='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-emus-and-config-file.sh'
+Rm-Emus-configs='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-emus-and-config-file.sh'
 
-Package: Rm-Emus-config-folders
+Package: Rm-config-folders
 Version: 1.0       حذف مجلدات الخاصة بالايميوهات
 Status: Rem
-Rm-Emus-config-folders='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-emus-config-files.sh'
+Rm-config-folders='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-emus-config-files.sh'
 
 Package: Rm-Emus
 Version: 1.0       حذف الايميوهات
 Status: Rem
 Rm-Emus='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-emus.sh'
 
-Package: Rm-Epg-rytec-sources
+Package: Rm-Epg-rytec
 Version: 1.0       حذف سورسات الدليل
 Status: Rem
-Rm-Epg-rytec-sources='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-epg-rytec-sources.sh'
+Rm-Epg-rytec='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-epg-rytec-sources.sh'
 
-Package: Rm-Epg-zakaria-sources
+Package: Rm-Epg-zakaria
 Version: 1.0       حذف سورسات الدليل
 Status: Rem
-Rm-Epg-zakaria-sources='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-epg-ziko-sources-config.sh'
+Rm-Epg-zakaria='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-epg-ziko-sources-config.sh'
 
-Package: Rm-Multistalker-portals
+Package: Rm-stalker-portals
 Version: 1.0       حذف بورتلات الاي بي تي في
 Status: Rem
-Rm-Epg-rytec-sources='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-multistalker-portals.sh'
+Rm-stalker-portals='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-multistalker-portals.sh'
 
 Package: Rm-Picons
 Version: 1.0       حذف البيكونات من جميع المسارات
@@ -179,30 +179,30 @@ Status: Rem
 Rm-Playlists-bmx='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-bouquetmakerxtream.sh'
 
 	
-Package: Rm-Playlists-ipaudio
+Package: Rm-Pl-ipaudio
 Version: 1.0       حذف مصادر الصوتيات و الرجوع للافتراضي
 Status: Rem
-Rm-Playlists-ipaudio='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-ipaudio.sh'
+Rm-Pl-ipaudio='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-ipaudio.sh'
 
-Package: Rm-Playlists-iptosat
+Package: Rm-Pl-iptosat
 Version: 1.0       حذف اشتراك الاي بي تي قي
 Status: Rem
-Rm-Playlists-iptosat='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-iptosat.sh'
+Rm-Pl-iptosat='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-iptosat.sh'
 		
-Package: Rm-Playlists-jedimaker
+Package: Rm-Pl-jedimaker
 Version: 1.0       حذف اسطر الاي يي تي في
 Status: Rem
-Rm-Playlists-jedimaker='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-jedimakerxtream.sh'
+Rm-Pl-jedimaker='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-jedimakerxtream.sh'
 
-Package: Rm-Playlists-e2iplayer
+Package: Rm-Pl-e2iplayer
 Version: 1.0       حذف اسطر الاي يي تي في
 Status: Rem
-Rm-Playlists-e2iplayer='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-tsiplayer.sh'
+Rm-Pl-e2iplayer='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-tsiplayer.sh'
 
-Package: Rm-Playlists-xtreamity
+Package: Rm-Pl-xtreamity
 Version: 1.0       حذف اسطر الاي يي تي في
 Status: Rem
-Rm-Playlists-xtreamity='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-xstreamity.sh'
+Rm-Pl-xtreamity='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/remove/_remove-playlists-xstreamity.sh'
 
 Package: Rm-Channels
 Version: 1.0       ضبط مصنع للاقمار و القنوات
