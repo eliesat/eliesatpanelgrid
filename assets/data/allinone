@@ -272,45 +272,45 @@ Status: Deps
 Subssupport-adds='https://gitlab.com/eliesat/extensions/-/raw/main/newvirtualkeyboard/subsupport-addon.sh'
 ###################################
 
-Package: Kernel-nandsim-zgemmah7s
+Package: Kernel.nandsim.h7s
 Version: 1.0r0       module
 Status: Drvs
 Kernel-nandsim-zgemmah7s='https://gitlab.com/eliesat/drivers/-/raw/main/kernel-module-nandsim-h7.sh'
 
-Package: Kernel-nandsim-zgemmah9s
-Version: 1.0r0       module
+Package: Kernel.nandsim.h9s
+Version: 1.0.r0       module
 Status: Drvs
-Kernel-nandsim-zgemmah9s='https://gitlab.com/eliesat/drivers/-/raw/main/kernel-module-nandsim-h9.sh'
+Kernel.nandsim.zgemmah9s='https://gitlab.com/eliesat/drivers/-/raw/main/kernel-module-nandsim-h9.sh'
 
-Package: Wifi-mt7601u
-Version: 1.0-r0       يو اس بي واي فاي
+Package: Wifi.mt7601u
+Version: 1.0.r0       يو اس بي واي فاي
 Status: Drvs
-Wifi-mt7601u='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-mt7601u-1.0-r0.sh'
+Wifi.mt7601u='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-mt7601u-1.0-r0.sh'
 
-Package: Wifi-mt7601u
-Version: 1.0-r2       يو اس بي واي فاي
+Package: Wifi.mt7601u
+Version: 1.0.r2       يو اس بي واي فاي
 Status: Drvs
-Wifi-mt7601u='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-mt7601u-1.0-r2.sh'
+Wifi.mt7601u='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-mt7601u-1.0-r2.sh'
 
-Package: Wifi-novaler
-Version: 1.0r0       يو اس بي واي فاي
+Package: Wifi.novaler
+Version: 1.0.r0       يو اس بي واي فاي
 Status: Drvs
-Wifi-novaler='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-novaler-1.0.sh'
+Wifi.novaler='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-novaler-1.0.sh'
 
-Package: Wifi-rt3070
-Version: 1.0-r0       يو اس بي واي فاي
+Package: Wifi.rt3070
+Version: 1.0.r0       يو اس بي واي فاي
 Status: Drvs
-Wifi-rt3070='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-rt3070-1.0-r0.sh'
+Wifi.rt3070='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-rt3070-1.0-r0.sh'
 
-Package: Wifi-rt3573
-Version: 1.0-r0       يو اس بي واي فاي
+Package: Wifi.rt3573
+Version: 1.0.r0       يو اس بي واي فاي
 Status: Drvs
-Wifi-rt3573='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-rt3573-1.0-r0.sh'
+Wifi.rt3573='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-rt3573-1.0-r0.sh'
 
-Package: Wifi-zgemmah7s
-Version: 1.0-r0       يو اس بي واي فاي
+Package: Wifi.zgemmah7s
+Version: 1.0.r0       يو اس بي واي فاي
 Status: Drvs
-Wifi-zgemmah7s='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-zgemmah7-1.0.sh'
+Wifi.zgemmah7s='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-zgemmah7-1.0.sh'
 
 ###################################
 
