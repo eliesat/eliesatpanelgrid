@@ -124,7 +124,7 @@ Cacheflush='https://gitlab.com/eliesat/extensions/-/raw/main/cacheflush/cacheflu
 Package: Calculatore2
 Version: 1.1     آلة حاسبة
 Status: Plg
-Calculatore2='https://gitlab.com/eliesat/extensions/-/blob/main/calculatore2/calculatore2.sh'
+Calculatore2='https://gitlab.com/eliesat/extensions/-/raw/main/calculatore2/calculatore2.sh'
 
 Package: Calendar
 Version: 1.5     رزنامة
@@ -1113,4 +1113,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h''''''''
