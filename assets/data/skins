@@ -11,19 +11,19 @@ Version: 1.0     تعديل بوسترات سكين الافتراضي لصور�
 Status: Sparts
 Estuary='https://gitlab.com/eliesat/skins/-/raw/main/skins-parts/estuary/estuary.sh'
 
-Package: Metrix-fhd-no-posters
-Version: 1.0     تعديل على الانفوبار من دون بوسترات
+Package: Metrix-fhd
+Version: 1.0.no.posters     تعديل على الانفوبار من دون بوسترات
 Status: Sparts
 Metrix-fhd-no-posters='https://gitlab.com/eliesat/skins/-/raw/main/skins-parts/skinparts-mnasr-7.4.0r2.sh'
 
-Package: Metrix-fhd-1-poster
-Version: 1.0     تعديل على السكين بوستر اكس
+Package: Metrix-fhd
+Version: 1.0.poster.1     تعديل على السكين بوستر اكس
 Status: Sparts
 Metrix-fhd-1-poster='https://gitlab.com/eliesat/skins/-/raw/main/skins-parts/skinparts-mnasr-7.4.1r2.sh'
 
 
-Package: Metrix-fhd-4-posters
-Version: 1.0     تعديل على السكين بوستر اكس
+Package: Metrix-fhd
+Version: 1.0.posters.4     تعديل على السكين بوستر اكس
 Status: Sparts
 Metrix-fhd-4-posters='https://gitlab.com/eliesat/skins/-/raw/main/skins-parts/skinparts-mnasr-7.4.4-r2.sh'
 
