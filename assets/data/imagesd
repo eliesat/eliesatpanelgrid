@@ -103,6 +103,10 @@ Package: Openblackhole-5.5
 Version: 1.0     تنزيل صور خام من الموقع الرسمي
 Status: Obh
 Openblackhole-5.5='https://gitlab.com/eliesat/scripts/-/raw/main/images/openblackhole-5.5.1.sh'
+Package: Openblackhole-5.6
+Version: 1.0     تنزيل صور خام من الموقع الرسمي
+Status: Obh
+Openblackhole-5.6='https://gitlab.com/eliesat/scripts/-/raw/main/images/openblackhole-5.6.sh'
 
 Package: Opendroid-7.5
 Version: 1.0     تنزيل صور خام من الموقع الرسمي
