@@ -7,7 +7,7 @@
             position="350,0" size="1400,50" zPosition="11"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
-    <widget name="image_name" position="0,840" size="1920,60" zPosition="12"
+    <widget name="item_name" position="0,840" size="1920,60" zPosition="12"
             font="Bold;36" halign="center" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
     <widget name="download_info" position="0,900" size="1920,50" zPosition="12"
@@ -15,22 +15,25 @@
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
     <widget name="progress" position="0,950" size="1920,60" zPosition="12"
             foregroundColor="yellow" backgroundColor="#000000"/>
-    <widget name="python_ver" position="1470,420" size="500,35" zPosition="12"
+    <widget name="image_name" position="1470,420" size="500,35" zPosition="12"
+        font="Bold;32" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
+    <widget name="python_ver" position="1470,460" size="500,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="local_ip" position="1470,460" size="500,35" zPosition="12"
+    <widget name="local_ip" position="1470,500" size="500,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="StorageInfo" position="1470,500" size="500,35" zPosition="12"
+    <widget name="StorageInfo" position="1470,540" size="540,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="RAMInfo" position="1470,540" size="500,35" zPosition="12"
+    <widget name="RAMInfo" position="1470,580" size="500,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="net_status" position="1470,580" size="500,35" zPosition="12"
+    <widget name="net_status" position="1470,620" size="500,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
-    <widget name="device_name" position="1470,620" size="500,35" zPosition="12"
+    <widget name="device_name" position="1470,660" size="500,35" zPosition="12"
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
     <widget name="list" position="48,170" size="1240,670" scrollbarMode="showOnDemand"

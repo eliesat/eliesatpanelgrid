@@ -11,7 +11,7 @@
             foregroundColor="yellow" backgroundColor="#000000" transparent="0"/>
 
     <!-- Image & Download Info -->
-    <widget name="image_name" position="0,560" size="1280,40" zPosition="12"
+    <widget name="item_name" position="0,560" size="1280,40" zPosition="12"
             font="Bold;24" halign="center" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
     <widget name="download_info" position="0,600" size="1280,33" zPosition="12"
@@ -23,6 +23,9 @@
             foregroundColor="yellow" backgroundColor="#000000"/>
 
     <!-- System Info -->
+    <widget name="image_name" position="980,253" size="300,25" zPosition="12"
+        font="Bold;21" halign="left" valign="center"
+        foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
     <widget name="python_ver" position="980,280" size="333,23" zPosition="12"
             font="Bold;21" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
