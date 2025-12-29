@@ -211,7 +211,7 @@ class Imagesdownloader(Screen):
         self["device_name"] = Label("Device: " + self.hostname)
         self["download_info"] = Label("")
 
-        self["left_bar"] = Label("B\ny\n \nE\nl\ni\ne\nS\na\nt")
+        self["left_bar"] = Label("\n".join(list("Version " + Version)))
         self["right_bar"] = Label("B\ny\n \nE\nl\ni\ne\nS\na\nt")
 
         self["red"] = Label("Red")
