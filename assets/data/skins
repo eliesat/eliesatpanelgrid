@@ -212,11 +212,6 @@ Version: 1.0
 Status: Soebased Segami Satv Sspa Spure
 Black-neon-p-fhd='https://gitlab.com/eliesat/skins/-/raw/main/all/black-neon/black-neon-p-fhd.sh'
 
-Package: Blackneon-xp-fhd
-Version: 1.0.mnasr     
-Status: Soebased Segami Satv Sspa Spure
-Blackneon-xp-fhd-mnasr='https://gitlab.com/eliesat/skins/-/raw/main/all/black-neon/blackneon-xp-fhd-mod-mnasr.sh'
-
 Package: Blackalu
 Version: 1.0     
 Status: Soebased Segami Satv Sspa Spure
