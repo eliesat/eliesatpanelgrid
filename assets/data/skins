@@ -212,8 +212,8 @@ Version: 1.0
 Status: Soebased Segami Satv Sspa Spure
 Black-neon-p-fhd='https://gitlab.com/eliesat/skins/-/raw/main/all/black-neon/black-neon-p-fhd.sh'
 
-Package: Blackneon-xp-fhd-mnasr
-Version: 1.0     
+Package: Blackneon-xp-fhd
+Version: 1.0.mnasr     
 Status: Soebased Segami Satv Sspa Spure
 Blackneon-xp-fhd-mnasr='https://gitlab.com/eliesat/skins/-/raw/main/all/black-neon/blackneon-xp-fhd-mod-mnasr.sh'
 
@@ -287,43 +287,43 @@ Version: 2.2
 Status: Soebased Segami Satv Sspa Spure
 Nacht-ash='https://gitlab.com/eliesat/skins/-/raw/main/all/nacht/nacht-a.shawky.sh'
 
-Package: Novaler-s-fhd-green-2
-Version: 3.6     
+Package: Novaler-s-fhd
+Version: 3.6.green     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-fhd-green='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-fhd-green.sh'
 
-Package: Novaler-s-fhd-green-1
-Version: 4.0     
+Package: Novaler-s-fhd
+Version: 4.0.green     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-fhd-green-1='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler-s-fhd-green/novaler-s-fhd-green.sh'
 
-Package: Novaler-s-x-blue
-Version: 3.2     
+Package: Novaler-s-x
+Version: 3.2.blue     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-x-blue='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-x-blue.sh'
 
-Package: Novaler-s-x-green
-Version: 3.2     
+Package: Novaler-s-x
+Version: 3.2.green     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-x-green='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-x-green.sh'
 
-Package: Novaler-s-x-infrared
-Version: 3.2     
+Package: Novaler-s-x
+Version: 3.2.infrared     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-x-infrared='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-x-infrared.sh'
 
-Package: Novaler-s-xtra-blue
-Version: 3.2     
+Package: Novaler-s-xtra
+Version: 3.2.blue     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-xtra-blue='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-xtra-fhd-blue.sh'
 
-Package: Novaler-s-xtra-green
-Version: 3.2     
+Package: Novaler-s-xtra
+Version: 3.2.green     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-xtra-green='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-xtra-fhd-green.sh'
 
-Package: Novaler-s-xtra-indianred
-Version: 3.2     
+Package: Novaler-s-xtra
+Version: 3.2.indianred     
 Status: Soebased Segami Satv Sspa Spure
 Novaler-s-xtra-indianred='https://gitlab.com/eliesat/skins/-/raw/main/all/novaler/novaler-s-xtra-fhd-indianred.sh'
 
