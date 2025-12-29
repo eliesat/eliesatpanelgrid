@@ -127,7 +127,7 @@ Status: Plg
 Calculatore2='https://gitlab.com/eliesat/extensions/-/raw/main/calculatore2/calculatore2.sh'
 
 Package: Calendar
-Version: 1.5     رزنامة
+Version: 1.6     رزنامة
 Status: Plg
 Calendar='https://gitlab.com/eliesat/extensions/-/raw/main/calendar/calendar.sh'
 
