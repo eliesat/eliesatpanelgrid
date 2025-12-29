@@ -37,7 +37,7 @@
             font="Bold;32" halign="left" valign="center"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1"/>
     <widget name="list" position="48,170" size="1240,670" scrollbarMode="showOnDemand"
-            font="Bold;36" render="Listbox" itemHeight="66"
+            font="Regular;35" render="Listbox" itemHeight="66"
             selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
             foregroundColor="yellow" transparent="1"/>
     <widget source="global.CurrentTime" render="Label" position="1350,180" size="500,35" zPosition="12"
@@ -71,19 +71,18 @@
     <eLabel position="0,130" size="100,920" zPosition="10" backgroundColor="#000000"/>
     <eLabel position="1820,130" size="100,920" zPosition="10" backgroundColor="#000000"/>
 
-    <!-- Left / Right vertical bars -->
-    <widget name="left_bar" position="0,130" size="100,920" zPosition="20"
-            font="Regular;26" halign="center" valign="top"
-            foregroundColor="yellow" backgroundColor="#000000"
-            transparent="1" noWrap="1">
-        <convert type="Text">E\nl\ni\ne\nS\na\nt</convert>
-    </widget>
+    <!-- Left / Right bars -->
+    <widget name="left_bar"
+        position="20,160" size="60,760" zPosition="20"
+        font="Regular;26" halign="center" valign="top"
+        backgroundColor="#000000"
+        foregroundColor="yellow" transparent="1" noWrap="1" />
     <widget name="right_bar" position="1820,130" size="100,920" zPosition="20"
             font="Regular;26" halign="center" valign="top"
             foregroundColor="yellow" backgroundColor="#000000"
             transparent="1" noWrap="1"/>
     <!-- Device Box Icon -->
-<widget name="device_icon" position="1300,700" size="700,200" zPosition="12" transparent="1" alphatest="blend" backgroundColor="#000000"/>
+<widget name="device_icon" position="1300,720" size="700,200" zPosition="12" transparent="1" alphatest="blend" backgroundColor="#000000"/>
 
 </screen>
 
