@@ -655,6 +655,11 @@ Version: 1.10     حالة الطقس
 Status: Plg
 Visualweather='https://gitlab.com/eliesat/extensions/-/raw/main/visualweather/visualweather.sh'
 
+Package: Whattowatch
+Version: 3.3     دليل  البرامج
+Status: Plg
+Whattowatch='https://gitlab.com/eliesat/extensions/-/raw/main/whattowatch/whattowatch.sh'
+
 Package: Weathermsn
 Version: 1.3.r3     حالة الطقس
 Status: Plg
