@@ -201,7 +201,8 @@ class Imagesdownloader(Screen):
         self["device_icon"] = Pixmap()
         self.onLayoutFinish.append(self._safeLoadDeviceIcon)
 
-        self["image_name"] = Label("")
+        self["item_name"] = Label("")
+        self["image_name"] = Label("Image: " + get_image_name())
         self["local_ip"] = Label("IP: " + get_local_ip())
         self["StorageInfo"] = Label(get_storage_info())
         self["RAMInfo"] = Label(get_ram_info())
@@ -526,7 +527,7 @@ class Imagesdownloader(Screen):
         if getattr(self, "download_finished", False):
             self.download_finished = False
             self["download_info"].setText("")
-            self["image_name"].setText("")
+            self["item_name"].setText("")
             self["progress"].setValue(0)
             return
 
@@ -616,7 +617,7 @@ class Imagesdownloader(Screen):
             self.chunk_iter = self.download_resp.iter_content(1024 * 64)
 
             self["progress"].setValue(0)
-            self["image_name"].setText(filename)
+            self["item_name"].setText(filename)
             self["download_info"].setText("0% (0 KB)")
             self._logDownload("START", url)
 
@@ -683,7 +684,7 @@ class Imagesdownloader(Screen):
                     self._logDownload("COPY_FAIL", f"{self.download_target} -> {dir_path}", str(e))
 
         self["progress"].setValue(100)
-        self["image_name"].setText(f"Downloaded & copied: {os.path.basename(self.download_target)}")
+        self["item_name"].setText(f"Downloaded & copied: {os.path.basename(self.download_target)}")
         self["download_info"].setText("100%")
         self._logDownload("SUCCESS", self.download_target)
 
@@ -709,7 +710,7 @@ class Imagesdownloader(Screen):
         self.download_finished = False
         self["progress"].setValue(0)
         self["download_info"].setText("Canceled")
-        self["image_name"].setText("Download canceled")
+        self["item_name"].setText("Download canceled")
 
     # ---------------- Logging ----------------
     def _logDownload(self, status, target, error=None):
