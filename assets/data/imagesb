@@ -6,7 +6,7 @@ Status: Ega
 Egami-11='https://gitlab.com/eliesat/images/-/raw/main/egami-11/backup.sh'
 
 Package: Openatv-7.5.1
-Version: 2025.09.09     باكآب محدث تاريخ تسطيبه
+Version: 2025.12.29     باكآب بالحد الادنى من التطبيقات محدث تاريخ تسطيبه
 Status: Atv
 Openatv-7.5.1='https://gitlab.com/eliesat/images/-/raw/main/atv-alfa7.6/backup-7.5.1.sh'
 
