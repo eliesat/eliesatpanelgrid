@@ -21,7 +21,7 @@
 
     <!-- Left / Right bars text -->
     <widget name="left_bar"
-        position="20,160" size="60,760" zPosition="20"
+        position="10,160" size="60,760" zPosition="20"
         font="Regular;26" halign="center" valign="top"
         foregroundColor="yellow" transparent="0" noWrap="1" />
 

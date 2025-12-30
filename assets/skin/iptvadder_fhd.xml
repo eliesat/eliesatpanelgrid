@@ -84,7 +84,7 @@
         <widget name="panel_path" position="150,780" size="1100,160" zPosition="12"
             font="Bold;32" halign="left" valign="top"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
-        <widget name="left_bar" position="20,160" size="60,760" zPosition="20"
+        <widget name="left_bar" position="10,160" size="60,760" zPosition="20"
             font="Regular;26" halign="center" valign="top"
     backgroundColor="#000000"
             foregroundColor="yellow" transparent="1" noWrap="1" />
