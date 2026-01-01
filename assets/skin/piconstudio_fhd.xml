@@ -30,21 +30,21 @@
         font="Regular;26" halign="center" valign="top"
         foregroundColor="yellow" transparent="0" noWrap="1" />
 
-    <widget 
-    source="menu" 
-    selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
-    render="Listbox" 
-    position="48,170" size="1240,660" 
-    transparent="1" zPosition="15"
-    scrollbarMode="showOnDemand">
+    <widget source="menu" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png" render="Listbox" position="48,170" size="1280,660" transparent="1" zPosition="15" scrollbarMode="showOnDemand">
     <convert type="TemplatedMultiContent">
-        {"template": [
-            MultiContentEntryText(pos = (120, 10), size = (590, 45), font=0, flags = RT_HALIGN_LEFT,color=0x00D2AC2B, text = 0),
-            MultiContentEntryText(pos = (600, 19), size = (680, 35), font=1, flags = RT_HALIGN_LEFT,color=0x00D2AC2B, text = 1),
-            MultiContentEntryPixmapAlphaTest(pos = (60, 18), size = (50, 40), png = 2)
+        {
+            "template": [
+                MultiContentEntryPixmapAlphaTest(pos = (60, 13), size = (50, 40), png = 0),
+                MultiContentEntryText(pos = (120, 8), size = (400, 45), font=0, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 1),
+                MultiContentEntryText(pos = (520, 8), size = (200, 45), font=1, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 2),
+                MultiContentEntryText(pos = (700, 18), size = (700, 50), font=2, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 3)
             ],
-        "fonts": [gFont("Regular", 35),gFont("Regular", 25)],
-        "itemHeight": 66
+            "fonts": [
+                gFont("Regular", 35),   # font index 0 for text 1
+                gFont("Regular", 35),   # font index 1 for text 2
+                gFont("Regular", 28)    # font index 2 for text 3
+            ],
+            "itemHeight": 66
         }
     </convert>
 </widget>
