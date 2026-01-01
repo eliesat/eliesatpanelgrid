@@ -165,7 +165,7 @@ class Piconstudio(Screen):
         path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
         return path if os.path.isfile(path) else None
 
-    # ================= LIST (FILE ORDER PRESERVED) =================
+    # ================= LIST (Icon | Package Name | Version | Description) =================
     def buildList(self):
         self.list = []
         self.selected_plugins = []
@@ -175,7 +175,8 @@ class Piconstudio(Screen):
             self.showError(_("Picons file not found"))
             return
 
-        name = desc = ""
+        name = ""
+        desc = ""
 
         for line in open_file(path):
             line = line.strip()
@@ -189,7 +190,11 @@ class Piconstudio(Screen):
                 desc = line.split(":", 1)[1].strip()
 
             elif "=" in line and name:
-                self.list.append((name, desc, self.unchecked_icon))
+                parts = desc.split(None, 1)
+                version = parts[0] if len(parts) > 0 else ""
+                description = parts[1] if len(parts) > 1 else ""
+
+                self.list.append((self.unchecked_icon, name, version, description, name, version, description))
                 name = desc = ""
 
         self["menu"].setList(self.list)
@@ -202,7 +207,7 @@ class Piconstudio(Screen):
             return
 
         index = self["menu"].getIndex()
-        name, desc, icon = cur
+        icon, name, version, description, *_ = cur
 
         if name in self.selected_plugins:
             self.selected_plugins.remove(name)
@@ -211,7 +216,7 @@ class Piconstudio(Screen):
             self.selected_plugins.append(name)
             icon = self.checked_icon
 
-        self.list[index] = (name, desc, icon)
+        self.list[index] = (icon, name, version, description, name, version, description)
         self["menu"].updateList(self.list)
         self.updateCounter()
 
@@ -223,11 +228,11 @@ class Piconstudio(Screen):
     # ================= SELECT / DESELECT ALL =================
     def toggleSelectAll(self):
         if len(self.selected_plugins) < len(self.list):
-            self.selected_plugins = [name for name, desc, icon in self.list]
-            self.list = [(name, desc, self.checked_icon) for name, desc, icon in self.list]
+            self.selected_plugins = [name for icon, name, version, description, *_ in self.list]
+            self.list = [(self.checked_icon, name, version, description, name, version, description) for icon, name, version, description, *_ in self.list]
         else:
             self.selected_plugins = []
-            self.list = [(name, desc, self.unchecked_icon) for name, desc, icon in self.list]
+            self.list = [(self.unchecked_icon, name, version, description, name, version, description) for icon, name, version, description, *_ in self.list]
 
         self["menu"].updateList(self.list)
         self.updateCounter()
@@ -253,8 +258,7 @@ class Piconstudio(Screen):
             self.installation_in_progress = False
             failed_count = self.total_selected - self.success_installs
             self["item_name"].setText(
-                _("Done: %d/%d installed, %d failed")
-                % (self.success_installs, self.total_selected, failed_count)
+                _("Done: %d/%d installed, %d failed") % (self.success_installs, self.total_selected, failed_count)
             )
             self["download_info"].setText("")
             self["progress"].setValue(100)
@@ -287,7 +291,6 @@ class Piconstudio(Screen):
 
         self._downloadScript()
 
-    # ================= DOWNLOAD =================
     def _downloadScript(self):
         cmd = "wget --progress=dot:giga -O %s --no-check-certificate %s" % (
             self.download_file, self.download_url
@@ -324,13 +327,10 @@ class Piconstudio(Screen):
         self.pauseTimer.callback.append(self._startInstall)
         self.pauseTimer.start(500, True)
 
-    # ================= INSTALL =================
     def _startInstall(self):
         os.system("chmod 755 %s" % self.download_file)
         self.install_fake_progress = 0
-        self["item_name"].setText(
-            _("Installing %s ... 0%%") % self.current_pkg
-        )
+        self["item_name"].setText(_("Installing %s ... 0%%") % self.current_pkg)
         self["download_info"].setText("")
         self.progressTimer.start(1000, False)
 
