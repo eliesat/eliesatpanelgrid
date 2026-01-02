@@ -42,7 +42,7 @@ class Iptvadder(Screen, ConfigListScreen):
 
         # Editable fields
         self.url = ConfigText(default="http://jep2024.online")
-        self.port = ConfigText(default="2083")
+        self.port = ConfigText(default="")
         self.username = ConfigText(default="user")
         self.password = ConfigText(default="pass")
 
