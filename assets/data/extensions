@@ -404,6 +404,11 @@ Version: 1.5     ملف قنوات
 Status: Plg
 Levi45settings='https://gitlab.com/eliesat/extensions/-/raw/main/levi45settings/levi45settings.sh'
 
+Package: Livematch
+Version: 2.0     تغطية نتائج المباريات
+Status: Plg
+Livematch='https://gitlab.com/eliesat/extensions/-/raw/main/livematch/livematch.sh'
+
 Package: M3uconverter
 Version: 3.2     تحويل ال اي بي تي في لمفضلات
 Status: Plg
@@ -1127,4 +1132,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h'''''''
