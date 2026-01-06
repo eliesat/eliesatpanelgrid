@@ -5,6 +5,11 @@ Version: 02.05.2025      شعارات القنوات للمتحرك
 Status: Snp
 picons-motor='https://gitlab.com/eliesat/picons/-/raw/main/picons-34w.sh'
 
+Package: picons-motore
+Version: 02.05.2025      شعارات القنوات للمتحرك
+Status: Snp
+picons-motore='https://gitlab.com/eliesat/picons/-/raw/main/picons-34w.sh'
+
 Package: 34.5W-picons
 Version: 05.01.2026     شعار قنوات انتلسات ٣٥
 Status: Srp
