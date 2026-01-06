@@ -19,6 +19,10 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 from enigma import getDesktop, eConsoleAppContainer, eTimer
 
+from threading import Timer
+import requests
+import hashlib
+
 from Plugins.Extensions.ElieSatPanelGrid.__init__ import Version
 from Plugins.Extensions.ElieSatPanelGrid.menus.Helpers import (
     get_local_ip, check_internet, get_image_name,
@@ -29,12 +33,48 @@ from Plugins.Extensions.ElieSatPanelGrid.menus.Helpers import (
 def _(txt):
     return txt
 
+    # ---------------- GitHub Update ----------------
+    def update_extensions_from_github(self):
+        try:
+            response = requests.get(EXTENSIONS_URL, timeout=10)
+            if response.status_code != 200:
+                print(f"[Picons] Failed to fetch extensions: {response.status_code}")
+                return False
+
+            new_hash = hashlib.md5(response.content).hexdigest()
+            local_hash = None
+            if os.path.exists(LOCAL_EXTENSIONS):
+                with open(LOCAL_EXTENSIONS, "rb") as f:
+                    local_hash = hashlib.md5(f.read()).hexdigest()
+
+            if local_hash == new_hash:
+                print("[Picons] Extensions already up-to-date")
+                return False
+
+            with open(LOCAL_EXTENSIONS, "wb") as f:
+                f.write(response.content)
+
+            print("[Picons] Extensions file updated from GitHub")
+
+            if not self.in_submenu:
+                self.load_main_menu()
+            else:
+                for cat in self.main_categories:
+                    if cat[0] == self.submenu_title:
+                        self.load_sub_menu(cat[2], cat[0])
+                        break
+            return True
+        except Exception as e:
+            print("[Picons] update_extensions_from_github error:", e)
+            return False
 
 def open_file(path, mode="r"):
     if sys.version_info[0] >= 3:
         return open(path, mode, encoding="utf-8", errors="ignore")
     return open(path, mode)
 
+EXTENSIONS_URL = "https://raw.githubusercontent.com/eliesat/eliesatpanelgrid/refs/heads/main/assets/data//picons"
+LOCAL_EXTENSIONS = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
 
 class InstallationReport(Screen):
     skin = """
@@ -159,6 +199,9 @@ class Piconstudio(Screen):
         self.installation_in_progress = False
 
         self.buildList()
+
+        # Background update from GitHub
+        Timer(1, self.update_extensions_from_github).start()
 
     # ================= FILE =================
     def status_path(self):
@@ -418,4 +461,39 @@ class Piconstudio(Screen):
             self.showError(_("Cannot exit during installation"))
             return
         Screen.close(self)
+
+    # ---------------- GitHub Update ----------------
+    def update_extensions_from_github(self):
+        try:
+            response = requests.get(EXTENSIONS_URL, timeout=10)
+            if response.status_code != 200:
+                print(f"[Picons] Failed to fetch extensions: {response.status_code}")
+                return False
+
+            new_hash = hashlib.md5(response.content).hexdigest()
+            local_hash = None
+            if os.path.exists(LOCAL_EXTENSIONS):
+                with open(LOCAL_EXTENSIONS, "rb") as f:
+                    local_hash = hashlib.md5(f.read()).hexdigest()
+
+            if local_hash == new_hash:
+                print("[Picons] Extensions already up-to-date")
+                return False
+
+            with open(LOCAL_EXTENSIONS, "wb") as f:
+                f.write(response.content)
+
+            print("[Picons] Extensions file updated from GitHub")
+
+            if not self.in_submenu:
+                self.load_main_menu()
+            else:
+                for cat in self.main_categories:
+                    if cat[0] == self.submenu_title:
+                        self.load_sub_menu(cat[2], cat[0])
+                        break
+            return True
+        except Exception as e:
+            print("[Picons] update_extensions_from_github error:", e)
+            return False
 
