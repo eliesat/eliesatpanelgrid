@@ -105,43 +105,6 @@ class InstallationReport(Screen):
 
 
 class Piconstudio(Screen):
-    def __init__(self, session):
-        Screen.__init__(self, session)
-        # ... your init code ...
-        Timer(1, self.update_extensions_from_github).start()
-
-    # ================= GITHUB UPDATE =================
-    def update_extensions_from_github(self):
-        try:
-            response = requests.get(EXTENSIONS_URL, timeout=10)
-            if response.status_code != 200:
-                print(f"[Picons] Failed to fetch extensions: {response.status_code}")
-                return False
-
-            new_hash = hashlib.md5(response.content).hexdigest()
-            local_hash = None
-            if os.path.exists(LOCAL_EXTENSIONS):
-                with open(LOCAL_EXTENSIONS, "rb") as f:
-                    local_hash = hashlib.md5(f.read()).hexdigest()
-
-            if local_hash == new_hash:
-                print("[Picons] Extensions already up-to-date")
-                return False
-
-            with open(LOCAL_EXTENSIONS, "wb") as f:
-                f.write(response.content)
-
-            print("[Picons] Extensions file updated from GitHub")
-
-            # ===== AUTO REFRESH MENU =====
-            self.buildList()  # <--- This rebuilds your menu list
-
-            return True
-        except Exception as e:
-            print("[Picons] update_extensions_from_github error:", e)
-            return False
-
-
     width = getDesktop(0).size().width()
     skin = open(
         "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/%s"
@@ -237,6 +200,7 @@ class Piconstudio(Screen):
         # ===== DONE MESSAGE FLAG =====
         self.showing_done_message = False
 
+        # ===== BUILD MENU =====
         self.buildList()
 
         # Background update from GitHub
@@ -281,7 +245,6 @@ class Piconstudio(Screen):
 
     # ================= SELECT =================
     def toggleSelection(self):
-        # If done message is showing, dismiss it
         if self.showing_done_message:
             self.closeReportMessage()
             return
@@ -455,7 +418,6 @@ class Piconstudio(Screen):
         else:
             self.failed_items.append(self.current_pkg)
 
-        # Remove .sh file after execution
         if os.path.exists(self.download_file):
             os.remove(self.download_file)
 
@@ -482,7 +444,25 @@ class Piconstudio(Screen):
                 pass
             self.container = None
 
+        for pkg in self.download_queue:
+            temp_file = f"/tmp/{pkg}.sh"
+            if os.path.exists(temp_file):
+                try:
+                    os.remove(temp_file)
+                    print(f"[Picons] Removed temporary script: {temp_file}")
+                except Exception as e:
+                    print(f"[Picons] Failed to remove temporary script {temp_file}: {e}")
+
+        if hasattr(self, 'download_file') and self.download_file and os.path.exists(self.download_file):
+            try:
+                os.remove(self.download_file)
+                print(f"[Picons] Removed current temporary script: {self.download_file}")
+            except Exception as e:
+                print(f"[Picons] Failed to remove current temporary script: {e}")
+            self.download_file = None
+
         self["progress"].setValue(0)
+        self["progress"].hide()
         self["item_name"].setText(_("Installation canceled"))
         self["download_info"].setText("")
 
@@ -491,7 +471,7 @@ class Piconstudio(Screen):
 
         self.buildList()
 
-    # ================= DONE MESSAGE DISMISS =================
+    # ================= DONE MESSAGE =================
     def closeReportMessage(self):
         if self.showing_done_message:
             self["item_name"].setText("")
@@ -519,34 +499,32 @@ class Piconstudio(Screen):
         Screen.close(self)
 
     # ================= GITHUB UPDATE =================
-def update_extensions_from_github(self):
-    try:
-        response = requests.get(EXTENSIONS_URL, timeout=10)
-        if response.status_code != 200:
-            print(f"[Picons] Failed to fetch extensions: {response.status_code}")
+    def update_extensions_from_github(self):
+        try:
+            response = requests.get(EXTENSIONS_URL, timeout=10)
+            if response.status_code != 200:
+                print(f"[Picons] Failed to fetch extensions: {response.status_code}")
+                return False
+
+            new_hash = hashlib.md5(response.content).hexdigest()
+            local_hash = None
+            if os.path.exists(LOCAL_EXTENSIONS):
+                with open(LOCAL_EXTENSIONS, "rb") as f:
+                    local_hash = hashlib.md5(f.read()).hexdigest()
+
+            if local_hash == new_hash:
+                print("[Picons] Extensions already up-to-date")
+                return False
+
+            with open(LOCAL_EXTENSIONS, "wb") as f:
+                f.write(response.content)
+
+            print("[Picons] Extensions file updated from GitHub")
+
+            # ===== AUTO REFRESH MENU =====
+            self.buildList()
+            return True
+        except Exception as e:
+            print("[Picons] update_extensions_from_github error:", e)
             return False
-
-        new_hash = hashlib.md5(response.content).hexdigest()
-        local_hash = None
-        if os.path.exists(LOCAL_EXTENSIONS):
-            with open(LOCAL_EXTENSIONS, "rb") as f:
-                local_hash = hashlib.md5(f.read()).hexdigest()
-
-        if local_hash == new_hash:
-            print("[Picons] Extensions already up-to-date")
-            return False
-
-        with open(LOCAL_EXTENSIONS, "wb") as f:
-            f.write(response.content)
-
-        print("[Picons] Extensions file updated from GitHub")
-
-        # ===== AUTO REFRESH MENU =====
-        self.buildList()  # <--- This rebuilds your menu list
-
-        return True
-    except Exception as e:
-        print("[Picons] update_extensions_from_github error:", e)
-        return False
-
 
