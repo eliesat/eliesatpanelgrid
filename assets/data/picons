@@ -1,116 +1,66 @@
 ##############picons###############
-      
-Package: All.Satellites
-Version: test     شعار قنوات كل الاقمار
+
+Package: picons-motor
+Version: 02.05.2025     /media/hdd 30W-80E شعارات القنوات
 Status: Snp
-All.Satellites='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+picons-motor='https://gitlab.com/eliesat/picons/-/raw/main/picons-all-name.sh'
 
-Package: 30.0W - Hispasat 30W 5/6
-Version: test     شعار قنوات  الهيسباسات
+Package: 34.5W-picons
+Version: 05.01.2026     شعار قنوات انتلسات ٣٥
 Status: Srp
-30.0W - Hispasat 30W 5/6='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+34.5W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-34w.sh'
 
-Package: 14.0W - Express AM8
-Version: test     شعار قنوات اكسبرس ام ٨     
+Package: 30.0W-picons
+Version: 30.03.2025     شعار قنوات هيسباسات
 Status: Srp
-14.0W - Express AM8='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+30.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
 
-Package: 7.0W - Nilesat 201/301
-Version: test     شعار قنوات النيل و المجاور
+Package: 24.5W-picons
+Version: 01.04.2025     شعار قنوات الكومسات ١
 Status: Srp
-7.0W - Nilesat 201/301='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+24.5W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-24.5w.sh'
 
-Package: 5.0W - Eutelsat 5 West B
-Version: test     شعار قنوات يوتلسات ٥
+Package: 22.0W-picons
+Version: 01.04.2025     شعار قنوات اس او اس ٤
 Status: Srp
-5.0W - Eutelsat 5 West B='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+22.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-22w.sh'
 
-Package: 4.0W - AMOS 3 & Dror 1
-Version: test     شعار قنوات آموس
+Package: 14.0W-picons
+Version: 01.04.2025     شعار قنوات اكسبريس اي ام ٨
 Status: Srp
-4.0W - AMOS 3 & Dror 1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+14.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-14w.sh'
 
-Package: 0.8W - Thor 5/6/7 & Intelsat 10
-Version: test     شعار قنوات ثور
+Package: 7.0W-picons
+Version: 01.04.2025     شعار قنوات نيل سات و المجاور 
 Status: Srp
-0.8W - Thor 5/6/7 & Intelsat 10='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+7.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-7w.sh'
 
-Package: 1.9E - BulgariaSat 1
-Version: test     شعار قنوات بلغاريا سات
+Package: 5.0W-picons
+Version: 05.04.2025     شعار قنوات يوتل سات ٥ 
 Status: Srp
-1.9E - BulgariaSat 1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+5.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-5w.sh'
 
-Package: 9.0E - Eutelsat 9B
-Version: test     شعار قنوات يوتل سات ٩
+Package: 26.0e-picons
+Version: 05.01.2026     شعار قنوات بدر 
 Status: Srp
-9.0E - Eutelsat 9B='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+26.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
-Package: 13.0E - Hot Bird 13F/13G
-Version: test     شعار قنوات هوتبيرد
+Package: Picons-transparent
+Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
 Status: Srp
-13.0E - Hot Bird 13F/13G='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+Picons-transparent='https://gitlab.com/eliesat/picons/-/raw/main/picons-transparent.sh'
 
-Package: 16.0E - Eutelsat 16A
-Version: test     شعار قنوات يوتل سات ١٦
+Package: Picons-black
+Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
 Status: Srp
-16.0E - Eutelsat 16A='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+Picons-black='https://gitlab.com/eliesat/picons/-/raw/main/picons-black.sh'
 
-Package: 19.2E - Astra 1KR/1M/1N/1P
-Version: test     شعار قنوات استرا ١٩
+Package: Picons-white
+Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
 Status: Srp
-19.2E - Astra 1KR/1M/1N/1P='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+Picons-white='https://gitlab.com/eliesat/picons/-/raw/main/picons-white.sh'
 
-Package: 23.5E - Astra 3B/3C
-Version: test     شعار قنوات استرا ٢٣
+Package: Picons-zelda
+Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
 Status: Srp
-23.5E - Astra 3B/3C='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 26.0E - Badr 7/8 & Es'hail 2
-Version: 02.01.2026     شعار قنوات بدر
-Status: Srp
-26.0E - Badr 7/8 & Es'hail 2='https://gitlab.com/eliesat/picons/-/blob/main/picons-26e.sh'
-
-Package: 28.2E - Astra 2E/2F/2G
-Version: test     شعار قنوات استرا ٢٨
-Status: Srp
-28.2E - Astra 2E/2F/2G='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 36.0E - Eutelsat 36D
-Version: test     شعار قنوات  يوتل سات ٣٦
-Status: Srp
-36.0E - Eutelsat 36D / Express AMU1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 39.0E - Hellas Sat 3
-Version: test     شعار قنوات  هيلا سات
-Status: Srp
-39.0E - Hellas Sat 3 / Eutelsat 39B='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 42.0E - Turksat 3A/4A/5A/6B
-Version: test     شعار قنوات تورك سات
-Status: Srp
-42.0E - Turksat 3A/4A/5A/6B='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 46.0E - Azerspace 1
-Version: test     شعار قنوات  الاذري
-Status: Srp
-46.0E - Azerspace 1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 52.0E - TurkmenÄlem
-Version: test     شعار قنوات توركمان ألم
-Status: Srp
-52.0E - TurkmenÄlem='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 52.5E - Al Yah 1
-Version: test     شعار قنوات  الياه سات
-Status: Srp
-52.5E - Al Yah 1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 53.0E - Express AM6
-Version: test     شعار قنوات اكسبرس ام٦
-Status: Srp
-53.0E - Express AM6='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: 62.0E - Intelsat 902
-Version: test     شعار قنوات  انتل سات ٩٠٢
-Status: Srp
-62.0E - Intelsat 902='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+Picons-zelda='https://gitlab.com/eliesat/picons/-/raw/main/picons-zelda.sh'
