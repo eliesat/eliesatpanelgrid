@@ -1,5 +1,10 @@
 ##############picons###############
 
+Package: Picons-black
+Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
+Status: Sat 
+Picons-black='https://gitlab.com/eliesat/picons/-/raw/main/picons-black.sh'
+
 Package: picons-motor
 Version: 02.05.2025      شعارات القنوات للمتحرك
 Status: Snp
@@ -28,20 +33,15 @@ Status: Srp
 
 Package: Picons-transparent
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Srp
+Status: Sat
 Picons-transparent='https://gitlab.com/eliesat/picons/-/raw/main/picons-transparent.sh'
-
-Package: Picons-black
-Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Srp
-Picons-black='https://gitlab.com/eliesat/picons/-/raw/main/picons-black.sh'
 
 Package: Picons-white
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Srp
+Status: Sat
 Picons-white='https://gitlab.com/eliesat/picons/-/raw/main/picons-white.sh'
 
 Package: Picons-zelda
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Srp
+Status: Sat
 Picons-zelda='https://gitlab.com/eliesat/picons/-/raw/main/picons-zelda.sh'
