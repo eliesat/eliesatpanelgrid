@@ -105,6 +105,42 @@ class InstallationReport(Screen):
 
 
 class Piconstudio(Screen):
+    def __init__(self, session):
+        Screen.__init__(self, session)
+        # ... your init code ...
+        Timer(1, self.update_extensions_from_github).start()
+
+    # ================= GITHUB UPDATE =================
+    def update_extensions_from_github(self):
+        try:
+            response = requests.get(EXTENSIONS_URL, timeout=10)
+            if response.status_code != 200:
+                print(f"[Picons] Failed to fetch extensions: {response.status_code}")
+                return False
+
+            new_hash = hashlib.md5(response.content).hexdigest()
+            local_hash = None
+            if os.path.exists(LOCAL_EXTENSIONS):
+                with open(LOCAL_EXTENSIONS, "rb") as f:
+                    local_hash = hashlib.md5(f.read()).hexdigest()
+
+            if local_hash == new_hash:
+                print("[Picons] Extensions already up-to-date")
+                return False
+
+            with open(LOCAL_EXTENSIONS, "wb") as f:
+                f.write(response.content)
+
+            print("[Picons] Extensions file updated from GitHub")
+
+            # ===== AUTO REFRESH MENU =====
+            self.buildList()  # <--- This rebuilds your menu list
+
+            return True
+        except Exception as e:
+            print("[Picons] update_extensions_from_github error:", e)
+            return False
+
 
     width = getDesktop(0).size().width()
     skin = open(
@@ -483,37 +519,34 @@ class Piconstudio(Screen):
         Screen.close(self)
 
     # ================= GITHUB UPDATE =================
-    def update_extensions_from_github(self):
-        try:
-            response = requests.get(EXTENSIONS_URL, timeout=10)
-            if response.status_code != 200:
-                print(f"[Picons] Failed to fetch extensions: {response.status_code}")
-                return False
-
-            new_hash = hashlib.md5(response.content).hexdigest()
-            local_hash = None
-            if os.path.exists(LOCAL_EXTENSIONS):
-                with open(LOCAL_EXTENSIONS, "rb") as f:
-                    local_hash = hashlib.md5(f.read()).hexdigest()
-
-            if local_hash == new_hash:
-                print("[Picons] Extensions already up-to-date")
-                return False
-
-            with open(LOCAL_EXTENSIONS, "wb") as f:
-                f.write(response.content)
-
-            print("[Picons] Extensions file updated from GitHub")
-
-            if not getattr(self, 'in_submenu', False):
-                self.load_main_menu()
-            else:
-                for cat in getattr(self, 'main_categories', []):
-                    if cat[0] == getattr(self, 'submenu_title', ''):
-                        self.load_sub_menu(cat[2], cat[0])
-                        break
-            return True
-        except Exception as e:
-            print("[Picons] update_extensions_from_github error:", e)
+def update_extensions_from_github(self):
+    try:
+        response = requests.get(EXTENSIONS_URL, timeout=10)
+        if response.status_code != 200:
+            print(f"[Picons] Failed to fetch extensions: {response.status_code}")
             return False
+
+        new_hash = hashlib.md5(response.content).hexdigest()
+        local_hash = None
+        if os.path.exists(LOCAL_EXTENSIONS):
+            with open(LOCAL_EXTENSIONS, "rb") as f:
+                local_hash = hashlib.md5(f.read()).hexdigest()
+
+        if local_hash == new_hash:
+            print("[Picons] Extensions already up-to-date")
+            return False
+
+        with open(LOCAL_EXTENSIONS, "wb") as f:
+            f.write(response.content)
+
+        print("[Picons] Extensions file updated from GitHub")
+
+        # ===== AUTO REFRESH MENU =====
+        self.buildList()  # <--- This rebuilds your menu list
+
+        return True
+    except Exception as e:
+        print("[Picons] update_extensions_from_github error:", e)
+        return False
+
 
