@@ -198,6 +198,9 @@ class Piconstudio(Screen):
         # ===== INSTALLATION FLAG =====
         self.installation_in_progress = False
 
+        # ===== DONE MESSAGE FLAG =====
+        self.showing_done_message = False
+
         self.buildList()
 
         # Background update from GitHub
@@ -208,7 +211,7 @@ class Piconstudio(Screen):
         path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
         return path if os.path.isfile(path) else None
 
-    # ================= LIST (Icon | Package Name | Version | Description) =================
+    # ================= LIST =================
     def buildList(self):
         self.list = []
         self.selected_plugins = []
@@ -228,15 +231,12 @@ class Piconstudio(Screen):
 
             if line.lower().startswith("package:"):
                 name = line.split(":", 1)[1].strip()
-
             elif line.lower().startswith("version:"):
                 desc = line.split(":", 1)[1].strip()
-
             elif "=" in line and name:
                 parts = desc.split(None, 1)
                 version = parts[0] if len(parts) > 0 else ""
                 description = parts[1] if len(parts) > 1 else ""
-
                 self.list.append((self.unchecked_icon, name, version, description, name, version, description))
                 name = desc = ""
 
@@ -245,6 +245,11 @@ class Piconstudio(Screen):
 
     # ================= SELECT =================
     def toggleSelection(self):
+        # If done message is showing, dismiss it
+        if self.showing_done_message:
+            self.closeReportMessage()
+            return
+
         cur = self["menu"].getCurrent()
         if not cur:
             return
@@ -264,9 +269,7 @@ class Piconstudio(Screen):
         self.updateCounter()
 
     def updateCounter(self):
-        self["selection_count"].setText(
-            _("Selected: %d") % len(self.selected_plugins)
-        )
+        self["selection_count"].setText(_("Selected: %d") % len(self.selected_plugins))
 
     # ================= SELECT / DESELECT ALL =================
     def toggleSelectAll(self):
@@ -306,6 +309,7 @@ class Piconstudio(Screen):
             self["download_info"].setText("")
             self["progress"].setValue(100)
             self["progress"].show()
+            self.showing_done_message = True
             self.buildList()
             return
 
@@ -334,6 +338,7 @@ class Piconstudio(Screen):
 
         self._downloadScript()
 
+    # ================= DOWNLOAD =================
     def _downloadScript(self):
         cmd = "wget --progress=dot:giga -O %s --no-check-certificate %s" % (
             self.download_file, self.download_url
@@ -362,14 +367,13 @@ class Piconstudio(Screen):
             pass
 
     def _onDownloadFinished(self, ret):
-        self["item_name"].setText(
-            _("Downloading %s ... 100%%") % self.current_pkg
-        )
+        self["item_name"].setText(_("Downloading %s ... 100%%") % self.current_pkg)
         self["download_info"].setText("Download finished")
         self.pauseTimer = eTimer()
         self.pauseTimer.callback.append(self._startInstall)
         self.pauseTimer.start(500, True)
 
+    # ================= INSTALL SCRIPT =================
     def _startInstall(self):
         os.system("chmod 755 %s" % self.download_file)
         self.install_fake_progress = 0
@@ -415,6 +419,10 @@ class Piconstudio(Screen):
         else:
             self.failed_items.append(self.current_pkg)
 
+        # Remove .sh file after execution
+        if os.path.exists(self.download_file):
+            os.remove(self.download_file)
+
         self["download_info"].setText("Script finished")
 
         self.pauseTimer = eTimer()
@@ -447,6 +455,15 @@ class Piconstudio(Screen):
 
         self.buildList()
 
+    # ================= DONE MESSAGE DISMISS =================
+    def closeReportMessage(self):
+        if self.showing_done_message:
+            self["item_name"].setText("")
+            self["download_info"].setText("")
+            self["progress"].setValue(0)
+            self["progress"].hide()
+            self.showing_done_message = False
+
     # ================= REPORT =================
     def showReport(self):
         self.session.open(InstallationReport, self.installed_items, self.failed_items)
@@ -457,12 +474,15 @@ class Piconstudio(Screen):
 
     # ================= CLOSE =================
     def close(self):
+        if self.showing_done_message:
+            self.closeReportMessage()
+            return
         if self.installation_in_progress:
             self.showError(_("Cannot exit during installation"))
             return
         Screen.close(self)
 
-    # ---------------- GitHub Update ----------------
+    # ================= GITHUB UPDATE =================
     def update_extensions_from_github(self):
         try:
             response = requests.get(EXTENSIONS_URL, timeout=10)
@@ -485,11 +505,11 @@ class Piconstudio(Screen):
 
             print("[Picons] Extensions file updated from GitHub")
 
-            if not self.in_submenu:
+            if not getattr(self, 'in_submenu', False):
                 self.load_main_menu()
             else:
-                for cat in self.main_categories:
-                    if cat[0] == self.submenu_title:
+                for cat in getattr(self, 'main_categories', []):
+                    if cat[0] == getattr(self, 'submenu_title', ''):
                         self.load_sub_menu(cat[2], cat[0])
                         break
             return True
