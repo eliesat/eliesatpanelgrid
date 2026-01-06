@@ -105,6 +105,7 @@ class InstallationReport(Screen):
 
 
 class Piconstudio(Screen):
+
     width = getDesktop(0).size().width()
     skin = open(
         "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/%s"
@@ -211,7 +212,7 @@ class Piconstudio(Screen):
         path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
         return path if os.path.isfile(path) else None
 
-    # ================= LIST =================
+    # ================= LIST (WITH SMART HEADERS) =================
     def buildList(self):
         self.list = []
         self.selected_plugins = []
@@ -221,24 +222,70 @@ class Piconstudio(Screen):
             self.showError(_("Picons file not found"))
             return
 
-        name = ""
-        desc = ""
+        # Step 1: parse all packages
+        packages = []
+        name = version = description = status = None
 
         for line in open_file(path):
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
 
-            if line.lower().startswith("package:"):
+            low = line.lower()
+
+            if low.startswith("package:"):
                 name = line.split(":", 1)[1].strip()
-            elif line.lower().startswith("version:"):
-                desc = line.split(":", 1)[1].strip()
-            elif "=" in line and name:
-                parts = desc.split(None, 1)
-                version = parts[0] if len(parts) > 0 else ""
+
+            elif low.startswith("version:"):
+                parts = line.split(":", 1)[1].strip().split(None, 1)
+                version = parts[0]
                 description = parts[1] if len(parts) > 1 else ""
-                self.list.append((self.unchecked_icon, name, version, description, name, version, description))
-                name = desc = ""
+
+            elif low.startswith("status:"):
+                status = line.split(":", 1)[1].strip()
+
+            elif "=" in line and name:
+                packages.append({
+                    "name": name,
+                    "version": version,
+                    "description": description,
+                    "statuses": status.split() if status else ["Unknown"]
+                })
+                name = version = description = status = None
+
+        # Step 2: collect existing headers from file in order
+        existing_headers = []
+        with open(path) as f:
+            for line in f:
+                if line.lower().startswith("status:"):
+                    for st in line.split(":", 1)[1].strip().split():
+                        if st not in existing_headers:
+                            existing_headers.append(st)
+
+        # Step 3: Build final list with smart headers
+        self.list = []
+        headers_added = set()
+
+        for pkg in packages:
+            for st in pkg["statuses"]:
+                # Add header if not already added
+                if st not in headers_added:
+                    self.list.append((None, "☆======== %s ========☆" % st, "", "", "HEADER", "", "", ""))
+                    headers_added.add(st)
+
+                # Add package under this header
+                self.list.append(
+                    (
+                        self.unchecked_icon,
+                        pkg["name"],
+                        pkg["version"],
+                        pkg["description"],
+                        st,
+                        pkg["name"],
+                        pkg["version"],
+                        pkg["description"],
+                    )
+                )
 
         self["menu"].setList(self.list)
         self.updateCounter()
@@ -253,8 +300,13 @@ class Piconstudio(Screen):
         if not cur:
             return
 
+        icon, name, version, description, status, *_ = cur
+
+        # Block headers
+        if status == "HEADER":
+            return
+
         index = self["menu"].getIndex()
-        icon, name, version, description, *_ = cur
 
         if name in self.selected_plugins:
             self.selected_plugins.remove(name)
@@ -263,7 +315,9 @@ class Piconstudio(Screen):
             self.selected_plugins.append(name)
             icon = self.checked_icon
 
-        self.list[index] = (icon, name, version, description, name, version, description)
+        self.list[index] = (
+            icon, name, version, description, status, name, version, description
+        )
         self["menu"].updateList(self.list)
         self.updateCounter()
 
@@ -272,12 +326,18 @@ class Piconstudio(Screen):
 
     # ================= SELECT / DESELECT ALL =================
     def toggleSelectAll(self):
-        if len(self.selected_plugins) < len(self.list):
-            self.selected_plugins = [name for icon, name, version, description, *_ in self.list]
-            self.list = [(self.checked_icon, name, version, description, name, version, description) for icon, name, version, description, *_ in self.list]
+        items = [row for row in self.list if row[4] != "HEADER"]
+
+        if len(self.selected_plugins) < len(items):
+            self.selected_plugins = [row[1] for row in items]
+            for i, row in enumerate(self.list):
+                if row[4] != "HEADER":
+                    self.list[i] = (self.checked_icon,) + row[1:]
         else:
             self.selected_plugins = []
-            self.list = [(self.unchecked_icon, name, version, description, name, version, description) for icon, name, version, description, *_ in self.list]
+            for i, row in enumerate(self.list):
+                if row[4] != "HEADER":
+                    self.list[i] = (self.unchecked_icon,) + row[1:]
 
         self["menu"].updateList(self.list)
         self.updateCounter()
