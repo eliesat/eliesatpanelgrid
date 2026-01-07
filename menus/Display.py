@@ -70,57 +70,28 @@ class Display(Screen):
         self.previous_index = 0
         self.submenu_indices = {}
 
-        # ---------------- Screen width detection ----------------
-        screen_width = 1280
-        try:
-            screen_width = getDesktop(0).size().width()
-        except Exception:
-            pass
-
-        # ---------------- Skin selection ----------------
-        base_skin_path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/"
-        skin_files = {
-            "hd": os.path.join(base_skin_path, "eliesatpanel_hd.xml"),
-            "fhd": os.path.join(base_skin_path, "eliesatpanel_fhd.xml"),
-            "default": os.path.join(base_skin_path, "eliesatpanel.xml"),
-        }
-
-        skin_file = (
-            skin_files["fhd"] if screen_width >= 1920 and os.path.exists(skin_files["fhd"])
-            else skin_files["hd"] if os.path.exists(skin_files["hd"])
-            else skin_files["default"]
-        )
-
-        try:
-            with open(skin_file, "r", encoding="utf-8") as f:
-                self.skin = f.read()
-        except FileNotFoundError:
-            self.skin = (
-                '<screen name="Display" position="center,center" size="1280,720">'
-                '<eLabel text="Skin Missing" position="center,center" size="400,50" '
-                'font="Regular;30" halign="center" valign="center"/>'
-                '</screen>'
-            )
-
-        # ---------------- Screen initialization ----------------
+        # ---------------- Screen init FIRST ----------------
         Screen.__init__(self, session)
-        # ---------------- ONLY LOAD IF DEVICE UNLOCKED AND FILES EXIST ----------------
-        unlock_ok = is_device_unlocked()
-        unlock_file_exists = os.path.exists("/etc/eliesat_unlocked.cfg")
-        main_mac_exists = os.path.exists("/etc/eliesat_main_mac.cfg")
 
-        if not unlock_ok or not unlock_file_exists or not main_mac_exists:
-            # Close the screen immediately if checks fail
+        # ---------------- Unlock check (same as Addons) ----------------
+        if (
+            not is_device_unlocked()
+            or not os.path.exists("/etc/eliesat_unlocked.cfg")
+            or not os.path.exists("/etc/eliesat_main_mac.cfg")
+        ):
             self.close()
             return
 
-
-        # ---------------- Icon loading ----------------
+        # ---------------- Skin + icon (same order as Addons) ----------------
+        self.load_skin()
         self.load_icon()
 
-        # ---------------- UI Components ----------------
-        self["menu"] = FlexibleMenu([])
-        self["menu"].itemPixmap = self.iconPixmap
+        # ---------------- Menu ----------------
+        self["menu"] = FlexibleMenu([], parent=self)
+        if getattr(self, "iconPixmap", None):
+            self["menu"]._cached_logos[self.__class__.__name__.lower()] = self.iconPixmap
+
+        # ---------------- UI ----------------
         self["description"] = Label("")
         self["pageinfo"] = Label("")
         self["pagelabel"] = Label("")
@@ -134,13 +105,12 @@ class Display(Screen):
         self["left_bar"] = Label("\n".join(list("Version " + Version)))
         self["right_bar"] = Label("\n".join(list("By ElieSat")))
 
-        # ---------------- Colored Buttons ----------------
         self["red"] = Label("IPTV Adder")
         self["green"] = Label("Cccam Adder")
         self["yellow"] = Label("News")
         self["blue"] = Label("Scripts")
 
-        # ---------------- Key Actions ----------------
+        # ---------------- Actions ----------------
         self["setupActions"] = ActionMap(
             ["OkCancelActions", "DirectionActions", "ColorActions", "MenuActions"],
             {
@@ -158,7 +128,6 @@ class Display(Screen):
             -1,
         )
 
-        # ---------------- Initialization ----------------
         self.onLayoutFinish.append(self.load_main_menu)
 
         try:
@@ -167,34 +136,59 @@ class Display(Screen):
         except Exception:
             pass
 
-        # Background tasks
+        # ✅ SAME AS ADDONS
         self.start_background_updates()
 
-    # ---------------- Background Updates ----------------
+    # ---------------- Skin ----------------
+    def load_skin(self):
+        screen_width = 1280
+        try:
+            screen_width = getDesktop(0).size().width()
+        except Exception:
+            pass
+
+        base = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/"
+        skins = {
+            "fhd": os.path.join(base, "eliesatpanel_fhd.xml"),
+            "hd": os.path.join(base, "eliesatpanel_hd.xml"),
+            "default": os.path.join(base, "eliesatpanel.xml"),
+        }
+
+        skin_file = (
+            skins["fhd"] if screen_width >= 1920 and os.path.exists(skins["fhd"])
+            else skins["hd"] if os.path.exists(skins["hd"])
+            else skins["default"]
+        )
+
+        try:
+            with open(skin_file, "r", encoding="utf-8") as f:
+                self.skin = f.read()
+        except Exception:
+            self.skin = '<screen name="Display" size="1280,720"></screen>'
+
+    # ---------------- Icon ----------------
+    def load_icon(self):
+        try:
+            name = self.__class__.__name__.lower()
+            path = resolveFilename(
+                SCOPE_PLUGINS,
+                f"Extensions/ElieSatPanelGrid/assets/icons/{name}.png",
+            )
+            if not fileExists(path):
+                path = resolveFilename(
+                    SCOPE_PLUGINS,
+                    "Extensions/ElieSatPanelGrid/assets/icons/default.png",
+                )
+            self.iconPixmap = LoadPixmap(path)
+        except Exception:
+            self.iconPixmap = None
+
+    # ---------------- Background updates (EXISTS!) ----------------
     def start_background_updates(self):
-        """Run background extension update only (plugin update removed)."""
         if not has_internet():
-            print("[Display] No internet detected: background updates aborted")
             return
         Timer(1, self.update_extensions_from_github).start()
 
-    # ---------------- ICON LOADER ----------------
-    def load_icon(self):
-        """Load screen-specific icon (display.png or default)."""
-        try:
-            class_name = self.__class__.__name__.lower()
-            icon_path = resolveFilename(
-                SCOPE_PLUGINS,
-                f"Extensions/ElieSatPanelGrid/assets/icons/{class_name}.png"
-            )
-            if not fileExists(icon_path):
-                icon_path = resolveFilename(
-                    SCOPE_PLUGINS,
-                    "Extensions/ElieSatPanelGrid/assets/icons/default.png"
-                )
-            self.iconPixmap = LoadPixmap(icon_path)
-        except Exception:
-            self.iconPixmap = None
 
     # ---------------- MAIN MENU ----------------
     def load_main_menu(self):
