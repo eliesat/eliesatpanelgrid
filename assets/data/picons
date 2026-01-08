@@ -6,9 +6,9 @@ Status: Snp
 All.Satellites='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: Hispasat.5/6
-Version: 30.0W     شعار قنوات  الهيسباسات
+Version: 30.0W     05.06.2026 شعار قنوات  الهيسباسات
 Status: Srp
-Hispasat.5/6='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+Hispasat.5/6='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
 Package: Express.AM8
 Version: 14.0W     شعار قنوات اكسبرس ام ٨     
@@ -66,9 +66,9 @@ Status: Srp
 Astra.3B/3C='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: Badr.7/8.Es'hail2
-Version: 26.0E     شعار قنوات بدر
+Version: 26.0E     06.06.2026 شعار قنوات بدر
 Status: Srp
-Badr.7/8.Es'hail2='https://gitlab.com/eliesat/picons/-/blob/main/picons-26e.sh'
+Badr.7/8.Es'hail2='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
 Package: Astra.2E/2F/2G
 Version: 28.2E     شعار قنوات استرا ٢٨
@@ -101,8 +101,8 @@ Status: Srp
 TurkmenÄlem='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: AlYah1
-Version: test     شعار قنوات  الياه سات
-Status: 52.5E
+Version: 52.5E     شعار قنوات  الياه سات
+Status: Srp
 AlYah1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: Express.AM6
