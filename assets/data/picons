@@ -2,17 +2,17 @@
 
 Package: picons-motor
 Version: 02.05.2025      شعارات القنوات للمتحرك
-Status: Service name picons
+Status: Service.name.picons
 picons-motor='https://gitlab.com/eliesat/picons/-/raw/main/picons-34w.sh'
 
 Package: 30.0W-picons
 Version: 06.01.2026     شعار قنوات هيسباسات
-Status: Service reference picons
+Status: Service.reference.picons
 30.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
 
 Package: 26.0e-picons
 Version: 05.01.2026     شعار قنوات بدر 
-Status: Service reference picons
+Status: Service.reference.picons
 26.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
 Package: Picons-black
