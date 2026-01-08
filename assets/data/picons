@@ -1,141 +1,36 @@
 ##############picons###############
-      
-Package: All.Satellites
-Version: motor     شعار قنوات كل الاقمار
-Status: Snp
-All.Satellites='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Hispasat.5/6
-Version: 30.0W     05.06.2026 شعار قنوات  الهيسباسات
-Status: Srp
-Hispasat.5/6='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
-
-Package: Express.AM8
-Version: 14.0W     شعار قنوات اكسبرس ام ٨     
-Status: Srp
-Express.AM8='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Nilesat.201/301
-Version: 7.0W     شعار قنوات النيل و المجاور
-Status: Srp
-Nilesat.201/301='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Eutelsat5.WestB
-Version: 5.0W     شعار قنوات يوتلسات ٥
-Status: Srp
-Eutelsat5.WestB='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: AMOS3.Dror1
-Version: 4.0W     شعار قنوات آموس
-Status: Srp
-AMOS3.Dror1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Thor5/6/7.Intelsat10
-Version: 0.8W     شعار قنوات ثور
-Status: Srp
-Thor5/6/7.Intelsat10='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: BulgariaSat1
-Version: 1.9E     شعار قنوات بلغاريا سات
-Status: Srp
-BulgariaSat1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Eutelsat9B
-Version: 9.0E     شعار قنوات يوتل سات ٩
-Status: Srp
-Eutelsat9B='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: HotBird.13F/13G
-Version: 13.0E     شعار قنوات هوتبيرد
-Status: Srp
-HotBird.13F/13G='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Eutelsat.16A
-Version: 16.0E     شعار قنوات يوتل سات ١٦
-Status: Srp
-Eutelsat.16A='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Astra.1KR/1M/1N/1P
-Version: 19.2E     شعار قنوات استرا ١٩
-Status: Srp
-Astra.1KR/1M/1N/1P='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Astra.3B/3C
-Version: 23.5E     شعار قنوات استرا ٢٣
-Status: Srp
-Astra.3B/3C='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Badr.7/8.Es'hail2
-Version: 26.0E     06.06.2026 شعار قنوات بدر
-Status: Srp
-Badr.7/8.Es'hail2='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
-
-Package: Astra.2E/2F/2G
-Version: 28.2E     شعار قنوات استرا ٢٨
-Status: Srp
-Astra.2E/2F/2G='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Eutelsat.36D
-Version: 36.0E     شعار قنوات  يوتل سات ٣٦
-Status: Srp
-Eutelsat.36D='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: HellasSat3
-Version: 39.0E     شعار قنوات  هيلا سات
-Status: Srp
-HellasSat3='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Turksat.3A/4A/5A/6B
-Version: 42.0E     شعار قنوات تورك سات
-Status: Srp
-Turksat.3A/4A/5A/6B='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Azerspace1
-Version: 46.0E     شعار قنوات  الاذري
-Status: Srp
-Azerspace1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: TurkmenÄlem
-Version: 52.0E     شعار قنوات توركمان ألم
-Status: Srp
-TurkmenÄlem='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: AlYah1
-Version: 52.5E     شعار قنوات  الياه سات
-Status: Srp
-AlYah1='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Express.AM6
-Version: 53.0E     شعار قنوات اكسبرس ام٦
-Status: Srp
-Express.AM6='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
-
-Package: Intelsat.902
-Version: 62.0E     شعار قنوات  انتل سات ٩٠٢
-Status: Srp
-Intelsat.902='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: picons-motor
-Version: 02.05.2025     /media/hdd 30W-80E شعارات القنوات
-Status: Snp
-picons-motor='https://gitlab.com/eliesat/picons/-/raw/main/picons-all-name.sh'
+Version: 02.05.2025      شعارات القنوات للمتحرك
+Status: Service.name.picons
+picons-motor='https://gitlab.com/eliesat/picons/-/raw/main/picons-34w.sh'
 
-Package: Picons-transparent
-Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Other
-Picons-transparent='https://gitlab.com/eliesat/picons/-/raw/main/picons-transparent.sh'
+Package: 30.0W-picons
+Version: 06.01.2026     شعار قنوات هيسباسات
+Status: Service.reference.picons
+30.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
+
+Package: 26.0e-picons
+Version: 05.01.2026     شعار قنوات بدر 
+Status: Service.reference.picons
+26.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
 Package: Picons-black
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Other
+Status: other 
 Picons-black='https://gitlab.com/eliesat/picons/-/raw/main/picons-black.sh'
+
+Package: Picons-transparent
+Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
+Status: other
+Picons-transparent='https://gitlab.com/eliesat/picons/-/raw/main/picons-transparent.sh'
 
 Package: Picons-white
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Other
+Status: other
 Picons-white='https://gitlab.com/eliesat/picons/-/raw/main/picons-white.sh'
 
 Package: Picons-zelda
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
-Status: Other
+Status: other
 Picons-zelda='https://gitlab.com/eliesat/picons/-/raw/main/picons-zelda.sh'
