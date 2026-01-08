@@ -270,7 +270,7 @@ class Piconstudio(Screen):
             for st in pkg["statuses"]:
                 # Add header if not already added
                 if st not in headers_added:
-                    self.list.append((None, "☆======== %s ========☆" % st, "", "", "HEADER", "", "", ""))
+                    self.list.append((None, "☆  %s" % st, "", "", "HEADER", "", "", ""))
                     headers_added.add(st)
 
                 # Add package under this header
