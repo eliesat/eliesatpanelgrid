@@ -405,7 +405,7 @@ Status: Plg
 Levi45settings='https://gitlab.com/eliesat/extensions/-/raw/main/levi45settings/levi45settings.sh'
 
 Package: Livematch
-Version: 1.1     تغطية مباشرة لنتائج المباريات
+Version: 2.0     تغطية مباشرة لنتائج المباريات
 Status: Plg
 Livematch='https://gitlab.com/eliesat/extensions/-/raw/main/livematch/livematch.sh'
 
@@ -605,7 +605,7 @@ Showclock='https://gitlab.com/eliesat/extensions/-/raw/main/showclock/showclock.
 Package: Simplysports
 Version: 1.1     تغطية مباشرة لنتائج المباريات
 Status: Plg
-Simplysports='https://gitlab.com/eliesat/extensions/-/raw/main/showclock/showclock.sh'
+Simplysports='https://gitlab.com/eliesat/extensions/-/blob/main/simplysports/simplysports.sh'
 
 Package: Skin-e2sentials
 Version: 1.0     اضافات على السكين المستخدم
