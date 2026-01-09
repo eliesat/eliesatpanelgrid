@@ -615,15 +615,15 @@ Version: 1.6     تحويل بورتلات لمفضلات و m3u
 Status: Plg
 Stalkerportalconverter='https://gitlab.com/eliesat/extensions/-/raw/main/stalkerportalconverter/stalkerportalconverter.sh'
 
-Package: Subssupport-1
+Package: Subssupport
 Version: 1.5.8.r9     الترجمة
 Status: Plg
-Subssupport-1='https://gitlab.com/eliesat/extensions/-/raw/main/subssupport/subssupport-1.5.8-r9.sh'
+Subssupport='https://gitlab.com/eliesat/extensions/-/raw/main/subssupport/subssupport-1.5.8-r9.sh'
 
-Package: Subssupport-2
-Version: 1.8.0.r4     الترجمة
+Package: Subssupport-mnasr
+Version: 1.8.0.r6     الترجمة
 Status: Plg
-Subssupport-2='https://gitlab.com/eliesat/extensions/-/raw/main/subssupport/subssupport.sh'
+Subssupport-mnasr='https://gitlab.com/eliesat/extensions/-/raw/main/subssupport/subssupport.sh'
 
 Package: Suptv-1
 Version: 4.4     تفعيل  اشتراك كود السوب تيفي 
