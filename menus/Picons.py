@@ -100,9 +100,6 @@ class Picons(Screen):
             self.close()
             return
 
-        # ❌ Removed: self.load_skin()
-        # ❌ Removed: self.load_icon()
-
         self.session = session
         self.in_submenu = False
         self.submenu_title = None
@@ -178,8 +175,9 @@ class Picons(Screen):
     def load_main_menu(self):
         self.in_submenu = False
         self.main_categories = [
-            ("Picons-snp", "Picons by name", "Snp"),
-            ("Picons-srp", "Picons by reference", "Srp"),
+            ("Picons-snp", "Picons by name", "Service.name.picons"),
+            ("Picons-srp", "Picons by reference", "Service.reference.picons"),
+            ("Otber", "Picons by reference", "other"),
         ]
 
         categories_display = [(x[0], x[1]) for x in self.main_categories]
