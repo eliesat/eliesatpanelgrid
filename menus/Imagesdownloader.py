@@ -168,9 +168,9 @@ for group in GROUPS:
 class Imagesdownloader(Screen):
     width, height = getDesktop(0).size().width(), getDesktop(0).size().height()
     skin_file = (
-        "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/extra1_fhd.xml"
+        "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/imagesdownloader_fhd.xml"
         if width >= 1920
-        else "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/extra1_hd.xml"
+        else "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/imagesdownloader_hd.xml"
     )
     try:
         with open(skin_file, "r") as f:
