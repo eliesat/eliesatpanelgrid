@@ -405,9 +405,10 @@ Status: Plg
 Levi45settings='https://gitlab.com/eliesat/extensions/-/raw/main/levi45settings/levi45settings.sh'
 
 Package: Livematch
-Version: 2.0     تغطية نتائج المباريات
+Version: 1.1     تغطية مباشرة لنتائج المباريات
 Status: Plg
 Livematch='https://gitlab.com/eliesat/extensions/-/raw/main/livematch/livematch.sh'
+
 
 Package: M3uconverter
 Version: 3.2     تحويل ال اي بي تي في لمفضلات
@@ -600,10 +601,16 @@ Version: 0.9     تثبيت الساعة على الشاشة بشكل مؤقت
 Status: Plg
 Showclock='https://gitlab.com/eliesat/extensions/-/raw/main/showclock/showclock.sh'
 
+
+Package: Simplysports
+Version: 1.1     تغطية مباشرة لنتائج المباريات
+Status: Plg
+Simplysports='https://gitlab.com/eliesat/extensions/-/raw/main/showclock/showclock.sh'
+
 Package: Skin-e2sentials
 Version: 1.0     اضافات على السكين المستخدم
 Status: Plg
-Skin-e2sentials='https://gitlab.com/eliesat/extensions/-/raw/main/skine2sentials/skin-e2sentials.sh'
+Skin-e2sentials='https://gitlab.com/eliesat/extensions/-/raw/main/simplysports/simplysports.sh'
 
 Package: Spinnerselector
 Version: 3.2     تسطيب سبينرات
@@ -1131,4 +1138,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h'''''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h''''''''''
