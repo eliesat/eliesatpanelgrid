@@ -109,7 +109,7 @@ class Piconstudio(Screen):
     width = getDesktop(0).size().width()
     skin = open(
         "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/%s"
-        % ("piconstudio_fhd.xml" if width >= 1920 else "piconstudio_hd.xml")
+        % ("eliesatpanel_list_fhd.xml" if width >= 1920 else "eliesatpanel_list_hd.xml")
     ).read()
 
     def __init__(self, session):
