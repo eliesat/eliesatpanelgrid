@@ -10,6 +10,11 @@ Version: 06.01.2026     شعار قنوات هيسباسات
 Status: Service.reference.picons
 30.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
 
+Package: 0.8W-picons
+Version: test     شعار قنوات ثور
+Status: Service.reference.picons
+0.8W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-0.8w.sh'
+
 Package: 26.0e-picons
 Version: 05.01.2026     شعار قنوات بدر 
 Status: Service.reference.picons
