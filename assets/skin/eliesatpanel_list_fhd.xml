@@ -34,14 +34,14 @@
     <convert type="TemplatedMultiContent">
         {
             "template": [
-                MultiContentEntryPixmapAlphaTest(pos = (60, 13), size = (50, 40), png = 0),
+                MultiContentEntryPixmapAlphaTest(pos = (60, 10), size = (50, 40), png = 0),
                 MultiContentEntryText(pos = (120, 8), size = (420, 45), font=0, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 1),
                 MultiContentEntryText(pos = (560, 8), size = (200, 45), font=1, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 2),
-                MultiContentEntryText(pos = (740, 18), size = (700, 50), font=2, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 3)
+                MultiContentEntryText(pos = (740, 8), size = (700, 50), font=2, flags = RT_HALIGN_LEFT, color=0x00D2AC2B, text = 3)
             ],
             "fonts": [
-                gFont("Regular", 35),   # font index 0 for text 1
-                gFont("Regular", 35),   # font index 1 for text 2
+                gFont("Bold", 32),   # font index 0 for text 1
+                gFont("Regular", 28),   # font index 1 for text 2
                 gFont("Regular", 28)    # font index 2 for text 3
             ],
             "itemHeight": 66
