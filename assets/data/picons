@@ -21,7 +21,7 @@ Status: Service.reference.picons
 1.9e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-1.9e.sh'
 
 Package: 13.0e-picons
-Version: test     شعار قنوات بلغاريا
+Version: test     شعار قنوات هوتبيرد
 Status: Service.reference.picons
 13.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-13e.sh'
 
