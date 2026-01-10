@@ -20,6 +20,11 @@ Version: test     شعار قنوات بلغاريا
 Status: Service.reference.picons
 1.9e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-1.9e.sh'
 
+Package: 13.0e-picons
+Version: test     شعار قنوات بلغاريا
+Status: Service.reference.picons
+13.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-13e.sh'
+
 Package: 26.0e-picons
 Version: 05.01.2026     شعار قنوات بدر 
 Status: Service.reference.picons
