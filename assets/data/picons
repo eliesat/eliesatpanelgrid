@@ -1,7 +1,7 @@
 ##############picons###############
 
 Package: picons-motor
-Version: 02.05.2025      شعارات القنوات للمتحرك
+Version: test      شعارات القنوات للمتحرك
 Status: Service.name.picons
 picons-motor='https://gitlab.com/eliesat/picons/-/raw/main/picons-34w.sh'
 
@@ -14,6 +14,11 @@ Package: 0.8W-picons
 Version: test     شعار قنوات ثور
 Status: Service.reference.picons
 0.8W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-0.8w.sh'
+
+Package: 1.9e-picons
+Version: test     شعار قنوات بلغاريا
+Status: Service.reference.picons
+1.9e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-1.9e.sh'
 
 Package: 26.0e-picons
 Version: 05.01.2026     شعار قنوات بدر 
