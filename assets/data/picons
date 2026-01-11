@@ -1,6 +1,6 @@
 ##############picons###############
 Package: Satellites.xml
-Version: test     ملف ترددات افتراضي لتجربة لاجراء بحث جديد
+Version: test     ملف ترددات افتراضي لاجراء بحث جديد
 Status: Demo
 Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
