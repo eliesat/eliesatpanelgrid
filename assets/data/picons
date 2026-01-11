@@ -58,7 +58,7 @@ Status: Service.reference.picons
 Package: 23.5e-picons
 Version: test     شعار قنوات استرا ٢٣
 Status: Service.reference.picons
-23.5e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-23.5.sh'
+23.5e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-23.5e.sh'
 
 Package: 26.0e-picons
 Version: 05.01.2026     شعار قنوات بدر 
