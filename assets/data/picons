@@ -10,15 +10,35 @@ Version: 06.01.2026     شعار قنوات هيسباسات
 Status: Service.reference.picons
 30.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
 
+Package: 7.0W-picons
+Version: test     شعار قنوات نيل سات و المجاور
+Status: Service.reference.picons
+7.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-7w.sh'
+
+Package: 5.0W-picons
+Version: test     شعار قنوات يوتل سات ٥
+Status: Service.reference.picons
+5.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-5w.sh'
+
+Package: 4.0W-picons
+Version: test     شعار قنوات آموس
+Status: Service.reference.picons
+4.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-4w.sh'
+
 Package: 0.8W-picons
 Version: test     شعار قنوات ثور
 Status: Service.reference.picons
 0.8W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-0.8w.sh'
 
 Package: 1.9e-picons
-Version: test     شعار قنوات بلغاريا
+Version: test     شعار قنوات بلغاريا سات
 Status: Service.reference.picons
 1.9e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-1.9e.sh'
+
+Package: 9.0e-picons
+Version: test     شعار قنوات بلغاريا سات
+Status: Service.reference.picons
+9.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-9e.sh'
 
 Package: 13.0e-picons
 Version: test     شعار قنوات هوتبيرد
@@ -30,10 +50,40 @@ Version: test     شعار قنوات يوتل سات ١٦
 Status: Service.reference.picons
 16.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-16e.sh'
 
+Package: 19.2e-picons
+Version: test     شعار قنوات استرا ١٩
+Status: Service.reference.picons
+19.2e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-19.2e.sh'
+
+Package: 23.5e-picons
+Version: test     شعار قنوات استرا ٢٣
+Status: Service.reference.picons
+23.5e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-23.5.sh'
+
 Package: 26.0e-picons
 Version: 05.01.2026     شعار قنوات بدر 
 Status: Service.reference.picons
 26.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
+
+Package: 28.2e-picons
+Version: test     شعار قنوات يوتل سات ٢٨
+Status: Service.reference.picons
+28.2e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-28e.sh'
+
+Package: 39.0e-picons
+Version: test     شعار قنوات هيلا سات
+Status: Service.reference.picons
+39.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-39e.sh'
+
+Package: 42.0e-picons
+Version: test     شعار قنوات تورك سات
+Status: Service.reference.picons
+42.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-42e.sh'
+
+Package: 52.0e-picons
+Version: test     شعار قنوات توركمان موناكو سات
+Status: Service.reference.picons
+52.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-52e.sh'
 
 Package: Picons-black
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
