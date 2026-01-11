@@ -204,7 +204,6 @@ class Piconstudio(Screen):
         # ===== BUILD MENU =====
         self.buildList()
 
-        # Background update from GitHub
         Timer(1, self.update_extensions_from_github).start()
 
     # ================= FILE =================
@@ -212,7 +211,7 @@ class Piconstudio(Screen):
         path = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/data/picons"
         return path if os.path.isfile(path) else None
 
-    # ================= LIST (WITH SMART HEADERS) =================
+    # ================= LIST (FIXED HEADER LOGIC) =================
     def buildList(self):
         self.list = []
         self.selected_plugins = []
@@ -222,7 +221,7 @@ class Piconstudio(Screen):
             self.showError(_("Picons file not found"))
             return
 
-        # Step 1: parse all packages
+        # ---------- parse packages ----------
         packages = []
         name = version = description = status = None
 
@@ -253,7 +252,7 @@ class Piconstudio(Screen):
                 })
                 name = version = description = status = None
 
-        # Step 2: collect existing headers from file in order
+        # ---------- read header order from file ----------
         existing_headers = []
         with open(path) as f:
             for line in f:
@@ -262,18 +261,24 @@ class Piconstudio(Screen):
                         if st not in existing_headers:
                             existing_headers.append(st)
 
-        # Step 3: Build final list with smart headers
-        self.list = []
-        headers_added = set()
-
+        # ---------- FIX: group packages by status ----------
+        grouped = {}
         for pkg in packages:
             for st in pkg["statuses"]:
-                # Add header if not already added
-                if st not in headers_added:
-                    self.list.append((None, "☆  %s" % st, "", "", "HEADER", "", "", ""))
-                    headers_added.add(st)
+                grouped.setdefault(st, []).append(pkg)
 
-                # Add package under this header
+        # ---------- FIX: build list in correct order ----------
+        self.list = []
+
+        for st in existing_headers:
+            if st not in grouped:
+                continue
+
+            self.list.append(
+                (None, "☆  %s" % st, "", "", "HEADER", "", "", "")
+            )
+
+            for pkg in grouped[st]:
                 self.list.append(
                     (
                         self.unchecked_icon,
@@ -301,8 +306,6 @@ class Piconstudio(Screen):
             return
 
         icon, name, version, description, status, *_ = cur
-
-        # Block headers
         if status == "HEADER":
             return
 
@@ -324,7 +327,7 @@ class Piconstudio(Screen):
     def updateCounter(self):
         self["selection_count"].setText(_("Selected: %d") % len(self.selected_plugins))
 
-    # ================= SELECT / DESELECT ALL =================
+    # ================= SELECT ALL =================
     def toggleSelectAll(self):
         items = [row for row in self.list if row[4] != "HEADER"]
 
