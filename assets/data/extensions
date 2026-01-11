@@ -603,7 +603,7 @@ Showclock='https://gitlab.com/eliesat/extensions/-/raw/main/showclock/showclock.
 
 
 Package: Simplysports
-Version: 1.1     تغطية مباشرة لنتائج المباريات
+Version: 1.2     تغطية مباشرة لنتائج المباريات
 Status: Plg
 Simplysports='https://gitlab.com/eliesat/extensions/-/raw/main/simplysports/simplysports.sh'
 
