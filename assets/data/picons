@@ -1,4 +1,8 @@
 ##############picons###############
+Package: Satellites.xml
+Version: test     ملف ترددات افتراضي لتجربة لاجراء بحث جديد
+Status: Demo
+Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: picons-motor
 Version: test      شعارات القنوات للمتحرك
@@ -111,6 +115,6 @@ Status: other
 Picons-zelda='https://gitlab.com/eliesat/picons/-/raw/main/picons-zelda.sh'
 
 Package: Channels
-Version: test     ملف قنوات افتراضي لتجربة شعار القنوات
+Version: test     ملف قنوات افتراضي لتجربة شعارات القنوات
 Status: Demo
 Channels='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
