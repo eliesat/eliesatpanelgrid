@@ -1,8 +1,13 @@
 ##############picons###############
 Package: Satellites.xml
-Version: test     ملف ترددات افتراضي لاجراء بحث جديد
+Version: 11.01.2026     ملف ترددات افتراضي لاجراء بحث جديد
 Status: Demo
-Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
+Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/satellites.xml.sh'
+
+Package: Channels
+Version: test     ملف قنوات افتراضي لتجربة شعارات القنوات
+Status: Demo
+Channels='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
 
 Package: picons-motor
 Version: test      شعارات القنوات للمتحرك
@@ -113,8 +118,3 @@ Package: Picons-zelda
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
 Status: other
 Picons-zelda='https://gitlab.com/eliesat/picons/-/raw/main/picons-zelda.sh'
-
-Package: Channels
-Version: test     ملف قنوات افتراضي لتجربة شعارات القنوات
-Status: Demo
-Channels='https://gitlab.com/eliesat/picons/-/raw/main/demo.sh'
