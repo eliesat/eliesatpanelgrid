@@ -85,6 +85,11 @@ Version: test     شعار قنوات توركمان موناكو سات
 Status: Service.reference.picons
 52.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-52e.sh'
 
+Package: ipaudio-picons
+Version: twat     شعار قنوات بلاجين اي بي اوديو
+Status: other 
+ipaudio-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-ipaudio.sh'
+
 Package: Picons-black
 Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
 Status: other 
