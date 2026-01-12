@@ -1,6 +1,6 @@
 ##############picons###############
 Package: Satellites.xml
-Version: 11.01.2026     ملف ترددات افتراضي لاجراء بحث جديد
+Version: 12.01.2026     ملف ترددات افتراضي لاجراء بحث جديد
 Status: Demo
 Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/satellites.xml.sh'
 
@@ -70,7 +70,7 @@ Status: Service.reference.picons
 23.5e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-23.5e.sh'
 
 Package: 26.0e-picons
-Version: 05.01.2026     شعار قنوات بدر 
+Version: 12.01.2026     شعار قنوات بدر و المجاور
 Status: Service.reference.picons
 26.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
