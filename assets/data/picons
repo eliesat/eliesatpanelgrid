@@ -40,7 +40,7 @@ Status: Service.reference.picons
 0.8W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-0.8w.sh'
 
 Package: 1.9e-picons
-Version: test     شعار قنوات بلغاريا سات
+Version: 12.01.2026     شعار قنوات بلغاريا سات
 Status: Service.reference.picons
 1.9e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-1.9e.sh'
 
