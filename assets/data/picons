@@ -25,7 +25,7 @@ Status: Service.reference.picons
 7.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-7w.sh'
 
 Package: 5.0W-picons
-Version: test     شعار قنوات يوتل سات ٥
+Version: 12.01.2026     شعار قنوات يوتل سات ٥
 Status: Service.reference.picons
 5.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-5w.sh'
 
