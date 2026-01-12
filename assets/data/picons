@@ -50,7 +50,7 @@ Status: Service.reference.picons
 9.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-9e.sh'
 
 Package: 13.0e-picons
-Version: test     شعار قنوات هوتبيرد
+Version: 12.01.2026     شعار قنوات هوتبيرد
 Status: Service.reference.picons
 13.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-13e.sh'
 
