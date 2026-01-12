@@ -35,7 +35,7 @@ Status: Service.reference.picons
 4.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-4w.sh'
 
 Package: 0.8W-picons
-Version: test     شعار قنوات ثور
+Version: 12.01.2026     شعار قنوات ثور
 Status: Service.reference.picons
 0.8W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-0.8w.sh'
 
