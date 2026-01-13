@@ -75,7 +75,7 @@ Status: Service.reference.picons
 26.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-26e.sh'
 
 Package: 28.2e-picons
-Version: test     شعار قنوات يوتل سات ٢٨
+Version: 13.01.2026     شعار قنوات يوتل سات ٢٨
 Status: Service.reference.picons
 28.2e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-28e.sh'
 
