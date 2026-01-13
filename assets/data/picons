@@ -80,7 +80,7 @@ Status: Service.reference.picons
 28.2e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-28e.sh'
 
 Package: 39.0e-picons
-Version: test     شعار قنوات هيلا سات
+Version: 13.01.2026     شعار قنوات هيلا سات
 Status: Service.reference.picons
 39.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-39e.sh'
 
