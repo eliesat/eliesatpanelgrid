@@ -85,7 +85,7 @@ Status: Service.reference.picons
 39.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-39e.sh'
 
 Package: 42.0e-picons
-Version: test     شعار قنوات تورك سات
+Version: 14.01.2026     شعار قنوات تورك سات
 Status: Service.reference.picons
 42.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-42e.sh'
 
