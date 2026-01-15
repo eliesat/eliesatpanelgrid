@@ -36,7 +36,7 @@ Status: Settings
 Morpheus883-motor='https://gitlab.com/eliesat/settings/-/raw/main/morpheus883/morpheus883-motor.sh'
 
 Package: Novaler-motor
-Version: 01.09.2025     ملف قنوات
+Version: 15.01.2026     ملف قنوات
 Status: Settings
 Novaler-motor='https://gitlab.com/eliesat/settings/-/raw/main/novaler-motor/novaler-motor.sh'
 
@@ -54,11 +54,6 @@ Package: Vhannibal-motor
 Version: 07.12.2025     ملف قنوات
 Status: Settings
 Vhannibal-motor='https://gitlab.com/eliesat/settings/-/raw/main/vhannibal/vhannibal-motor.sh'
-
-Package: Freq-Eliesat
-Version: 12.08.2025     ملف ترددات
-Status: Freq
-Freq-Eliesat='https://gitlab.com/eliesat/settings/-/raw/main/eliesat/installer.sh'
 
 Package: Freq-Flysat
 Version: 18.12.2024     ملف ترددات
