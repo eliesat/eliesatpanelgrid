@@ -984,7 +984,7 @@ Status: Pan
 Oneupdater='https://gitlab.com/eliesat/extensions/-/raw/main/oneupdater/oneupdater.sh'
 
 Package: Panelaio
-Version: 1.8     بانل تسطيب اضافات
+Version: 6.0     بانل تسطيب اضافات
 Status: Pan
 Panelaio='https://gitlab.com/eliesat/extensions/-/raw/main/panelaio/panelaio.sh'
 
