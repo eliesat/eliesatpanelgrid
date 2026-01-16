@@ -923,6 +923,11 @@ Version: 10.8.5     ادارة الملفات و مجموعة الخدمات
 Status: Pan
 Ajpanel='https://gitlab.com/eliesat/extensions/-/raw/main/ajpanel/ajpanel.sh'
 
+Package: Canpanel
+Version: 1.5.4     بانل تسطيب اضافات 
+Status: Pan
+Canpanel='https://gitlab.com/eliesat/extensions/-/raw/main/canpanel/canpanel.sh'
+
 Package: Ciefp-plugins
 Version: 2.4     بانل تسطيب اضافات خاصة ببافل سييف
 Status: Pan
