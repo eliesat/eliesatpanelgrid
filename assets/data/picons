@@ -90,7 +90,7 @@ Status: Service.reference.picons
 42.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-42e.sh'
 
 Package: 52.0e-picons
-Version: test     شعار قنوات توركمان موناكو سات
+Version: 16.01.2026     شعار قنوات توركمان موناكو سات
 Status: Service.reference.picons
 52.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-52e.sh'
 
