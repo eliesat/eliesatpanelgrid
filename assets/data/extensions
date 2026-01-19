@@ -127,7 +127,7 @@ Status: Plg
 Calculatore2='https://gitlab.com/eliesat/extensions/-/raw/main/calculatore2/calculatore2.sh'
 
 Package: Calendar
-Version: 1.9     رزنامة
+Version: 2.1     رزنامة
 Status: Plg
 Calendar='https://gitlab.com/eliesat/extensions/-/raw/main/calendar/calendar.sh'
 
@@ -285,7 +285,7 @@ Status: Plg
 Hardwareinfo='https://gitlab.com/eliesat/extensions/-/raw/main/hardwareinfo/hardwareinfo.sh'
 
 Package: Hasbahca
-Version: 2.0     اي بي تي في مجاني
+Version: 2.3     اي بي تي في مجاني
 Status: Plg
 Hasbahca='https://gitlab.com/eliesat/extensions/-/raw/main/hasbahca/hasbahca.sh'
 
