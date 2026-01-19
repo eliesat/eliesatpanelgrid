@@ -182,6 +182,7 @@ class Softcams(Screen):
             ("Linuxsat25", "Emus", "Lin"),
             ("Mohamed_os", "Emus", "Moh"),
             ("Samur", "Emus", "Sam"),
+            ("Youchie", "Emus", "You"),
             ("Other", "Other", "Oth"),
             ("Softcams-file", "Softcams-file", "Soft"),
         ]
