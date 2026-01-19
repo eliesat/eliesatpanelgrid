@@ -5,7 +5,7 @@ Status: Demo
 Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/satellites.xml.sh'
 
 Package: Channels
-Version: 11.01.2026     ملف قنوات افتراضي لتجربة شعارات القنوات
+Version: 19.01.2026     ملف قنوات افتراضي لتجربة شعارات القنوات
 Status: Demo
 Channels='https://gitlab.com/eliesat/picons/-/raw/main/channels.sh'
 
@@ -30,7 +30,7 @@ Status: Service.reference.picons
 5.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-5w.sh'
 
 Package: 4.0W-picons
-Version: test     شعار قنوات آموس
+Version: 19.01.2026     شعار قنوات آموس
 Status: Service.reference.picons
 4.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-4w.sh'
 
