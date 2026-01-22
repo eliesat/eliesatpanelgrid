@@ -343,7 +343,7 @@ Ipaudiopro-2='https://gitlab.com/eliesat/extensions/-/raw/main/ipaudiopro/1.5/ip
 
 Package: Ipchecker-004
 Version: 1.0     عرض اي يي الرسيفر
-Status: Plg Aud
+Status: Plg Uti
 Ipchecker-004='https://gitlab.com/eliesat/extensions/-/raw/main/ipchecker/ipchecker.sh'
 
 Package: Iptosat
