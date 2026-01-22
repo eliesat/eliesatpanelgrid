@@ -143,7 +143,7 @@ Cccamimfo='https://gitlab.com/eliesat/extensions/-/raw/main/cccaminfo/cccaminfo.
 
 Package: Chocholousek
 Version: 5.0.240904     تسطيب بيكونات
-Status: Pic Plg
+Status: Plg Pic
 Chocholousek='https://gitlab.com/eliesat/extensions/-/raw/main/chocholousek-picons/chocholousek-picons.sh'
 
 Package: Crashlogviewer
