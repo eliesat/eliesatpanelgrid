@@ -211,12 +211,24 @@ class Addons(Screen):
     def load_main_menu(self):
         self.in_submenu = False
         self.main_categories = [
-            ("Plugins", "Installable plugins", "Plg"),
-            ("Multiboot", "Multiboot images", "Mul"),
-            ("Novaler", "Novaler tools", "Nov"),
-            ("Panels", "Panels and menus", "Pan"),
-            ("System", "System utilities", "Sys"),
-            ("Free", "Free packages", "Free"),
+            ("Allinone", "All installable plugins", "Plg"),
+            ("Audio", "Audio", "Aud"),
+            ("Backup", "Backup", "Bac"),
+            ("Epg", "Epg", "Epg"),
+            ("Encryption", "Encryption", "Enc"),
+            ("Free", "Free", "Free"),
+            ("Iptv", "Iptv", "Ipt"),
+            ("Quran", "Quran", "Qur"),
+            ("Multiboot", "Multiboot", "Mul"),
+            ("Novaler", "Novaler", "Nov"),
+            ("Panels", "Panels", "Pan"),
+            ("Settings", "Settings", "Set"),
+            ("Sport", "Sport", "Spo"),
+            ("Subtitle", "Subtitle", "Sub"),
+            ("System", "System", "Sys"),
+            ("Radio", "Radio", "Rad"),
+            ("Utility", "Utility", "Uti"),
+            ("Weather", "Weather", "Wea"),
         ]
 
         categories_display = [(x[0], x[1]) for x in self.main_categories]
@@ -229,42 +241,46 @@ class Addons(Screen):
     # ---------------- Submenu Loader ----------------
     def load_sub_menu(self, status, title):
         self.in_submenu = True
-        packages = []
-        submenu_index = self.submenu_indices.get(title, 0)
+        self.submenu_title = title
+        items = []
+        saved = self.submenu_indices.get(title, 0)
 
         try:
-            if not os.path.exists(LOCAL_EXTENSIONS):
-                raise FileNotFoundError(f"extensions file not found: {LOCAL_EXTENSIONS}")
-
-            with open(LOCAL_EXTENSIONS, "r", encoding="utf-8") as f:
+            with open(LOCAL_EXTENSIONS, "r") as f:
                 lines = f.read().splitlines()
 
-            name = version = desc = st = ""
+            name = version = desc = ""
+
             for line in lines:
                 line = line.strip()
                 if not line:
                     continue
+
                 if line.startswith("Package:"):
                     name = line.split(":", 1)[1].strip()
-                elif line.startswith("Version:"):
-                    parts = line.split(":", 1)[1].strip().split(None, 1)
-                    version = parts[0]
-                    desc = parts[1] if len(parts) > 1 else ""
-                elif line.startswith("Status:"):
-                    st = line.split(":", 1)[1].strip()
-                    if st.lower() == status.lower():
-                        packages.append((f"{name}-{version}", desc))
-                    name = version = desc = st = ""
 
-            if not packages:
-                packages.append((f"No packages with Status: {status}", ""))
+                elif line.startswith("Version:"):
+                    p = line.split(":", 1)[1].strip().split(None, 1)
+                    version = p[0]
+                    desc = p[1] if len(p) > 1 else ""
+
+                elif line.startswith("Status:"):
+                    raw = line.split(":", 1)[1].strip()
+                    statuses = raw.replace(",", " ").split()
+
+                    if status in statuses:
+                        items.append(("%s-%s" % (name, version), desc))
+
+                    name = version = desc = ""
+
+            if not items:
+                items = [("No packages", "")]
 
         except Exception as e:
-            packages.append((f"Error reading extensions: {e}", ""))
+            items = [("Error", str(e))]
 
-        self.submenu_title = title
-        self["menu"].setList(packages)
-        self["menu"].setIndex(submenu_index if submenu_index < len(packages) else 0)
+        self["menu"].setList(items)
+        self["menu"].setIndex(saved)
         self.updateDescription()
         self.updatePageInfo()
 
