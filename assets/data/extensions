@@ -156,18 +156,15 @@ Version: 1.3     اضافة توقيت للسكريبت برسم التنفيذ
 Status: Plg
 Crondmanager='https://gitlab.com/eliesat/extensions/-/raw/main/crondmanager/crondmanager.sh'
 
-
 Package: Diskcputemp
 Version: 1.2     تصفح حرارة الهارد زدو المعالج
 Status: Plg
 Diskcputemp='https://gitlab.com/eliesat/extensions/-/raw/main/diskcputemp/diskcputemp.sh'
 
-
 Package: Dreamexplorer
 Version: 2024.08.21     مدير ملفات
 Status: Plg
 Dreamexplorer='https://gitlab.com/eliesat/extensions/-/raw/main/dreamexplorer/dreamexplorer.sh'
-
 
 Package: E2bisskeyeditor
 Version: 2.0     إضافة مفاتيح البيس
@@ -417,7 +414,7 @@ M3uconverter='https://gitlab.com/eliesat/extensions/-/raw/main/m3uconverter/m3uc
 
 Package: Mmpicons
 Version: 1.4     تسطيب بيكونات
-Status: Plg
+Status: Plg Pic
 Mmpicons='https://gitlab.com/eliesat/extensions/-/raw/main/mmpicons/mmpicons.sh'
 
 Package: Moviebrowser
@@ -498,7 +495,7 @@ Piconbuddy='https://gitlab.com/eliesat/extensions/-/raw/main/picon-buddy/picon-b
 
 Package: Piconinstaller
 Version: 24.08.23     تسطيب بيكونات
-Status: Plg
+Status: Plg Pic
 Piconinstaller='https://gitlab.com/eliesat/extensions/-/raw/main/piconinstaller/piconinstaller.sh'
 
 Package: Pluginskinmover
@@ -583,7 +580,7 @@ Servereaglesat='https://gitlab.com/eliesat/extensions/-/raw/main/servereaglesat/
 
 Package: Setpicon
 Version: 2.0     تمرير بيكون للقناة
-Status: Plg
+Status: Plg Pic
 Setpicon='https://gitlab.com/eliesat/extensions/-/raw/main/setpicon/setpicon.sh'
 
 Package: Sherlockmod
