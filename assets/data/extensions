@@ -21,7 +21,7 @@ Status: Plg Uti
 Advancedscreenshot='https://gitlab.com/eliesat/extensions/-/raw/main/advancedscreenshot/advancedscreenshot.sh'
 
 Package: Aisubtitles
-Version:  1.6     ترجمة الى اللغة العربية
+Version:  2.2     ترجمة الى اللغة العربية
 Status: Plg Sub
 Aisubtitles='https://gitlab.com/eliesat/extensions/-/raw/main/aisubtitles/aisubtitles.sh'
 
