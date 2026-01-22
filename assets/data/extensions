@@ -212,8 +212,8 @@ Status: Plg Epg
 Epgimport-mod-dorik='https://gitlab.com/eliesat/extensions/-/raw/main/epgimport-mod-dorik1972/epgimport-mod-dorik1972.sh'
 
 Package: Epgtranslator
-Version: 1.4.r2     ترجمة دليل الالكتروني
-Status: Plg Epg
+Version: 1.4.r2     ترجمة الدليل الالكتروني
+Status: Plg Sub
 Epgtranslator='https://gitlab.com/eliesat/extensions/-/raw/main/epgtranslator/epgtranslator.sh'
 
 Package: Estalker
@@ -272,7 +272,7 @@ Status: Plg Free
 Freeserver='https://gitlab.com/eliesat/extensions/-/raw/main/freeserver/freeserver.sh'
 
 Package: Geminipatcher
-Version: 1.0     الترجمة
+Version: 1.0     ترجمة الدليل الالكتروني
 Status: Plg Sub
 Geminipatcher='https://gitlab.com/eliesat/extensions/-/raw/main/geminipatcher/geminipatcher.sh'
 
