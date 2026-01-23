@@ -416,6 +416,11 @@ Version: 3.2     تحويل ال اي بي تي في لمفضلات
 Status: Plg Ipt
 M3uconverter='https://gitlab.com/eliesat/extensions/-/raw/main/m3uconverter/m3uconverter.sh'
 
+Package: Missingpicons
+Version: 2025.12.15     قائمة بالايقونات المفقودة
+Status: Plg Pic
+Missingpicons='https://gitlab.com/eliesat/extensions/-/raw/main/missingpicons/missingpicons.sh'
+
 Package: Mmpicons
 Version: 1.4     تسطيب بيكونات
 Status: Plg Pic
