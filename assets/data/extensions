@@ -652,6 +652,11 @@ Version: 4.0.6.1     مشاهدة و تنزيل افلام و مسلسلات
 Status: Plg Free
 Transmission='https://gitlab.com/eliesat/extensions/-/raw/main/transmission/transmission.sh'
 
+Package: Translateai
+Version: 6.6     الترجمة
+Status: Plg Sub
+Translateai='https://gitlab.com/eliesat/extensions/-/raw/main/translateai/translateai.sh'
+
 Package: Tvgarden
 Version: 1.7     اي بي تي في مجاني
 Status: Plg Free
@@ -1147,4 +1152,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h''''''''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h''''''''''''
