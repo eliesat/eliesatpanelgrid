@@ -222,6 +222,7 @@ class Addons(Screen):
             ("Multiboot", "Multiboot", "Mul"),
             ("Novaler", "Novaler", "Nov"),
             ("Panels", "Panels", "Pan"),
+            ("Picons", "Picons", "Pic"),
             ("Settings", "Settings", "Set"),
             ("Sport", "Sport", "Spo"),
             ("Subtitle", "Subtitle", "Sub"),
