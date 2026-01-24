@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-Version = '4.20'
-changelog='1.22.01.2026'
+Version = '4.21'
+changelog='1.24.01.2026'
