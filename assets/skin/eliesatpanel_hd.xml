@@ -78,7 +78,7 @@
         itemPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/Box_off.png"
         selPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/Box_on.png"
         foregroundColor="yellow"
-        transparent="0" />
+        backgroundColor="#000000" transparent="0" />
 
     <!-- Description -->
     <eLabel position="center,130" size="800,30" zPosition="11"
