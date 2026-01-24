@@ -691,7 +691,7 @@ Status: Plg Wea
 Visualweather='https://gitlab.com/eliesat/extensions/-/raw/main/visualweather/visualweather.sh'
 
 Package: Whattowatch
-Version: 3.3     دليل  البرامج
+Version: 4.1     دليل  البرامج
 Status: Plg Epg
 Whattowatch='https://gitlab.com/eliesat/extensions/-/raw/main/whattowatch/whattowatch.sh'
 
