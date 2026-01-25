@@ -1,11 +1,11 @@
 ##############picons###############
 Package: Satellites.xml
-Version: 15.01.2026     ملف ترددات افتراضي لاجراء بحث جديد
+Version: 25.01.2026     ملف ترددات افتراضي لاجراء بحث جديد
 Status: Demo
 Satellites.xml='https://gitlab.com/eliesat/picons/-/raw/main/satellites.xml.sh'
 
 Package: Channels
-Version: 19.01.2026     ملف قنوات افتراضي لتجربة شعارات القنوات
+Version: 25.01.2026     ملف قنوات افتراضي لتجربة شعارات القنوات
 Status: Demo
 Channels='https://gitlab.com/eliesat/picons/-/raw/main/channels.sh'
 
@@ -20,7 +20,7 @@ Status: Service.reference.picons
 30.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-30w.sh'
 
 Package: 7.0W-picons
-Version: test     شعار قنوات نيل سات و المجاور
+Version: 25.01.2026     شعار قنوات نيل سات و المجاور
 Status: Service.reference.picons
 7.0W-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-7w.sh'
 
