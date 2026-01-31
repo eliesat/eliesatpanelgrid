@@ -196,7 +196,7 @@ Status: Plg Enc
 Easy-cccam='https://gitlab.com/eliesat/extensions/-/raw/main/easy-cccam/easy-cccam.sh'
 
 Package: Epggrabber-ziko
-Version: 24.7     الدليل الالكتروني
+Version: 24.8     الدليل الالكتروني
 Status: Plg Epg
 Epggrabber-ziko='https://gitlab.com/eliesat/extensions/-/raw/main/epggrabber2/epggrabber.sh'
 
@@ -671,7 +671,7 @@ Status: Plg Free
 Tvgarden='https://gitlab.com/eliesat/extensions/-/raw/main/tvgarden/tvgarden.sh'
 
 Package: Vavoo-plugin
-Version: 1.43     اي بي تي في مجاني
+Version: 1.46     اي بي تي في مجاني
 Status: Plg Free
 Vavoo-plugin='https://gitlab.com/eliesat/extensions/-/raw/main/vavoo/vavoo.sh'
 
