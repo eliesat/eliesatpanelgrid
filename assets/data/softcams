@@ -86,7 +86,7 @@ Status: Moh
 Ultracam-Ncam='https://gitlab.com/eliesat/softcams/-/raw/main/mohamed-os/ultracam-ncam.sh'
 
 Package: Oscam
-Version: 11939.emu.r802     .ipk .deb
+Version: 11942.emu.r802     .ipk .deb
 Status: Moh
 Oscam='https://gitlab.com/eliesat/softcams/-/raw/main/mohamed-os/oscam.sh'
 
