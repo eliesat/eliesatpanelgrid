@@ -100,7 +100,7 @@ Status: Soebased Sobh Spli3 Svix Segami Satv Sspa Spure
 Fullhdglass17='https://gitlab.com/eliesat/skins/-/raw/main/all/fullhdglass17/fullhdglass17.sh'
 
 Package: Fury-fhd
-Version: 6.4     
+Version: 6.6     
 Status: Soebased Segami Satv Sspa Sobh Spure Svix Spli3
 Fury-fhd='https://gitlab.com/eliesat/skins/-/raw/main/all/fury-fhd/fury-fhd.sh'
 
@@ -376,6 +376,7 @@ Qxklass-obh='https://gitlab.com/eliesat/skins/-/raw/main/obh/qxklass-obh/qxklass
 
 
 --------------openatv-------------
+
 Package: Darkforest
 Version: 1.0     
 Status: Soebased Satv
@@ -405,6 +406,11 @@ Package: Maxy-fhd-atv
 Version: 1.0     
 Status: Soebased Satv
 Maxy-fhd-atv='https://gitlab.com/eliesat/skins/-/raw/main/all/maxy-fhd/maxy-fhd.sh'
+
+Package: Metrixfhd-neo 
+Version: 7.5.6     
+Status: Soebased Satv
+Metrixfhd-neo='https://gitlab.com/eliesat/skins/-/raw/main/atv/metrixfhd-neo/metrixfhd-neo.sh'
 
 Package: Obs-elite-fhd
 Version: 1.0     
