@@ -63,6 +63,7 @@ from Plugins.Extensions.ElieSatPanelGrid.menus.Toolsp import Toolsp
 from Plugins.Extensions.ElieSatPanelGrid.menus.About import Abt
 from Plugins.Extensions.ElieSatPanelGrid.menus.Imagesdownloader import Imagesdownloader
 from Plugins.Extensions.ElieSatPanelGrid.menus.Piconstudio import Piconstudio
+from Plugins.Extensions.ElieSatPanelGrid.menus.Infobox import Infobox
 from Plugins.Extensions.ElieSatPanelGrid.menus.Libraries import Libraries
 from Plugins.Extensions.ElieSatPanelGrid.menus.Helpers import (
     get_local_ip,
@@ -530,6 +531,7 @@ class EliesatPanel(Screen):
             ("About", "About"),
             ("ImagesDownloader", "بلاجين تنزيل صور خام من الموقع الرسمي"),
             ("PiconStudio", "Trial"),
+            ("Infobox", "Trial"),
             ("Libraries", "Trial"),
             ("Initializer", "Trial"),
             ("Backups", "Trial"),
@@ -594,6 +596,7 @@ class EliesatPanel(Screen):
                 "About": Abt,
                 "ImagesDownloader": Imagesdownloader,
                 "PiconStudio": Piconstudio,
+                "Infobox": Infobox,
             }
             if name in submenu_map:
                 self.session.open(submenu_map[name])
