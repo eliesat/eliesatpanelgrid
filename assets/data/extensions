@@ -1113,7 +1113,7 @@ Status: Sys
 Weathercomponenthandler='https://gitlab.com/eliesat/extensions/-/raw/main/weathercomponenthandler/weathercomponenthandler.sh'
 
 Package: xmlupdate
-Version: 3.12     تحديث ملف الترددات
+Version: 6.8     تحديث ملف الترددات
 Status: Sys
 xmlupdate='https://gitlab.com/eliesat/systemplugins/-/raw/main/xmlupdate/xmlupdate.sh'
 
@@ -1160,4 +1160,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h''''''''''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h'''''''''''''
