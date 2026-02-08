@@ -75,6 +75,11 @@ Version: 9.5     باكآب الصورة
 Status: Plg Bac
 Backupflashe='https://gitlab.com/eliesat/extensions/-/raw/main/backupflashe/backupflashe.sh'
 
+Package: Backupsuite
+Version: 3.0.r10     باكآب الصورة
+Status: Plg Bac
+Backupsuite='https://gitlab.com/eliesat/extensions/-/raw/main/backupsuite/backupsuite.sh'
+
 Package: Bissfeedautokey
 Version: 2.8     الفيدات و شفرات البيس
 Status: Plg Enc
@@ -611,7 +616,7 @@ Status: Plg Uti
 Showclock='https://gitlab.com/eliesat/extensions/-/raw/main/showclock/showclock.sh'
 
 Package: Simplysports
-Version: 3.6     تغطية مباشرة لنتائج المباريات
+Version: 3.9     تغطية مباشرة لنتائج المباريات
 Status: Plg Spo
 Simplysports='https://gitlab.com/eliesat/extensions/-/raw/main/simplysports/simplysports.sh'
 
@@ -671,7 +676,7 @@ Status: Plg Free
 Tvgarden='https://gitlab.com/eliesat/extensions/-/raw/main/tvgarden/tvgarden.sh'
 
 Package: Vavoo-plugin
-Version: 1.46     اي بي تي في مجاني
+Version: 1.47     اي بي تي في مجاني
 Status: Plg Free
 Vavoo-plugin='https://gitlab.com/eliesat/extensions/-/raw/main/vavoo/vavoo.sh'
 
