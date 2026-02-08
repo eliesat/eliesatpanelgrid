@@ -115,11 +115,6 @@ Version: 1.0     تثبيت الساعة على الشاشة بشكل دائم
 Status: Plg Uti
 Bundesliga-clock='https://gitlab.com/eliesat/extensions/-/raw/main/bundesliga-permanent-clock/bundesliga-permanent-clock.sh'
 
-Package: Boxtools
-Version: 1.8     ادوات و خدمات  مختلفة
-Status: Plg Uti
-Boxtools='https://gitlab.com/eliesat/extensions/-/raw/main/boxtools/boxtools.sh'
-
 Package: Cacheflush
 Version: 2.2     مسح ملفات الكاش من الذاكرة العشوائية
 Status: Plg Uti
@@ -945,6 +940,11 @@ Version: 10.8.5     ادارة الملفات و مجموعة الخدمات
 Status: Pan
 Ajpanel='https://gitlab.com/eliesat/extensions/-/raw/main/ajpanel/ajpanel.sh'
 
+Package: Boxtools
+Version: 1.8     بانل تسطيب إضافات
+Status: Pan
+Boxtools='https://gitlab.com/eliesat/extensions/-/raw/main/boxtools/boxtools.sh'
+
 Package: Canpanel
 Version: 1.5.7     بانل تسطيب اضافات 
 Status: Pan
@@ -1165,4 +1165,4 @@ Ipaudiopro-haitham='https://gitlab.com/eliesat/free/-/raw/main/ipaudio/ipaudiopr
 Package: Ipaudiopro-radios
 Version: 14.07.2024     صوتيات م. الصفطي
 Status: Free
-Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h'''''''''''''
+Ipaudiopro-radios='https://gitlab.com/eliesat/free/-/raw/main/ipaudio-elsafty/ipaudio.sh'-elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''''elsafty/ipaudio.sh'''h'''''-elsafty/ipaudio.sh'''h'''''''.sh'''h'''''''''h''''''''h'''''''''''''''''''''''
