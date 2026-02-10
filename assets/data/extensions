@@ -25,6 +25,11 @@ Version:  2.2     ترجمة الى اللغة العربية
 Status: Plg Sub
 Aisubtitles='https://gitlab.com/eliesat/extensions/-/raw/main/aisubtitles/aisubtitles.sh'
 
+Package: Aisubtitles-hybrid
+Version:  2.5     ترجمة الى اللغة العربية
+Status: Plg Sub
+Aisubtitles-hybrid='https://gitlab.com/eliesat/extensions/-/raw/main/aisubtitle-hybrid/aisubtitle-hybrid.sh'
+
 Package: Softcammanager
 Version: 2.0     ادارة الكامات
 Status: Plg Enc
