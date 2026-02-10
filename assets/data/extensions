@@ -425,6 +425,11 @@ Version: 2025.12.15     قائمة بالايقونات المفقودة
 Status: Plg Pic
 Missingpicons='https://gitlab.com/eliesat/extensions/-/raw/main/missingpicons/missingpicons.sh'
 
+Package: Mixpaudio
+Version: 1.0.r2     اضافة الصوتيات على قنوات السات
+Status: Plg Aud
+Mixpaudio='https://gitlab.com/eliesat/extensions/-/raw/main/mixaudio/mixaudio.sh'
+
 Package: Mmpicons
 Version: 1.4     تسطيب بيكونات
 Status: Plg Pic
