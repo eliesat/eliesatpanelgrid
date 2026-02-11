@@ -1132,6 +1132,11 @@ Version: 6.8     تحديث ملف الترددات
 Status: Sys
 xmlupdate='https://gitlab.com/eliesat/systemplugins/-/raw/main/xmlupdate/xmlupdate.sh'
 
+Package: xmlupdate.byiet5
+Version: 6.8     تحديث ملف الترددات
+Status: Sys
+xmlupdate.byiet5='https://gitlab.com/eliesat/extensions/-/raw/main/xmlupdatebyiet5/xmlupdatebyiet5.sh'
+
 Package: Fonts
 Version: 1.0.r0     ملف خطوط
 Status: Sys
