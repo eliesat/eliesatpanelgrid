@@ -314,10 +314,15 @@ Wifi.zgemmah7s='https://gitlab.com/eliesat/drivers/-/raw/main/network-usb-zgemma
 
 ###################################
 
-Package: Settings-subssupport
-Version: 1.0       اعدادات د. محمد نصر بلاجين الترجمة
+Package: base64.Obfuscate
+Version: 1.0       تحويل سكريبت مقروء ل base64
 Status: Other
-Settings-subssupport='https://raw.githubusercontent.com/eliesat/oe2/main/allineone/all/_credentials_subssupport.sh'
+base64.Obfuscate='https://gitlab.com/eliesat/scripts/-/raw/main/all/_base64.Obfuscate.sh'
+
+Package: base64.decode
+Version: 1.0       تحويل سكريبت base64 لملف مقروء
+Status: Other
+base64.decode='https://gitlab.com/eliesat/scripts/-/raw/main/all/_base64.decode.sh'
 
 Package: Scripts-update
 Version: 1.0       تحديث لايحة السكريبتات
