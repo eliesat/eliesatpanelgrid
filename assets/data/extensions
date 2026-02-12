@@ -521,7 +521,7 @@ Status: Plg Pic
 Piconinstaller='https://gitlab.com/eliesat/extensions/-/raw/main/piconinstaller/piconinstaller.sh'
 
 Package: pluginspanel
-Version: 1.0     تصفح لايحة البلاجينات
+Version: 1.1     تصفح لايحة البلاجينات
 Status: Plg Uti
 pluginspanel='https://gitlab.com/eliesat/extensions/-/raw/main/pluginspanel/pluginspanel.sh'
 
