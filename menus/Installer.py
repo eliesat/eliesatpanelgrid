@@ -12,14 +12,9 @@ import time
 import threading
 import warnings
 
-# -----------------------------
-# Suppress Python 3.14 deprecation warnings for tarfile
-# -----------------------------
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# --------------------------------------------------
-# CONFIG
-# --------------------------------------------------
+# Config
 PLUGIN_URL = "https://github.com/eliesat/eliesatpanelgrid/archive/main.tar.gz"
 SCRIPTS_URL = "https://github.com/eliesat/scripts/archive/main.tar.gz"
 
@@ -31,9 +26,7 @@ SCRIPTS_PATH = "/usr/script/Eliesat-Eliesatpanel.sh"
 
 OUTPUT_LOG = "/tmp/panel.txt"
 
-# --------------------------------------------------
-# UTILITIES
-# --------------------------------------------------
+# Utilities
 
 def log(msg, newline=True):
     """Print and log message to file"""
@@ -100,12 +93,12 @@ def extract_tar(tar_path, dest="/tmp"):
     with tarfile.open(tar_path, "r:gz") as tar:
         tar.extractall(path=dest, numeric_owner=False)
 
-# --------------------------------------------------
-# Animated message with threading
-# --------------------------------------------------
+
+# Animated message
+
 def animated_message(stop_event):
     """Show animated message until stop_event is set"""
-    message = "Downloading and installing deps and the panel from server please wait"
+    message = "> Downloading and installing ElieSatPanelGrid  from server please wait"
     dots = ["   ", ".  ", ".. ", "..."]
     i = 0
     while not stop_event.is_set():
@@ -114,9 +107,7 @@ def animated_message(stop_event):
         time.sleep(0.5)
     print()  # move to next line when finished
 
-# --------------------------------------------------
 # MAIN
-# --------------------------------------------------
 
 # Reset panel.txt log
 if os.path.exists(OUTPUT_LOG):
@@ -148,16 +139,12 @@ if python_version.startswith("2"):
 
 pkg_manager = detect_package_manager()
 
-# -------------------------------
 # Start animated message in background
-# -------------------------------
 stop_animation = threading.Event()
 thread = threading.Thread(target=animated_message, args=(stop_animation,))
 thread.start()
 
-# -------------------------------
 # Install dependencies silently
-# -------------------------------
 if pkg_manager:
     if python_version.startswith("3"):
         install_package("python3-requests", pkg_manager)
@@ -166,9 +153,7 @@ if pkg_manager:
         install_package("python-requests", pkg_manager)
         install_package("python-six", pkg_manager)
 
-# -------------------------------
 # Remove old installation
-# -------------------------------
 if os.path.exists(PLUGIN_DIR):
     shutil.rmtree(PLUGIN_DIR)
 
@@ -186,23 +171,17 @@ if not os.path.exists(SCRIPTS_PATH):
     extract_tar(SCRIPTS_TMP)
     run("cp -r /tmp/scripts-main/usr/* /usr/", silent=True)
 
-# -------------------------------
 # Stop animated message
-# -------------------------------
 stop_animation.set()
 thread.join()
 
 # --------------------------------------------------
-# CLEAN TMP FILES (silent)
-# --------------------------------------------------
+# CLEAN TMP FILES 
 for f in [PLUGIN_TMP, SCRIPTS_TMP]:
     if os.path.exists(f):
         os.remove(f)
 
-# --------------------------------------------------
-# FINISH
-# --------------------------------------------------
-
+log("--------------------------------------------------")
 log("--------------------------------------------------")
 log("ElieSatPanelGrid installed successfully.")
 log("--------------------------------------------------")
