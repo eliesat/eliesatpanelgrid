@@ -98,7 +98,7 @@ def extract_tar(tar_path, dest="/tmp"):
 
 def animated_message(stop_event):
     """Show animated message until stop_event is set"""
-    message = "> Downloading and installing ElieSatPanelGrid  from server please wait"
+    message = "> Downloading and installing ElieSatPanelGrid from server please wait"
     dots = ["   ", ".  ", ".. ", "..."]
     i = 0
     while not stop_event.is_set():
