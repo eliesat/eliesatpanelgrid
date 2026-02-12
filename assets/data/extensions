@@ -520,6 +520,11 @@ Version: 24.08.23     تسطيب بيكونات
 Status: Plg Pic
 Piconinstaller='https://gitlab.com/eliesat/extensions/-/raw/main/piconinstaller/piconinstaller.sh'
 
+Package: pluginspanel
+Version: 1.0     تصفح لايحة البلاجينات
+Status: Plg Uti
+pluginspanel='https://gitlab.com/eliesat/extensions/-/raw/main/pluginspanel/pluginspanel.sh'
+
 Package: Pluginskinmover
 Version: 0.8     نقل و قراءة البلاجينات على التخزين الخارجي
 Status: Plg Uti
