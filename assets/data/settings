@@ -30,11 +30,6 @@ Version: 23.12.2025     ملف قنوات
 Status: Settings
 Islam-salama-motor='https://gitlab.com/eliesat/settings/-/raw/main/a.salama/a.salama-motor.sh'
 
-Package: Mohamed.os-motor
-Version: 01.02.2026     ملف قنوات
-Status: Settings
-Mohamed.os-motor='https://gitlab.com/eliesat/settings/-/raw/main/mohamed-os/mohamed-os-motor.sh'
-
 Package: Morpheus883-motor
 Version: 01.02.2026     ملف قنوات
 Status: Settings
