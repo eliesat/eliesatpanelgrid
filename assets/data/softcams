@@ -26,7 +26,7 @@ Status: You
 Oscam-Youchie='https://gitlab.com/eliesat/softcams/-/raw/main/youchie/oscam.sh'
 
 Package: Oscamicamall
-Version: v9.2     .ipk
+Version: v20     .ipk
 Status: Kit
 Oscamicamall='https://gitlab.com/eliesat/softcams/-/raw/main/kite888/oscamicamall-kite888.sh'
 
