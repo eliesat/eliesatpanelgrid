@@ -187,7 +187,7 @@ E2iplayer-oem='https://gitlab.com/eliesat/extensions/-/raw/main/e2iplayer-oem/e2
 
 Package: E2m3ubouquet
 Version: 2.0.13     تحويل ال اي بي تي في لمفضلات
-Status: Plg Iptv
+Status: Plg Ipt
 E2m3ubouquet='https://gitlab.com/eliesat/extensions/-/raw/main/e2m3u2bouquet/e2m3u2bouquet.sh'
 
 Package: E2readeradder
