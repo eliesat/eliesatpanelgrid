@@ -95,26 +95,26 @@ Status: Service.reference.picons
 52.0e-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-52e.sh'
 
 Package: ipaudio-picons
-Version: test     شعار قنوات بلاجين اي بي اوديو
+Version: 15.02.2026     شعار قنوات بلاجين اي بي اوديو
 Status: other 
 ipaudio-picons='https://gitlab.com/eliesat/picons/-/raw/main/picons-ipaudio.sh'
 
 Package: Picons-black
-Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
+Version: 15.02.2026     شعارات الايميو السات البروفايدر و التشفير
 Status: other 
 Picons-black='https://gitlab.com/eliesat/picons/-/raw/main/picons-black.sh'
 
 Package: Picons-transparent
-Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
+Version: 15.02.2026     شعارات الايميو السات البروفايدر و التشفير
 Status: other
 Picons-transparent='https://gitlab.com/eliesat/picons/-/raw/main/picons-transparent.sh'
 
 Package: Picons-white
-Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
+Version: 15.02.2026     شعارات الايميو السات البروفايدر و التشفير
 Status: other
 Picons-white='https://gitlab.com/eliesat/picons/-/raw/main/picons-white.sh'
 
 Package: Picons-zelda
-Version: 15.08.2025     شعارات الايميو السات البروفايدر و التشفير
+Version: 15.02.2026     شعارات الايميو السات البروفايدر و التشفير
 Status: other
 Picons-zelda='https://gitlab.com/eliesat/picons/-/raw/main/picons-zelda.sh'
