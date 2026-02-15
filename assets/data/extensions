@@ -186,7 +186,7 @@ Status: Plg Ipt
 E2iplayer-oem='https://gitlab.com/eliesat/extensions/-/raw/main/e2iplayer-oem/e2iplayer.sh'
 
 Package: E2m3ubouquet
-Version: 2.0.12     تحويل ال اي بي تي في لمفضلات
+Version: 2.0.13     تحويل ال اي بي تي في لمفضلات
 Status: Plg Iptv
 E2m3ubouquet='https://gitlab.com/eliesat/extensions/-/raw/main/e2m3u2bouquet/e2m3u2bouquet.sh'
 
@@ -361,12 +361,12 @@ Status: Plg Ipt
 Iptosat='https://gitlab.com/eliesat/extensions/-/raw/main/iptosat/iptosat.sh'
 
 Package: Iptvarchive
-Version: 2.0.93     معاينة ارشيف الاي بي تي في
+Version: 2.0.92     معاينة ارشيف الاي بي تي في
 Status: Plg Ipt
 Iptvarchive='https://gitlab.com/eliesat/extensions/-/raw/main/iptvarchive/iptvarchive.sh'
 
 Package: Iptvdream
-Version: 6.2     m3u قارئ و مشغل ملفات 
+Version: 6.3     m3u قارئ و مشغل ملفات 
 Status: Plg Ipt
 Iptvdream='https://gitlab.com/eliesat/extensions/-/raw/main/iptvdream-all/iptvdream-all.sh'
 
@@ -751,7 +751,7 @@ Status: Plg Ipt
 Xklass='https://gitlab.com/eliesat/extensions/-/raw/main/xklass/xklass.sh'
 
 Package: Xstreamity
-Version: 5.24     مشغل اي بي تي في
+Version: 5.30     مشغل اي بي تي في
 Status: Plg Ipt
 Xstreamity='https://gitlab.com/eliesat/extensions/-/raw/main/xstreamity/xstreamity.sh'
 
