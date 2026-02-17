@@ -36,8 +36,8 @@ SKIN_HD_XML = """
     <widget name="welcome" position="center,center-220" size="640,40" font="Bold;30" halign="center" valign="center" foregroundColor="white" transparent="1" zPosition="5"/>
     <widget name="icon" position="center,center" size="640,360" transparent="1" zPosition="1"/>
     <widget name="version_label" position="360,center+50" size="200,40" font="Bold;24" halign="center" valign="center" foregroundColor="white" transparent="1" zPosition="5"/>
-    <widget name="wait_text" position="120,320" size="200,40" font="Bold;30" halign="right" valign="center" foregroundColor="white" transparent="1" zPosition="6"/>
-    <widget name="wait_dots" position="340,320" size="40,40" font="Bold;30" halign="left" valign="center" foregroundColor="white" transparent="1" zPosition="6"/>
+    <widget name="wait_text" position="120,320" size="300,40" font="Bold;30" halign="right" valign="center" foregroundColor="white" transparent="1" zPosition="6"/>
+    <widget name="wait_dots" position="430,320" size="40,40" font="Bold;30" halign="left" valign="center" foregroundColor="white" transparent="1" zPosition="6"/>
 </screen>
 """
 
