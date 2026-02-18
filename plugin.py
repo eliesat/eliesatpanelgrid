@@ -131,14 +131,18 @@ class SplashScreen(Screen):
                 with urllib_requests.urlopen(url) as f:
                     content = f.read().decode()
 
-            m = re.search(r"Version\s*=\s*['\"](.+?)['\"]", content)
-            remote_version = m.group(1) if m else None
+            m_version = re.search(r"Version\s*=\s*['\"](.+?)['\"]", content)
+            remote_version = m_version.group(1) if m_version else None
+
+            m_changelog = re.search(r"changelog\s*=\s*['\"](.+?)['\"]", content)
+            remote_changelog = m_changelog.group(1) if m_changelog else ""
 
             if remote_version and remote_version != local_version:
+                message_text = f"New version {remote_version} is available.\n{remote_changelog}\nDo you want to update?"
                 self.session.openWithCallback(
                     self.update_answer,
                     MessageBox,
-                    "New version is %s\nDo you want to update?" % remote_version,
+                    message_text,
                     MessageBox.TYPE_YESNO
                 )
             else:
