@@ -4,6 +4,7 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.Pixmap import Pixmap
 from Components.Label import Label
+from Components.ProgressBar import ProgressBar
 from Tools.LoadPixmap import LoadPixmap
 from enigma import eTimer, getDesktop, eConsoleAppContainer
 import os
@@ -27,10 +28,10 @@ SKIN_FHD_XML = """
     <widget name="icon" position="center,center" size="768,512" transparent="1"/>
     <widget name="version_label" position="428,center+70" size="300,50"
         font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="224,460" size="300,50"
-        font="Bold;40" halign="right" valign="center" foregroundColor="white"/>
-    <widget name="wait_dots" position="526,460" size="50,50"
-        font="Bold;40" halign="left" valign="center" foregroundColor="white"/>
+    <widget name="wait_text" position="234,400" size="320,50"
+        font="Bold;30" halign="left" valign="center" foregroundColor="white"/>
+    <widget name="progress_bar" position="174,460" size="420,25"
+        zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
 
@@ -43,10 +44,10 @@ SKIN_HD_XML = """
     <widget name="icon" position="center,center" size="640,360" transparent="1"/>
     <widget name="version_label" position="360,center+50" size="200,40"
         font="Bold;24" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="120,320" size="300,40"
-        font="Bold;30" halign="right" valign="center" foregroundColor="white"/>
-    <widget name="wait_dots" position="430,320" size="40,40"
-        font="Bold;30" halign="left" valign="center" foregroundColor="white"/>
+    <widget name="wait_text" position="210,300" size="400,40"
+        font="Bold;24" halign="left" valign="center" foregroundColor="white"/>
+    <widget name="progress_bar" position="65,340" size="500,20"
+        zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
 
@@ -77,17 +78,11 @@ class SplashScreen(Screen):
         self["welcome"] = Label("○ Powering Your E2 Experience ○")
         self["version_label"] = Label("Version: %s" % self.read_version())
         self["wait_text"] = Label("")
-        self["wait_dots"] = Label("")
+        self["progress_bar"] = ProgressBar()
+        self["progress_bar"].setValue(0)
 
-        self.dot_count = 0
         self.is_updating = False
-
         self.onLayoutFinish.append(self.load_icon)
-
-        # animation timer
-        self.anim_timer = eTimer()
-        self.anim_timer.callback.append(self.animate_dots)
-        self.anim_timer.start(500, False)
 
         # start version check immediately
         self.version_timer = eTimer()
@@ -112,16 +107,11 @@ class SplashScreen(Screen):
         except:
             return "Unknown"
 
-    # ---------- DOT ANIMATION ----------
-    def animate_dots(self):
-        self.dot_count = (self.dot_count + 1) % 4
-        self["wait_dots"].setText("." * self.dot_count)
-
     # ---------- VERSION CHECK ----------
     def check_version(self):
         self.version_timer.stop()
         local_version = self.read_version()
-        url = "https://raw.githubusercontent.com/eliesat/eliesatpanelgrid/main/__init__.py"
+        url = f"https://raw.githubusercontent.com/{self.REPO_OWNER}/{self.REPO_NAME}/{self.BRANCH}/__init__.py"
 
         try:
             if 'requests' in globals():
@@ -146,11 +136,9 @@ class SplashScreen(Screen):
                     MessageBox.TYPE_YESNO
                 )
             else:
-                # no update → start menu download
                 self.start_github_process()
 
         except:
-            # if request fails → start menu download
             self.start_github_process()
 
     # ---------- UPDATE ANSWER ----------
@@ -158,7 +146,6 @@ class SplashScreen(Screen):
         if answer:
             self.is_updating = True
             self["wait_text"].setText("Updating the panel")
-            self["wait_dots"].setText("")
             if not os.path.exists(INSTALLER_SCRIPT):
                 print("[ElieSatPanelGrid] Installer.py missing")
                 self.start_github_process()
@@ -171,7 +158,6 @@ class SplashScreen(Screen):
                 print("[ElieSatPanelGrid] Update error:", e)
                 self.start_github_process()
         else:
-            # user selected NO → start menu download
             self.start_github_process()
 
     # ---------- INSTALL FINISHED ----------
@@ -179,12 +165,15 @@ class SplashScreen(Screen):
         print("[ElieSatPanelGrid] Installer finished:", retval)
         os.system("killall -9 enigma2")
 
-    # ---------- DOWNLOAD FILES ----------
+    # ---------- START GITHUB PROCESS ----------
     def start_github_process(self):
-        self["wait_text"].setText("Uploading menus")
+        self["progress_bar"].setValue(0)
+        self["wait_text"].setText("Uploading menus: 0%")
+
         os.makedirs(self.DEST_FOLDER, exist_ok=True)
 
         api_url = f"https://api.github.com/repos/{self.REPO_OWNER}/{self.REPO_NAME}/contents/{self.FOLDER_PATH}?ref={self.BRANCH}"
+
         try:
             if 'requests' in globals():
                 resp = requests.get(api_url, timeout=5)
@@ -203,13 +192,16 @@ class SplashScreen(Screen):
         self.download_timer.callback.append(self.download_next_file)
         self.download_timer.start(100, True)
 
+    # ---------- DOWNLOAD NEXT FILE ----------
     def download_next_file(self):
+
         if self.current_file_index >= len(self.files_to_download):
             self.open_panel()
             return
 
         file_info = self.files_to_download[self.current_file_index]
         url = file_info.get("download_url")
+
         if url:
             dest = os.path.join(self.DEST_FOLDER, os.path.basename(url))
             try:
@@ -221,12 +213,17 @@ class SplashScreen(Screen):
             except:
                 pass
 
+        total_files = len(self.files_to_download)
+        if total_files > 0:
+            progress = int((self.current_file_index + 1) * 100 / total_files)
+            self["progress_bar"].setValue(progress)
+            self["wait_text"].setText("Uploading menus: %d%%" % progress)
+
         self.current_file_index += 1
         self.download_timer.start(100, True)
 
     # ---------- OPEN PANEL ----------
     def open_panel(self):
-        self.anim_timer.stop()
         try:
             from Plugins.Extensions.ElieSatPanelGrid.main import EliesatPanel
             self.session.open(EliesatPanel)
@@ -263,4 +260,3 @@ def Plugins(**kwargs):
             fnc=main,
         ),
     ]
-
