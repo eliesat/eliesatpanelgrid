@@ -30,8 +30,8 @@ SKIN_FHD_XML = """
     <widget name="wait_text" position="234,400" size="320,50"
         font="Bold;30" halign="left" valign="center" foregroundColor="white"/>
 
-    <widget name="update_progress_bar" position="174,430" size="420,25"
-        backgroundColor="#333333" foregroundColor="#00baff"/>
+    <widget name="update_progress_bar" position="174,460" size="420,25"
+        backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 
     <widget name="progress_bar" position="174,460" size="420,25"
         backgroundColor="#555555" foregroundColor="#FFFFFF"/>
