@@ -157,7 +157,7 @@ class SplashScreen(Screen):
     def update_answer(self, answer):
         if answer:
             self.is_updating = True
-            self["wait_text"].setText("Updating")
+            self["wait_text"].setText("Updating the panel")
             self["wait_dots"].setText("")
             if not os.path.exists(INSTALLER_SCRIPT):
                 print("[ElieSatPanelGrid] Installer.py missing")
