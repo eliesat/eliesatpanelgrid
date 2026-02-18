@@ -27,9 +27,9 @@ SKIN_FHD_XML = """
     <widget name="icon" position="center,center" size="768,512" transparent="1"/>
     <widget name="version_label" position="428,center+70" size="300,50"
         font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="184,460" size="300,50"
+    <widget name="wait_text" position="224,460" size="300,50"
         font="Bold;40" halign="right" valign="center" foregroundColor="white"/>
-    <widget name="wait_dots" position="486,460" size="50,50"
+    <widget name="wait_dots" position="526,460" size="50,50"
         font="Bold;40" halign="left" valign="center" foregroundColor="white"/>
 </screen>
 """
