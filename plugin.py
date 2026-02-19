@@ -10,6 +10,9 @@ from enigma import eTimer, getDesktop
 import os
 import json
 import re
+import threading
+import tarfile
+import shutil
 
 try:
     import requests
@@ -21,20 +24,16 @@ PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid"
 # ---------------- FHD SKIN ----------------
 SKIN_FHD_XML = """
 <screen name="SplashScreenFHD" position="575,280" size="768,512" flags="wfNoBorder">
-    <widget name="bg_icon" position="center,center" size="768,512" backgroundColor="#000000"/>
+    <widget name="bg_icon" position="center,center" size="768,512" backgroundColor="#000000" transparent="0"/>
     <widget name="welcome" position="center,center-330" size="768,45" font="Bold;40"
-        halign="center" valign="center" foregroundColor="white"/>
+        halign="center" valign="center" foregroundColor="white" transparent="1"/>
     <widget name="icon" position="center,center" size="768,512" transparent="1"/>
     <widget name="version_label" position="428,center+70" size="300,50"
         font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
     <widget name="wait_text" position="234,400" size="320,50"
         font="Bold;30" halign="left" valign="center" foregroundColor="white"/>
-
-    <widget name="update_progress_bar" position="174,460" size="420,25"
-        backgroundColor="#555555" foregroundColor="#FFFFFF"/>
-
     <widget name="progress_bar" position="174,460" size="420,25"
-        backgroundColor="#555555" foregroundColor="#FFFFFF"/>
+        zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
 
@@ -49,16 +48,11 @@ SKIN_HD_XML = """
         font="Bold;24" halign="center" valign="center" foregroundColor="white"/>
     <widget name="wait_text" position="210,300" size="400,40"
         font="Bold;24" halign="left" valign="center" foregroundColor="white"/>
-
-    <widget name="update_progress_bar" position="65,310" size="500,20"
-        backgroundColor="#333333" foregroundColor="#00baff"/>
-
     <widget name="progress_bar" position="65,340" size="500,20"
-        backgroundColor="#555555" foregroundColor="#FFFFFF"/>
+        zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
 
-# ---------------- DETECT SKIN ----------------
 def detect_skin_type():
     try:
         return "FHD" if getDesktop(0).size().width() >= 1920 else "HD"
@@ -158,7 +152,7 @@ class SplashScreen(Screen):
 
         self.download_update()
 
-    # NON-BLOCKING DOWNLOAD
+    # ---------- DOWNLOAD ----------
     def download_update(self):
 
         try:
@@ -197,30 +191,60 @@ class SplashScreen(Screen):
 
         except StopIteration:
             self.update_file.close()
-            self.install_update()
+            self.install_update_async()
 
         except Exception as e:
             print("Download error:", e)
             self.start_github_process()
 
-    # INSTALL
-    def install_update(self):
+    # ✅ NON-BLOCKING INSTALL (FIX)
+    def install_update_async(self):
 
         self["wait_text"].setText("Installing update...")
 
-        os.system("rm -rf %s >/dev/null 2>&1" % self.EXTRACT)
-        res = os.system("tar -xzf %s -C /tmp >/dev/null 2>&1" % self.PACKAGE)
-        os.remove(self.PACKAGE)
+        threading.Thread(target=self.install_update_worker).start()
 
-        if res == 0:
-            os.system("rm -rf %s >/dev/null 2>&1" % PLUGIN_PATH)
-            os.makedirs(PLUGIN_PATH, exist_ok=True)
-            os.system("mv %s/* %s/ >/dev/null 2>&1" % (self.EXTRACT, PLUGIN_PATH))
-            os.system("rm -rf %s >/dev/null 2>&1" % self.EXTRACT)
+        self.install_timer = eTimer()
+        self.install_timer.callback.append(self.install_progress_tick)
+        self.install_progress = 0
+        self.install_timer.start(300, True)
 
+    def install_progress_tick(self):
+
+        self.install_progress += 5
+        if self.install_progress > 95:
+            self.install_progress = 95
+
+        self["update_progress_bar"].setValue(self.install_progress)
+        self["wait_text"].setText(
+            "Installing update: %d%%" % self.install_progress
+        )
+
+        self.install_timer.start(300, True)
+
+    def install_update_worker(self):
+
+        try:
+            if os.path.exists(self.EXTRACT):
+                shutil.rmtree(self.EXTRACT)
+
+            with tarfile.open(self.PACKAGE, "r:gz") as tar:
+                tar.extractall("/tmp")
+
+            os.remove(self.PACKAGE)
+
+            if os.path.exists(PLUGIN_PATH):
+                shutil.rmtree(PLUGIN_PATH)
+
+            shutil.move(self.EXTRACT, PLUGIN_PATH)
+
+        except Exception as e:
+            print("Install error:", e)
+
+        self.session.nav.stopService()
         os.system("killall -9 enigma2")
 
-    # ---------- MENUS DOWNLOAD (ORIGINAL) ----------
+    # ---------- MENUS DOWNLOAD (UNCHANGED) ----------
     def start_github_process(self):
 
         self["update_progress_bar"].hide()
