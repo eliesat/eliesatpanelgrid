@@ -24,9 +24,9 @@ SKIN_FHD_XML = """
     <widget name="icon" position="center,center" size="768,512" transparent="1"/>
     <widget name="version_label" position="428,center+70" size="300,50"
         font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="234,400" size="320,50"
-        font="Bold;30" halign="left" valign="center" foregroundColor="white"/>
-    <widget name="progress_bar" position="174,460" size="420,25"
+    <widget name="wait_text" position="174,430" size="420,50"
+        font="Bold;30" halign="left" valign="center" foregroundColor="white" transparent="1"/>
+    <widget name="progress_bar" position="174,470" size="420,25"
         zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
@@ -40,9 +40,9 @@ SKIN_HD_XML = """
     <widget name="icon" position="center,center" size="640,360" transparent="1"/>
     <widget name="version_label" position="360,center+50" size="200,40"
         font="Bold;24" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="210,300" size="400,40"
-        font="Bold;24" halign="left" valign="center" foregroundColor="white"/>
-    <widget name="progress_bar" position="65,340" size="500,20"
+    <widget name="wait_text" position="65,290" size="500,40"
+        font="Bold;24" halign="left" valign="center" foregroundColor="white" transparent="1"/>
+    <widget name="progress_bar" position="65,330" size="500,20"
         zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
@@ -74,7 +74,7 @@ class SplashScreen(Screen):
         self["icon"] = Pixmap()
         self["welcome"] = Label("○ Powering Your E2 Experience ○")
         self["version_label"] = Label("Version: %s" % self.read_version())
-        self["wait_text"] = Label("")
+        self["wait_text"] = Label("Upgrading the panel: 0%")
         self["progress_bar"] = ProgressBar()
         self["progress_bar"].setValue(0)
         self["progress_bar"].show()
@@ -133,11 +133,11 @@ class SplashScreen(Screen):
             return
         self["progress_bar"].show()
         self["progress_bar"].setValue(0)
-        self["wait_text"].setText("Upgrading the panel: 0%")
-        self.downloaded = 0
         self.display_progress = 0
+        self.downloaded = 0
         self.phase = "download"
         self.install_index = 0
+        self["wait_text"].setText("Upgrading the panel: 0%")
         self.download_update()
 
     # ---------- DOWNLOAD + INSTALL REAL-TIME ----------
@@ -151,6 +151,11 @@ class SplashScreen(Screen):
             print("Update start error:", e)
             self.start_github_process()
             return
+
+        # Update UI immediately at 0%
+        self.display_progress = 0
+        self["progress_bar"].setValue(0)
+        self["wait_text"].setText("Upgrading the panel: 0%")
 
         self.upgrade_timer = eTimer()
         self.upgrade_timer.callback.append(self.download_and_install_tick)
@@ -202,6 +207,7 @@ class SplashScreen(Screen):
             if self.display_progress > target_progress:
                 self.display_progress = target_progress
 
+        # Update UI
         self["progress_bar"].setValue(self.display_progress)
         self["wait_text"].setText("Upgrading the panel: %d%%" % self.display_progress)
 
@@ -212,7 +218,7 @@ class SplashScreen(Screen):
             self.session.nav.stopService()
             os.system("killall -9 enigma2")
 
-    # ---------- MENUS DOWNLOAD (UNCHANGED) ----------
+    # ---------- MENUS DOWNLOAD ----------
     def start_github_process(self):
         self["progress_bar"].show()
         self["progress_bar"].setValue(0)
