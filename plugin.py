@@ -103,7 +103,7 @@ class SplashScreen(Screen):
         except:
             return "Unknown"
 
-    # ---------- VERSION CHECK ----------
+        # ---------- VERSION CHECK ----------
     def check_version(self):
         self.version_timer.stop()
         local = self.read_version()
@@ -111,18 +111,32 @@ class SplashScreen(Screen):
 
         try:
             content = requests.get(url, timeout=5).text
+
+            # --- extract remote version ---
             m = re.search(r"Version\s*=\s*['\"](.+?)['\"]", content)
             remote = m.group(1) if m else None
 
+            # --- extract changelog ---
+            c = re.search(r"changelog\s*=\s*['\"](.+?)['\"]", content)
+            changelog = c.group(1) if c else ""
+
+            # --- show update question ---
             if remote and remote != local:
+                message = (
+                    "New version %s is available.\n"
+                    "%s\n"
+                    "Do you want to upgrade?"
+                ) % (remote, changelog)
+
                 self.session.openWithCallback(
                     self.update_answer,
                     MessageBox,
-                    "New version %s available.\nDo you want to update?" % remote,
+                    message,
                     MessageBox.TYPE_YESNO
                 )
             else:
                 self.start_github_process()
+
         except:
             self.start_github_process()
 
