@@ -24,7 +24,7 @@ SKIN_FHD_XML = """
     <widget name="icon" position="center,center" size="768,512" transparent="1"/>
     <widget name="version_label" position="428,center+70" size="300,50"
         font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="174,430" size="420,50"
+    <widget name="wait_text" position="234,420" size="420,50"
         font="Bold;30" halign="left" valign="center" foregroundColor="white" transparent="1"/>
     <widget name="progress_bar" position="174,470" size="420,25"
         zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
@@ -40,7 +40,7 @@ SKIN_HD_XML = """
     <widget name="icon" position="center,center" size="640,360" transparent="1"/>
     <widget name="version_label" position="360,center+50" size="200,40"
         font="Bold;24" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="65,290" size="500,40"
+    <widget name="wait_text" position="210,290" size="500,40"
         font="Bold;24" halign="left" valign="center" foregroundColor="white" transparent="1"/>
     <widget name="progress_bar" position="65,330" size="500,20"
         zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
