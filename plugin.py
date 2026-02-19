@@ -8,16 +8,10 @@ from Components.ProgressBar import ProgressBar
 from Tools.LoadPixmap import LoadPixmap
 from enigma import eTimer, getDesktop
 import os
-import json
 import re
-import threading
 import tarfile
 import shutil
-
-try:
-    import requests
-except ImportError:
-    import urllib.request as urllib_requests
+import requests
 
 PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid"
 
@@ -59,7 +53,6 @@ def detect_skin_type():
     except:
         return "HD"
 
-
 # ---------------- SPLASH SCREEN ----------------
 class SplashScreen(Screen):
 
@@ -71,7 +64,6 @@ class SplashScreen(Screen):
 
     UPDATE_URL = "https://github.com/eliesat/eliesatpanelgrid/archive/main.tar.gz"
     PACKAGE = "/tmp/eliesatpanelgrid-main.tar.gz"
-    EXTRACT = "/tmp/eliesatpanelgrid-main"
 
     def __init__(self, session):
 
@@ -83,13 +75,9 @@ class SplashScreen(Screen):
         self["welcome"] = Label("○ Powering Your E2 Experience ○")
         self["version_label"] = Label("Version: %s" % self.read_version())
         self["wait_text"] = Label("")
-
         self["progress_bar"] = ProgressBar()
         self["progress_bar"].setValue(0)
-
-        self["update_progress_bar"] = ProgressBar()
-        self["update_progress_bar"].setValue(0)
-        self["update_progress_bar"].hide()
+        self["progress_bar"].show()
 
         self.onLayoutFinish.append(self.load_icon)
 
@@ -118,7 +106,6 @@ class SplashScreen(Screen):
     # ---------- VERSION CHECK ----------
     def check_version(self):
         self.version_timer.stop()
-
         local = self.read_version()
         url = f"https://raw.githubusercontent.com/{self.REPO_OWNER}/{self.REPO_NAME}/{self.BRANCH}/__init__.py"
 
@@ -141,122 +128,98 @@ class SplashScreen(Screen):
 
     # ---------- UPDATE ----------
     def update_answer(self, answer):
-
         if not answer:
             self.start_github_process()
             return
-
-        self["progress_bar"].hide()
-        self["update_progress_bar"].show()
-        self["wait_text"].setText("Downloading update: 0%")
-
+        self["progress_bar"].show()
+        self["progress_bar"].setValue(0)
+        self["wait_text"].setText("Upgrading the panel: 0%")
+        self.downloaded = 0
+        self.display_progress = 0
+        self.phase = "download"
+        self.install_index = 0
         self.download_update()
 
-    # ---------- DOWNLOAD ----------
+    # ---------- DOWNLOAD + INSTALL REAL-TIME ----------
     def download_update(self):
-
         try:
             self.req = requests.get(self.UPDATE_URL, stream=True, timeout=10)
             self.total_size = int(self.req.headers.get("content-length", 0))
-            self.downloaded = 0
-
             self.update_file = open(self.PACKAGE, "wb")
-            self.chunk_iter = self.req.iter_content(chunk_size=65536)
-
-            self.update_timer = eTimer()
-            self.update_timer.callback.append(self.download_chunk)
-            self.update_timer.start(10, True)
-
+            self.chunk_iter = self.req.iter_content(chunk_size=32768)
         except Exception as e:
             print("Update start error:", e)
             self.start_github_process()
+            return
 
-    def download_chunk(self):
+        self.upgrade_timer = eTimer()
+        self.upgrade_timer.callback.append(self.download_and_install_tick)
+        self.upgrade_timer.start(50, True)
 
-        try:
-            chunk = next(self.chunk_iter)
-
-            if chunk:
+    def download_and_install_tick(self):
+        target_progress = self.display_progress
+        if self.phase == "download":
+            try:
+                chunk = next(self.chunk_iter)
                 self.update_file.write(chunk)
                 self.downloaded += len(chunk)
-
                 if self.total_size > 0:
-                    progress = int(self.downloaded * 100 / self.total_size)
-                    self["update_progress_bar"].setValue(progress)
-                    self["wait_text"].setText(
-                        "Downloading update: %d%%" % progress
-                    )
+                    target_progress = int((self.downloaded / self.total_size) * 60)
+            except StopIteration:
+                self.update_file.close()
+                self.phase = "install"
+                try:
+                    self.tar = tarfile.open(self.PACKAGE, "r:gz")
+                    self.members = self.tar.getmembers()
+                    self.total_members = len(self.members)
+                    self.install_index = 0
+                except Exception as e:
+                    print("Install error:", e)
+                    self.start_github_process()
+                    return
 
-            self.update_timer.start(10, True)
+        elif self.phase == "install":
+            if self.install_index < self.total_members:
+                member = self.members[self.install_index]
+                self.tar.extract(member, "/tmp")
+                self.install_index += 1
+                target_progress = 60 + int(self.install_index / self.total_members * 40)
+            else:
+                self.tar.close()
+                try:
+                    os.remove(self.PACKAGE)
+                    if os.path.exists(PLUGIN_PATH):
+                        shutil.rmtree(PLUGIN_PATH)
+                    shutil.move("/tmp/eliesatpanelgrid-main", PLUGIN_PATH)
+                except Exception as e:
+                    print("Install final error:", e)
+                target_progress = 100
+                self.phase = "done"
 
-        except StopIteration:
-            self.update_file.close()
-            self.install_update_async()
+        # Smooth increment
+        if self.display_progress < target_progress:
+            self.display_progress += max(1, (target_progress - self.display_progress)//3)
+            if self.display_progress > target_progress:
+                self.display_progress = target_progress
 
-        except Exception as e:
-            print("Download error:", e)
-            self.start_github_process()
+        self["progress_bar"].setValue(self.display_progress)
+        self["wait_text"].setText("Upgrading the panel: %d%%" % self.display_progress)
 
-    # ✅ NON-BLOCKING INSTALL (FIX)
-    def install_update_async(self):
-
-        self["wait_text"].setText("Installing update...")
-
-        threading.Thread(target=self.install_update_worker).start()
-
-        self.install_timer = eTimer()
-        self.install_timer.callback.append(self.install_progress_tick)
-        self.install_progress = 0
-        self.install_timer.start(300, True)
-
-    def install_progress_tick(self):
-
-        self.install_progress += 5
-        if self.install_progress > 95:
-            self.install_progress = 95
-
-        self["update_progress_bar"].setValue(self.install_progress)
-        self["wait_text"].setText(
-            "Installing update: %d%%" % self.install_progress
-        )
-
-        self.install_timer.start(300, True)
-
-    def install_update_worker(self):
-
-        try:
-            if os.path.exists(self.EXTRACT):
-                shutil.rmtree(self.EXTRACT)
-
-            with tarfile.open(self.PACKAGE, "r:gz") as tar:
-                tar.extractall("/tmp")
-
-            os.remove(self.PACKAGE)
-
-            if os.path.exists(PLUGIN_PATH):
-                shutil.rmtree(PLUGIN_PATH)
-
-            shutil.move(self.EXTRACT, PLUGIN_PATH)
-
-        except Exception as e:
-            print("Install error:", e)
-
-        self.session.nav.stopService()
-        os.system("killall -9 enigma2")
+        if self.phase != "done":
+            self.upgrade_timer.start(50, True)
+        else:
+            self.upgrade_timer.stop()
+            self.session.nav.stopService()
+            os.system("killall -9 enigma2")
 
     # ---------- MENUS DOWNLOAD (UNCHANGED) ----------
     def start_github_process(self):
-
-        self["update_progress_bar"].hide()
         self["progress_bar"].show()
-
         self["progress_bar"].setValue(0)
         self["wait_text"].setText("Uploading menus: 0%")
-
         os.makedirs(self.DEST_FOLDER, exist_ok=True)
 
         api = f"https://api.github.com/repos/{self.REPO_OWNER}/{self.REPO_NAME}/contents/{self.FOLDER_PATH}?ref={self.BRANCH}"
-
         try:
             files = requests.get(api).json()
         except:
@@ -265,33 +228,26 @@ class SplashScreen(Screen):
 
         self.files_to_download = files
         self.current_file_index = 0
-
         self.download_timer = eTimer()
         self.download_timer.callback.append(self.download_next_file)
         self.download_timer.start(100, True)
 
     def download_next_file(self):
-
         if self.current_file_index >= len(self.files_to_download):
             self.open_panel()
             return
-
         info = self.files_to_download[self.current_file_index]
         url = info.get("download_url")
-
         if url:
             dest = os.path.join(self.DEST_FOLDER, os.path.basename(url))
             try:
                 open(dest, "wb").write(requests.get(url).content)
             except:
                 pass
-
         total = len(self.files_to_download)
         progress = int((self.current_file_index + 1) * 100 / total)
-
         self["progress_bar"].setValue(progress)
         self["wait_text"].setText("Uploading menus: %d%%" % progress)
-
         self.current_file_index += 1
         self.download_timer.start(100, True)
 
