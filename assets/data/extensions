@@ -120,6 +120,11 @@ Version: 1.0     تثبيت الساعة على الشاشة بشكل دائم
 Status: Plg Uti
 Bundesliga-clock='https://gitlab.com/eliesat/extensions/-/raw/main/bundesliga-permanent-clock/bundesliga-permanent-clock.sh'
 
+Package: Buttonpatcher
+Version: 1.0      برمجة مفاتيح الرومونت
+Status: Plg Uti
+Buttonpatcher='https://gitlab.com/eliesat/extensions/-/raw/main/buttonpatcher/version'
+
 Package: Cacheflush
 Version: 2.2     مسح ملفات الكاش من الذاكرة العشوائية
 Status: Plg Uti
