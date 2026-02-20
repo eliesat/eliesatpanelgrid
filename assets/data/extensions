@@ -961,7 +961,7 @@ Status: Pan
 Boxtools='https://gitlab.com/eliesat/extensions/-/raw/main/boxtools/boxtools.sh'
 
 Package: Canpanel
-Version: 1.6.6     بانل تسطيب اضافات 
+Version: 1.7.0     بانل تسطيب اضافات 
 Status: Pan
 Canpanel='https://gitlab.com/eliesat/extensions/-/raw/main/canpanel/canpanel.sh'
 
@@ -1026,7 +1026,7 @@ Status: Pan
 Oneupdater='https://gitlab.com/eliesat/extensions/-/raw/main/oneupdater/oneupdater.sh'
 
 Package: Panelaio
-Version: 7.1     بانل تسطيب اضافات
+Version: 9.0     بانل تسطيب اضافات
 Status: Pan
 Panelaio='https://gitlab.com/eliesat/extensions/-/raw/main/panelaio/panelaio.sh'
 
