@@ -380,6 +380,11 @@ Version: 6.4     m3u قارئ و مشغل ملفات
 Status: Plg Ipt
 Iptvdream='https://gitlab.com/eliesat/extensions/-/raw/main/iptvdream-all/iptvdream-all.sh'
 
+Package: Ipstreamer
+Version: 1.2     اضافة الصوتيات على قنوات السات
+Status: Plg Aud
+Ipstreamer='https://gitlab.com/eliesat/extensions/-/raw/main/ipstreamer/ipstreamer.sh'
+
 Package: Iqraaquran
 Version: 1.2     إقرا القرآن الكريم
 Status: Plg Qur
