@@ -123,7 +123,7 @@ Bundesliga-clock='https://gitlab.com/eliesat/extensions/-/raw/main/bundesliga-pe
 Package: Buttonpatcher
 Version: 1.0      برمجة مفاتيح الرومونت
 Status: Plg Uti
-Buttonpatcher='https://gitlab.com/eliesat/extensions/-/raw/main/buttonpatcher/version'
+Buttonpatcher='https://gitlab.com/eliesat/extensions/-/raw/main/buttonpatcher/buttonpatcher.sh'
 
 Package: Cacheflush
 Version: 2.2     مسح ملفات الكاش من الذاكرة العشوائية
@@ -214,6 +214,11 @@ Package: Epgimport
 Version: 2.0     قراءة و عرض ملفات الدليل الاكتروني
 Status: Plg Epg
 Epgimport='https://gitlab.com/eliesat/extensions/-/raw/main/epgimport/epgimport.sh'
+
+Package: Epgimport-iet5
+Version: 2.9.3     قراءة و عرض ملفات الدليل الاكتروني
+Status: Plg Epg
+Epgimport-iet5='https://gitlab.com/eliesat/extensions/-/raw/main/epgimport-iet5/epgimport-iet5.sh'
 
 Package: Epgimport-mod-dorik
 Version: 1.9.1     قراءة و عرض ملفات الدليل الاكتروني
