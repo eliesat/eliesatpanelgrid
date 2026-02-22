@@ -24,6 +24,11 @@ Version: N/A     بانل تسطيب اضافات
 Status: Pan
 Ciefsettingspanel='https://raw.githubusercontent.com/ciefp/CiefpsettingsPanel/main/installer.sh'
 
+Package: Corvoboyspanel
+Version: N/A     بانل تسطيب اضافات
+Status: Pan
+Corvoboyspanel='https://github.com/emilnabil/download-plugins/raw/refs/heads/main/corvoboys-panel/corvoboys-panel.sh'
+
 Package: Emilpanel
 Version: N/A     بانل تسطيب اضافات
 Status: Pan

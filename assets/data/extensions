@@ -156,7 +156,7 @@ Status: Plg Pic
 Chocholousek='https://gitlab.com/eliesat/extensions/-/raw/main/chocholousek-picons/chocholousek-picons.sh'
 
 Package: Crashlogviewer
-Version: 1.7     تصفح ملفات الكراش
+Version: 1.8     تصفح ملفات الكراش
 Status: Plg Uti
 Crashlogviewer='https://gitlab.com/eliesat/extensions/-/raw/main/crashlogviewer/crashlogviewer.sh'
 
@@ -761,12 +761,12 @@ Status: Plg Ipt
 Xcplugin-forever='https://gitlab.com/eliesat/extensions/-/raw/main/xcplugin-forever/xcplugin-forever.sh'
 
 Package: Xklass
-Version: 1.75     مشغل اي بي تي في
+Version: 1.76     مشغل اي بي تي في
 Status: Plg Ipt
 Xklass='https://gitlab.com/eliesat/extensions/-/raw/main/xklass/xklass.sh'
 
 Package: Xstreamity
-Version: 5.31     مشغل اي بي تي في
+Version: 5.32     مشغل اي بي تي في
 Status: Plg Ipt
 Xstreamity='https://gitlab.com/eliesat/extensions/-/raw/main/xstreamity/xstreamity.sh'
 
@@ -976,7 +976,7 @@ Status: Pan
 Boxtools='https://gitlab.com/eliesat/extensions/-/raw/main/boxtools/boxtools.sh'
 
 Package: Canpanel
-Version: 1.7.0     بانل تسطيب اضافات 
+Version: 1.7.1     بانل تسطيب اضافات 
 Status: Pan
 Canpanel='https://gitlab.com/eliesat/extensions/-/raw/main/canpanel/canpanel.sh'
 
@@ -1183,7 +1183,7 @@ Status: Free
 Emil-scripts='https://gitlab.com/eliesat/free/-/raw/main/emil/emil-scripts.sh'
 
 Package: Levi45-freeserver
-Version: 2.3     سسكام مجاني
+Version: 2.4     سسكام مجاني
 Status: Free
 Levi45-freeserver='https://gitlab.com/eliesat/extensions/-/raw/main/levi45-freeserver/levi45-freeserver.sh'
 
