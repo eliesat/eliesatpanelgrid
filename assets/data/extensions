@@ -155,6 +155,11 @@ Version: 5.0.240904     تسطيب بيكونات
 Status: Plg Pic
 Chocholousek='https://gitlab.com/eliesat/extensions/-/raw/main/chocholousek-picons/chocholousek-picons.sh'
 
+Package: Ciefpkingsat
+Version: 1.0     تصفح افمار و ترددات موقع كينج اوف سات
+Status: Plg Uti
+Ciefpkingsat='https://gitlab.com/eliesat/extensions/-/raw/main/ciefpkingsat/ciefpkingsat.sh'
+
 Package: Crashlogviewer
 Version: 1.8     تصفح ملفات الكراش
 Status: Plg Uti
