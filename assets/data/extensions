@@ -651,7 +651,7 @@ Status: Plg Spo
 Simplysports='https://gitlab.com/eliesat/extensions/-/raw/main/simplysports/simplysports.sh'
 
 Package: Skin-e2sentials
-Version: 1.0     اضافات على السكين المستخدم
+Version: 1.07     اضافات على السكين المستخدم
 Status: Plg Uti
 Skin-e2sentials='https://gitlab.com/eliesat/extensions/-/raw/main/simplysports/simplysports.sh'
 
@@ -706,7 +706,7 @@ Status: Plg Free
 Tvgarden='https://gitlab.com/eliesat/extensions/-/raw/main/tvgarden/tvgarden.sh'
 
 Package: Vavoo-plugin
-Version: 1.47     اي بي تي في مجاني
+Version: 1.49     اي بي تي في مجاني
 Status: Plg Free
 Vavoo-plugin='https://gitlab.com/eliesat/extensions/-/raw/main/vavoo/vavoo.sh'
 
