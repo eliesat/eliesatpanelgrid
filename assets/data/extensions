@@ -170,6 +170,11 @@ Version: 1.3     اضافة توقيت للسكريبت برسم التنفيذ
 Status: Plg Uti
 Crondmanager='https://gitlab.com/eliesat/extensions/-/raw/main/crondmanager/crondmanager.sh'
 
+Package: Cutsclear
+Version: 1.2     حذف  الافلام
+Status: Plg Uti
+Cutsclear='https://gitlab.com/eliesat/extensions/-/raw/main/cutsclear/cutsclear.sh'
+
 Package: Diskcputemp
 Version: 1.2     تصفح حرارة الهارد زدو المعالج
 Status: Plg Uti
