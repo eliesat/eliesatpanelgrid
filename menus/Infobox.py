@@ -68,14 +68,15 @@ def human_speed(bytes_per_sec):
 class Infobox(Screen):
     skin = f"""
 <screen name="infobox" position="center,center" size="1920,1080">
-<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
+<eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" transparent="1" zPosition="2"/>
 <widget name="list" position="120,140" size="1680,720" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
-<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
-<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
-<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
-<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
 <eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="10"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="10"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="10"/>
@@ -203,9 +204,14 @@ class SystemMonitorScreen(Screen):
     skin = f"""
 <screen name="SystemMonitor" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" transparent="1" zPosition="2"/>
 <widget name="list" position="120,140" size="1680,720" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
+<eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="10"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="10"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="10"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" transparent="0" zPosition="10"/>
 </screen>
 """
 
@@ -278,51 +284,61 @@ class PlaceholderScreen(Screen):
         self["actions"] = ActionMap(["OkCancelActions"], {"cancel": self.close})
 
 # ============================================================
-# OSCAM READERS SCREEN (UNCHANGED)
+# OSCAM READERS SCREEN (FULL WIDTH & IMPROVED)
 # ============================================================
 class OscamReadersScreen(Screen):
     skin = f"""
 <screen name="OscamReadersScreen" position="center,center" size="1920,1080">
-    <ePixmap position="0,0" size="1920,1080"
-        pixmap="{BG}" zPosition="-1" />
-    <widget name="list"
-        position="80,120"
-        size="1760,820"
-        font="Regular;34"
-        itemHeight="45"
-        scrollbarMode="showOnDemand"/>
-    <widget name="footer"
-        position="80,960"
-        size="1760,60"
-        font="Regular;32"
-        halign="center"/>
+<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel position="90,120" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
+<widget name="list" position="100,150" size="1720,700" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
+<eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="10"/>
+<eLabel text="Back" position="0,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel text="Reload" position="960,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="12"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="12"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="12"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" transparent="0" zPosition="12"/>
 </screen>
 """
 
     def __init__(self, session):
         Screen.__init__(self, session)
-        self["list"] = MenuList([])
-        self["footer"] = Label("YELLOW=Reload   EXIT=Back")
+        # ScrollLabel instead of MenuList
+        self["list"] = ScrollLabel("")
+        
         self["actions"] = ActionMap(
-            ["OkCancelActions", "ColorActions"],
-            {"yellow": self.reload, "cancel": self.close}
+            ["OkCancelActions", "ColorActions", "DirectionActions"],
+            {
+                "yellow": self.reload,
+                "cancel": self.close,
+                "up": self["list"].pageUp,
+                "down": self["list"].pageDown
+            }
         )
+        
         self.timer = eTimer()
         self.timer.callback.append(self.reload)
         self.timer.start(10000, False)
+        
         self.reload()
 
+    # Reload OSCam reader info
     def reload(self):
         readers = self.parseServer()
         html = self.fetchWebif(OSCAM_URL)
-        lst = ["Reader        Host            Port   Proto     Status",
-               "-" * 70]
+        # Full width spacing for columns
+        lines = ["{:<20} {:<25} {:<8} {:<12} {:<10}".format("Reader","Host","Port","Proto","Status"),
+                 "-"*90]
         for r in readers:
             status = self.getStatus(html, r)
-            lst.append("%-12s %-15s %-6s %-9s %s" %
-                       (r["label"], r["host"], r["port"], r["proto"], status))
-        self["list"].setList(lst)
+            lines.append("{:<20} {:<25} {:<8} {:<12} {:<10}".format(
+                r["label"], r["host"], r["port"], r["proto"], status))
+        self["list"].setText("\n".join(lines))
 
+    # Parse oscam.server config
     def parseServer(self):
         data = []
         if not os.path.exists(CONFIG):
@@ -350,6 +366,7 @@ class OscamReadersScreen(Screen):
             data.append({"label": label,"host": host,"port": port,"proto": proto,"enabled": enabled})
         return data
 
+    # Fetch OSCam WebIF
     def fetchWebif(self, url):
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
@@ -359,6 +376,7 @@ class OscamReadersScreen(Screen):
         except:
             return ""
 
+    # Determine reader status
     def getStatus(self, html, r):
         if not r["enabled"]:
             return "DISABLED"
