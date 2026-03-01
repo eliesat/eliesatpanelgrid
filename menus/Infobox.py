@@ -284,112 +284,216 @@ class PlaceholderScreen(Screen):
         self["actions"] = ActionMap(["OkCancelActions"], {"cancel": self.close})
 
 # ============================================================
-# OSCAM READERS SCREEN (FULL WIDTH & IMPROVED)
+# OSCAM READERS SCREEN (FINAL — COLORS + ALIGNMENT)
 # ============================================================
+
 class OscamReadersScreen(Screen):
-    skin = f"""
+
+    skin = """
 <screen name="OscamReadersScreen" position="center,center" size="1920,1080">
-<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
-<widget name="list" position="100,150" size="1720,700" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
-<eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="Back" position="0,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
-<eLabel text="Reload" position="960,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
-<eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="12"/>
-<eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="12"/>
-<eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="12"/>
-<eLabel position="1440,1075" size="480,5" backgroundColor="blue" transparent="0" zPosition="12"/>
+<widget name="list" position="100,150" size="1720,700" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
+<eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="9"/>
+<eLabel text="Back" position="0,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel text="Reload" position="960,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="12"/>
 </screen>
 """
 
+    # --------------------------------------------------------
+
     def __init__(self, session):
         Screen.__init__(self, session)
-        # ScrollLabel instead of MenuList
+
         self["list"] = ScrollLabel("")
-        
+
         self["actions"] = ActionMap(
             ["OkCancelActions", "ColorActions", "DirectionActions"],
             {
-                "yellow": self.reload,
                 "cancel": self.close,
+                "yellow": self.reload,
                 "up": self["list"].pageUp,
-                "down": self["list"].pageDown
-            }
+                "down": self["list"].pageDown,
+            },
         )
-        
+
         self.timer = eTimer()
         self.timer.callback.append(self.reload)
         self.timer.start(10000, False)
-        
+
         self.reload()
 
-    # Reload OSCam reader info
-    def reload(self):
-        readers = self.parseServer()
-        html = self.fetchWebif(OSCAM_URL)
-        # Full width spacing for columns
-        lines = ["{:<20} {:<25} {:<8} {:<12} {:<10}".format("Reader","Host","Port","Proto","Status"),
-                 "-"*90]
-        for r in readers:
-            status = self.getStatus(html, r)
-            lines.append("{:<20} {:<25} {:<8} {:<12} {:<10}".format(
-                r["label"], r["host"], r["port"], r["proto"], status))
-        self["list"].setText("\n".join(lines))
+    # ========================================================
+    # STATUS COLOR ENGINE
+    # ========================================================
+    def colorStatus(self, status, proto):
 
-    # Parse oscam.server config
-    def parseServer(self):
-        data = []
-        if not os.path.exists(CONFIG):
-            return data
-        label = host = port = proto = "-"
-        enabled = True
-        for line in open(CONFIG):
-            line = line.strip()
-            if line.startswith("[reader]"):
-                if label != "-":
-                    data.append({"label": label,"host": host,"port": port,"proto": proto,"enabled": enabled})
-                label = host = port = proto = "-"
-                enabled = True
-            elif line.startswith("label"):
-                label = line.split("=", 1)[1].strip()
-            elif line.startswith("protocol"):
-                proto = line.split("=", 1)[1].strip()
-            elif line.startswith("device"):
-                parts = line.split("=", 1)[1].split(",")
-                host = parts[0]
-                port = parts[1] if len(parts) > 1 else "-"
-            elif line.startswith("enable"):
-                enabled = line.split("=")[1].strip() != "0"
-        if label != "-":
-            data.append({"label": label,"host": host,"port": port,"proto": proto,"enabled": enabled})
-        return data
+        s = status.lower()
 
-    # Fetch OSCam WebIF
-    def fetchWebif(self, url):
+        # GREEN rules
+        if proto == "emu":
+            return "\\c0000FF00CardOK\\c00E6BE3A"
+
+        if s == "connected":
+            return "\\c0000FF00connected\\c00E6BE3A"
+
+        # RED rule
+        if s == "off":
+            return "\\c00FF0000Off\\c00E6BE3A"
+
+        # default yellow
+        return status
+
+    # ========================================================
+    # FETCH WEBIF
+    # ========================================================
+    def fetchWebif(self):
+
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
-            req = Request(url)
+            req = Request(OSCAM_URL)
             req.add_header("Authorization", "Basic %s" % auth)
-            return urlopen(req, timeout=5).read().decode("utf-8","ignore")
+            return urlopen(req, timeout=5).read().decode("utf-8", "ignore")
         except:
             return ""
 
-    # Determine reader status
-    def getStatus(self, html, r):
-        if not r["enabled"]:
-            return "DISABLED"
+    # ========================================================
+    # PARSE oscam.server
+    # ========================================================
+    def parseServer(self):
+
+        readers = []
+
+        if not os.path.exists(CONFIG):
+            return readers
+
+        reader = ""
+        host = "-"
+        port = "-"
+        proto = "-"
+        status = "ON"
+
+        def push():
+            if reader:
+                readers.append({
+                    "label": reader,
+                    "host": host,
+                    "port": port,
+                    "proto": proto.lower(),
+                    "status": status
+                })
+
+        for raw in open(CONFIG):
+            line = raw.strip()
+
+            if line.startswith("[reader]"):
+                push()
+                reader, host, port, proto, status = "", "-", "-", "-", "ON"
+
+            elif line.startswith("label"):
+                reader = line.split("=",1)[1].strip()
+
+            elif line.startswith("protocol"):
+                proto = line.split("=",1)[1].strip()
+
+            elif line.startswith("device"):
+                parts = line.split("=",1)[1].split(",")
+                host = parts[0].strip()
+                if len(parts) > 1:
+                    port = parts[1].strip()
+
+            elif line.startswith("enable"):
+                if line.split("=")[1].strip() == "0":
+                    status = "OFF"
+
+        push()
+        return readers
+
+    # ========================================================
+    # STATUS DETECTION
+    # ========================================================
+    def detectStatus(self, html, reader):
+
+        proto = reader["proto"]
+
+        if reader["status"] == "OFF":
+            return "Unreachable", 3
+
         if not html:
-            return "UNKNOWN"
-        block = re.search(r["label"] + ".*?</tr>", html, re.I | re.S)
+            return "Unknown", 3
+
+        block = re.search(
+            r">" + re.escape(reader["label"]) + r"<.*?</tr>",
+            html,
+            re.I | re.S
+        )
+
         if not block:
-            return "UNKNOWN"
-        b = block.group(0).lower()
-        if "connected" in b:
-            return "ACTIVE"
-        if "online" in b:
-            return "IDLE"
-        if "offline" in b:
-            return "OFFLINE"
-        return "UNKNOWN"
+            return "Unknown", 3
+
+        info = block.group(0).lower()
+
+        if "cardok" in info or "connected" in info:
+            state = "connected"
+            priority = 1
+
+        elif "online" in info:
+            state = "Off"
+            priority = 2
+
+        elif "offline" in info or "error" in info or "disconnected" in info:
+            state = "Unreachable"
+            priority = 3
+        else:
+            state = "Unknown"
+            priority = 3
+
+        if proto in ("cccam", "newcamd", "mgcamd"):
+            priority += 10
+
+        return state, priority
+
+    # ========================================================
+    # MAIN RELOAD
+    # ========================================================
+    def reload(self):
+
+        readers = self.parseServer()
+        html = self.fetchWebif()
+
+        rows = []
+
+        for r in readers:
+
+            status, prio = self.detectStatus(html, r)
+            colored_status = self.colorStatus(status, r["proto"])
+
+            line = "{:<22}{:<27}{:<10}{:<14}{}".format(
+                r["label"],
+                r["host"],
+                r["port"],
+                r["proto"],
+                colored_status
+            )
+
+            rows.append((prio, line))
+
+        rows.sort(key=lambda x: x[0])
+
+        lines = [
+            "{:<22}{:<27}{:<10}{:<14}{}".format(
+                "READER", "ADDRESS", "PORT", "PROTOCOL", "STATUS"
+            ),
+            "═" * 95
+        ]
+
+        for _, row in rows:
+            lines.append(row)
+
+        self["list"].setText("\n".join(lines))
