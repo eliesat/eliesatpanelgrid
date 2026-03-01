@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-# ============================================================
-# ElieSat Infobox Plugin - FullHD 1920x1080
-# Reordered sections: Time & Network -> Geolocation -> System Info
-# ============================================================
 
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
@@ -10,10 +6,8 @@ from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.MenuList import MenuList
 from enigma import eTimer
-
 import os, re, base64, time, subprocess, json
 
-# Python2/3 urllib compatibility
 try:
     from urllib.request import urlopen, Request
 except:
@@ -69,54 +63,23 @@ def human_speed(bytes_per_sec):
         return "%d B/s" % bytes_per_sec
 
 # ============================================================
-# MAIN INFOBOX SCREEN
+# MAIN INFOBOX SCREEN (UNCHANGED)
 # ============================================================
 class Infobox(Screen):
     skin = f"""
 <screen name="infobox" position="center,center" size="1920,1080">
-    <ePixmap position="0,0" size="1920,1080"
-        pixmap="{BG}" zPosition="-1" />
-    <eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box."
-        position="350,20" size="1400,60"
-        font="Bold;32"
-        foregroundColor="#E6BE3A"
-        transparent="1" />
-    <widget name="list"
-        position="100,120"
-        size="1720,760"
-        font="Regular;30"
-        foregroundColor="#E6BE3A"
-        transparent="1" />
-    <!-- Bottom titles -->
-    <eLabel position="0,1020" size="480,40"
-        text="System"
-        font="Bold;30"
-        halign="center"
-        foregroundColor="#E6BE3A"
-        transparent="1"/>
-    <eLabel position="480,1020" size="480,40"
-        text="Hardware"
-        font="Bold;30"
-        halign="center"
-        foregroundColor="#E6BE3A"
-        transparent="1"/>
-    <eLabel position="960,1020" size="480,40"
-        text="Resources"
-        font="Bold;30"
-        halign="center"
-        foregroundColor="#E6BE3A"
-        transparent="1"/>
-    <eLabel position="1440,1020" size="480,40"
-        text="OSCam"
-        font="Bold;30"
-        halign="center"
-        foregroundColor="#E6BE3A"
-        transparent="1"/>
-    <!-- Bottom colored bars -->
-    <eLabel position="0,1075" size="480,5" zPosition="10" backgroundColor="red" transparent="0" />
-    <eLabel position="480,1075" size="480,5" zPosition="10" backgroundColor="green" transparent="0" />
-    <eLabel position="960,1075" size="480,5" zPosition="10" backgroundColor="yellow" transparent="0" />
-    <eLabel position="1440,1075" size="480,5" zPosition="10" backgroundColor="blue" transparent="0" />
+<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" transparent="1" zPosition="2"/>
+<widget name="list" position="120,140" size="1680,720" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="10"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="10"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="10"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" transparent="0" zPosition="10"/>
 </screen>
 """
 
@@ -124,26 +87,23 @@ class Infobox(Screen):
         Screen.__init__(self, session)
         self["list"] = ScrollLabel("")
 
-        # Previous RX/TX
         self.prev_rx = 0
         self.prev_tx = 0
         self.prev_time = time.time()
 
-        # ActionMap for scrolling, exit, colors
         self["actions"] = ActionMap(
             ["OkCancelActions", "DirectionActions", "ColorActions"],
             {
                 "cancel": self.close,
                 "up": self["list"].pageUp,
                 "down": self["list"].pageDown,
-                "red": self.showSystem,
-                "green": self.showHardware,
-                "yellow": self.showResources,
+                "red": self.openSystemMonitor,
+                "green": self.openIPTV,
+                "yellow": self.openNCam,
                 "blue": self.showOscam
             }
         )
 
-        # Timer for live update
         self.timer = eTimer()
         self.timer.callback.append(self.update_info)
         self.timer.start(1000, True)
@@ -153,7 +113,6 @@ class Infobox(Screen):
     def update_info(self):
         lst = []
 
-        # ---------------- TIME & NETWORK ----------------
         lst.append("○ Time & Network")
         lst.append("-" * 35)
         lst.append("• Date & Time : %s" % time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -170,7 +129,6 @@ class Infobox(Screen):
         lst.append("• Internet    : %s" % ping)
         lst.append("")
 
-        # ---------------- GEOLOCATION ----------------
         lst.append("○ Geolocation")
         lst.append("-" * 35)
         if pub_ip != "Unavailable":
@@ -193,7 +151,6 @@ class Infobox(Screen):
             lst.append("• ISP       : %s" % isp)
         lst.append("")
 
-        # ---------------- SYSTEM INFO ----------------
         lst.append("○ System Info")
         lst.append("-" * 35)
         iface, link, mac, speed = get_network_info()
@@ -231,76 +188,97 @@ class Infobox(Screen):
                 return k
         return "Unknown"
 
-    def showSystem(self): self.session.open(InfoScreen, "System")
-    def showHardware(self): self.session.open(InfoScreen, "Hardware")
-    def showResources(self): self.session.open(InfoScreen, "Resources")
+    # ---------------- BUTTON ACTIONS ----------------
+    def openSystemMonitor(self): self.session.open(SystemMonitorScreen)
+    def openIPTV(self): self.session.open(PlaceholderScreen,"IPTV")
+    def openNCam(self): self.session.open(PlaceholderScreen,"NCam")
     def showOscam(self): self.session.open(OscamReadersScreen)
 
 # ============================================================
-# INFO SCREEN
+# SYSTEM MONITOR SCREEN (NEW)
 # ============================================================
-class InfoScreen(Screen):
+# -*- coding: utf-8 -*-
+
+class SystemMonitorScreen(Screen):
     skin = f"""
-<screen name="InfoScreen" position="center,center" size="1920,1080">
-    <ePixmap position="0,0" size="1920,1080"
-        pixmap="{BG}" zPosition="-1" />
-    <widget name="title"
-        position="60,40"
-        size="1800,80"
-        font="Regular;48"
-        halign="center"/>
-    <widget name="text"
-        position="100,150"
-        size="1720,800"
-        font="Regular;34"
-        foregroundColor="#E6BE3A"
-        transparent="1"/>
+<screen name="SystemMonitor" position="center,center" size="1920,1080">
+<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" transparent="1" zPosition="2"/>
+<widget name="list" position="120,140" size="1680,720" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
 </screen>
 """
 
-    def __init__(self, session, section):
+    def __init__(self, session):
         Screen.__init__(self, session)
-        self["title"] = Label(section)
-        self["text"] = ScrollLabel(self.getInfo(section))
+        self["list"] = ScrollLabel(self.build_text())
+
         self["actions"] = ActionMap(
-            ["OkCancelActions", "DirectionActions"],
+            ["OkCancelActions","DirectionActions"],
             {
                 "cancel": self.close,
-                "up": self["text"].pageUp,
-                "down": self["text"].pageDown
+                "up": self["list"].pageUp,
+                "down": self["list"].pageDown
             }
         )
 
-    def getInfo(self, section):
-        if section == "System":
-            img = run_cmd("grep '^distro=' /etc/image-version | cut -d= -f2")
-            ver = run_cmd("grep '^version=' /etc/image-version | cut -d= -f2")
-            py = run_cmd("python3 -V | awk '{print $2}'")
-            arch = run_cmd("uname -m")
-            ker = run_cmd("uname -r")
-            return ("Image Name    : %s\n"
-                    "Image Version : %s\n"
-                    "Python        : %s\n"
-                    "Architecture  : %s\n"
-                    "Kernel        : %s") % (img, ver, py, arch, ker)
-        if section == "Hardware":
-            model = safe_read("/proc/stb/info/model")
-            uptime = run_cmd("uptime -p")
-            temp = run_cmd("cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf \"%.1fC\",$1/1000}'")
-            load = run_cmd("awk '{print $1}' /proc/loadavg")
-            return ("Model     : %s\n"
-                    "Uptime    : %s\n"
-                    "CPU Temp  : %s\n"
-                    "CPU Load  : %s") % (model, uptime, temp, load)
-        if section == "Resources":
-            ram = run_cmd("free -h | awk '/Mem:/ {print $3\" / \"$2}'")
-            flash = run_cmd("df -h / | awk 'NR==2 {print $3\" / \"$2}'")
-            return ("RAM Usage   : %s\n"
-                    "Flash Usage : %s") % (ram, flash)
-        return "No Data"
+    def build_text(self):
+        # --- System Info ---
+        img = run_cmd("grep '^distro=' /etc/image-version | cut -d= -f2")
+        ver = run_cmd("grep '^version=' /etc/image-version | cut -d= -f2")
+        py = run_cmd("python3 -V | awk '{print $2}'")
+        arch = run_cmd("uname -m")
+        ker = run_cmd("uname -r")
+        
+        # --- Hardware Info ---
+        model = safe_read("/proc/stb/info/model")
+        uptime = run_cmd("uptime -p")
+        load = run_cmd("awk '{print $1}' /proc/loadavg")
+        temp = run_cmd("cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf \"%.1fC\",$1/1000}'")
+        
+        # --- Resources ---
+        ram = run_cmd("free -h | awk '/Mem:/ {print $3\" / \"$2}'")
+        flash = run_cmd("df -h / | awk 'NR==2 {print $3\" / \"$2}'")
+
+        text = []
+        text.append("○ System")
+        text.append("-" * 35)
+        text.append("• Image Name    : %s" % img)
+        text.append("• Image Version : %s" % ver)
+        text.append("• Python        : %s" % py)
+        text.append("• Architecture  : %s" % arch)
+        text.append("• Kernel        : %s" % ker)
+        text.append("")
+        text.append("○ Hardware")
+        text.append("-" * 35)
+        text.append("• Model     : %s" % model)
+        text.append("• Uptime    : %s" % uptime)
+        text.append("• CPU Temp  : %s" % temp)
+        text.append("• CPU Load  : %s" % load)
+        text.append("")
+        text.append("○ Resources")
+        text.append("-" * 35)
+        text.append("• RAM Usage   : %s" % ram)
+        text.append("• Flash Usage : %s" % flash)
+        
+        return "\n".join(text)
 
 # ============================================================
-# OSCAM READERS SCREEN
+# PLACEHOLDER SCREEN FOR IPTV / NCam
+# ============================================================
+class PlaceholderScreen(Screen):
+    skin = f"""
+<screen name="Placeholder" position="center,center" size="1920,1080">
+<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
+<eLabel text="Coming Soon..." position="0,450" size="1920,80" font="Bold;48" halign="center" foregroundColor="#E6BE3A"/>
+</screen>
+"""
+    def __init__(self, session, title="Coming Soon"):
+        Screen.__init__(self, session)
+        self["actions"] = ActionMap(["OkCancelActions"], {"cancel": self.close})
+
+# ============================================================
+# OSCAM READERS SCREEN (UNCHANGED)
 # ============================================================
 class OscamReadersScreen(Screen):
     skin = f"""
