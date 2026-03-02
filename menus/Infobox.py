@@ -63,7 +63,7 @@ def human_speed(bytes_per_sec):
         return "%d B/s" % bytes_per_sec
 
 # ============================================================
-# MAIN INFOBOX SCREEN (UNCHANGED)
+# MAIN INFOBOX SCREEN
 # ============================================================
 class Infobox(Screen):
     skin = f"""
@@ -196,7 +196,7 @@ class Infobox(Screen):
     def showOscam(self): self.session.open(OscamReadersScreen)
 
 # ============================================================
-# SYSTEM MONITOR SCREEN (NEW)
+# SYSTEM MONITOR SCREEN
 # ============================================================
 # -*- coding: utf-8 -*-
 
@@ -284,7 +284,7 @@ class PlaceholderScreen(Screen):
         self["actions"] = ActionMap(["OkCancelActions"], {"cancel": self.close})
 
 # ============================================================
-# OSCAM READERS SCREEN (FINAL — COLORS + ALIGNMENT)
+# OSCAM READERS SCREEN
 # ============================================================
 class OscamReadersScreen(Screen):
 
@@ -294,55 +294,38 @@ class OscamReadersScreen(Screen):
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
 <eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
-<!-- Header row -->
-<eLabel text="READER                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
-<!-- Header separator -->
+<eLabel text=" Label                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
 <eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
-<!-- Scrollable list -->
 <widget name="list" position="100,225" size="1720,625" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
-<!-- Black bottom bar -->
+<widget name="error" position="0,225" size="1920,625" font="Bold;44" halign="center" valign="center" foregroundColor="#FF0000" transparent="1" zPosition="7"/>
 <eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="9"/>
-<!-- Color bars -->
 <eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
 <eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="12"/>
-<!-- Centered title instead of Oscam.server -->
 <widget name="title" position="0,950" size="1920,50" font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
 </screen>
 """
 
-    # --------------------------------------------------------
-
     def __init__(self, session):
         Screen.__init__(self, session)
 
-        # Title label in the middle
         self["title"] = Label("OSCam Readers Status")
-
-        # ScrollLabel for readers
         self["list"] = ScrollLabel("")
+        self["error"] = Label("")
 
-        # Actions (no Back/Reload)
         self["actions"] = ActionMap(
-            ["OkCancelActions", "ColorActions", "DirectionActions"],
+            ["OkCancelActions", "DirectionActions"],
             {
                 "cancel": self.close,
                 "up": self["list"].pageUp,
                 "down": self["list"].pageDown,
-                "yellow": self.reload,  # keeps logic intact
             },
         )
 
-        self.timer = eTimer()
-        self.timer.callback.append(self.reload)
-        self.timer.start(10000, False)
-
         self.reload()
 
-    # ========================================================
     # STATUS COLOR ENGINE
-    # ========================================================
     def colorStatus(self, status, proto):
 
         s = status.lower()
@@ -354,9 +337,7 @@ class OscamReadersScreen(Screen):
             return "\\c00FF0000Off\\c00E6BE3A"
         return status
 
-    # ========================================================
     # FETCH WEBIF
-    # ========================================================
     def fetchWebif(self):
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
@@ -366,9 +347,7 @@ class OscamReadersScreen(Screen):
         except:
             return ""
 
-    # ========================================================
     # PARSE SERVER
-    # ========================================================
     def parseServer(self):
 
         readers = []
@@ -413,9 +392,7 @@ class OscamReadersScreen(Screen):
         push()
         return readers
 
-    # ========================================================
     # STATUS DETECTION
-    # ========================================================
     def detectStatus(self, html, reader):
 
         proto = reader["proto"]
@@ -449,13 +426,19 @@ class OscamReadersScreen(Screen):
 
         return state, priority
 
-    # ========================================================
     # MAIN RELOAD
-    # ========================================================
     def reload(self):
 
         readers = self.parseServer()
         html = self.fetchWebif()
+
+        # Show centered message if WebIF unreachable
+        if not html:
+            self["list"].setText("")
+            self["error"].setText("OSCam WebIF Unreachable")
+            return
+        else:
+            self["error"].setText("")
 
         rows = []
 
@@ -475,11 +458,11 @@ class OscamReadersScreen(Screen):
                 r["proto"], W_PROTOCOL,
                 colored_status
             )
+
             rows.append((prio, line))
 
         rows.sort(key=lambda x: x[0])
 
-        # spacer line prevents clipping under header
         lines = [""]
         lines.extend(row for _, row in rows)
 
