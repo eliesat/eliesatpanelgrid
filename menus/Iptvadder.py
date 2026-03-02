@@ -41,7 +41,7 @@ class Iptvadder(Screen, ConfigListScreen):
         self.setTitle(_("Subscription Editor"))
 
         # Editable fields
-        self.url = ConfigText(default="http://jep2024.online")
+        self.url = ConfigText(default="http://cafott.com")
         self.port = ConfigText(default="")
         self.username = ConfigText(default="user")
         self.password = ConfigText(default="pass")
