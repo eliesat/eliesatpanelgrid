@@ -286,23 +286,29 @@ class PlaceholderScreen(Screen):
 # ============================================================
 # OSCAM READERS SCREEN (FINAL — COLORS + ALIGNMENT)
 # ============================================================
-
 class OscamReadersScreen(Screen):
 
     skin = """
 <screen name="OscamReadersScreen" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
-<eLabel position="90,120" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
-<widget name="list" position="100,150" size="1720,700" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
+<!-- Header row -->
+<eLabel text="READER                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
+<!-- Header separator -->
+<eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
+<!-- Scrollable list -->
+<widget name="list" position="100,225" size="1720,625" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
+<!-- Black bottom bar -->
 <eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="9"/>
-<eLabel text="Back" position="0,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
-<eLabel text="Reload" position="960,1015" size="480,50" font="Bold;30" halign="center" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<!-- Color bars -->
 <eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
 <eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="12"/>
+<!-- Centered title instead of Oscam.server -->
+<widget name="title" position="0,950" size="1920,50" font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
 </screen>
 """
 
@@ -311,15 +317,20 @@ class OscamReadersScreen(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
 
+        # Title label in the middle
+        self["title"] = Label("OSCam Readers Status")
+
+        # ScrollLabel for readers
         self["list"] = ScrollLabel("")
 
+        # Actions (no Back/Reload)
         self["actions"] = ActionMap(
             ["OkCancelActions", "ColorActions", "DirectionActions"],
             {
                 "cancel": self.close,
-                "yellow": self.reload,
                 "up": self["list"].pageUp,
                 "down": self["list"].pageDown,
+                "yellow": self.reload,  # keeps logic intact
             },
         )
 
@@ -335,26 +346,18 @@ class OscamReadersScreen(Screen):
     def colorStatus(self, status, proto):
 
         s = status.lower()
-
-        # GREEN rules
         if proto == "emu":
             return "\\c0000FF00CardOK\\c00E6BE3A"
-
         if s == "connected":
             return "\\c0000FF00connected\\c00E6BE3A"
-
-        # RED rule
         if s == "off":
             return "\\c00FF0000Off\\c00E6BE3A"
-
-        # default yellow
         return status
 
     # ========================================================
     # FETCH WEBIF
     # ========================================================
     def fetchWebif(self):
-
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
             req = Request(OSCAM_URL)
@@ -364,7 +367,7 @@ class OscamReadersScreen(Screen):
             return ""
 
     # ========================================================
-    # PARSE oscam.server
+    # PARSE SERVER
     # ========================================================
     def parseServer(self):
 
@@ -391,23 +394,18 @@ class OscamReadersScreen(Screen):
 
         for raw in open(CONFIG):
             line = raw.strip()
-
             if line.startswith("[reader]"):
                 push()
                 reader, host, port, proto, status = "", "-", "-", "-", "ON"
-
             elif line.startswith("label"):
                 reader = line.split("=",1)[1].strip()
-
             elif line.startswith("protocol"):
                 proto = line.split("=",1)[1].strip()
-
             elif line.startswith("device"):
                 parts = line.split("=",1)[1].split(",")
                 host = parts[0].strip()
                 if len(parts) > 1:
                     port = parts[1].strip()
-
             elif line.startswith("enable"):
                 if line.split("=")[1].strip() == "0":
                     status = "OFF"
@@ -428,25 +426,17 @@ class OscamReadersScreen(Screen):
         if not html:
             return "Unknown", 3
 
-        block = re.search(
-            r">" + re.escape(reader["label"]) + r"<.*?</tr>",
-            html,
-            re.I | re.S
-        )
-
+        block = re.search(r">" + re.escape(reader["label"]) + r"<.*?</tr>", html, re.I | re.S)
         if not block:
             return "Unknown", 3
 
         info = block.group(0).lower()
-
         if "cardok" in info or "connected" in info:
             state = "connected"
             priority = 1
-
         elif "online" in info:
             state = "Off"
             priority = 2
-
         elif "offline" in info or "error" in info or "disconnected" in info:
             state = "Unreachable"
             priority = 3
@@ -469,31 +459,28 @@ class OscamReadersScreen(Screen):
 
         rows = []
 
-        for r in readers:
+        W_READER = 22
+        W_ADDRESS = 27
+        W_PORT = 10
+        W_PROTOCOL = 14
 
+        for r in readers:
             status, prio = self.detectStatus(html, r)
             colored_status = self.colorStatus(status, r["proto"])
 
-            line = "{:<22}{:<27}{:<10}{:<14}{}".format(
-                r["label"],
-                r["host"],
-                r["port"],
-                r["proto"],
+            line = "{:<{}}│{:<{}}│{:<{}}│{:<{}}│{}".format(
+                r["label"], W_READER,
+                r["host"], W_ADDRESS,
+                r["port"], W_PORT,
+                r["proto"], W_PROTOCOL,
                 colored_status
             )
-
             rows.append((prio, line))
 
         rows.sort(key=lambda x: x[0])
 
-        lines = [
-            "{:<22}{:<27}{:<10}{:<14}{}".format(
-                "READER", "ADDRESS", "PORT", "PROTOCOL", "STATUS"
-            ),
-            "═" * 95
-        ]
-
-        for _, row in rows:
-            lines.append(row)
+        # spacer line prevents clipping under header
+        lines = [""]
+        lines.extend(row for _, row in rows)
 
         self["list"].setText("\n".join(lines))
