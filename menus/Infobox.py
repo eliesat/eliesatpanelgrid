@@ -337,12 +337,19 @@ class OscamReadersScreen(Screen):
             return "\\c00FF0000Off\\c00E6BE3A"
         return status
 
-    # FETCH WEBIF
+    # FETCH WEBIF - MODIFIED TO HANDLE BOTH AUTH/NON-AUTH
     def fetchWebif(self):
+        # Try with authentication first
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
             req = Request(OSCAM_URL)
             req.add_header("Authorization", "Basic %s" % auth)
+            return urlopen(req, timeout=5).read().decode("utf-8", "ignore")
+        except:
+            pass
+        # Fallback without authentication
+        try:
+            req = Request(OSCAM_URL)
             return urlopen(req, timeout=5).read().decode("utf-8", "ignore")
         except:
             return ""
