@@ -325,9 +325,19 @@ class OscamReadersScreen(Screen):
 
         self.reload()
 
-    # STATUS COLOR ENGINE
-    def colorStatus(self, status, proto):
+    # -----------------------
+    # STRICT WIDTH FORMATTER
+    # -----------------------
+    def fit(self, text, width):
+        text = str(text)
+        if len(text) > width:
+            return text[:width - 1] + "…"
+        return text.ljust(width)
 
+    # -----------------------
+    # STATUS COLOR ENGINE
+    # -----------------------
+    def colorStatus(self, status, proto):
         s = status.lower()
         if proto == "emu":
             return "\\c0000FF00CardOK\\c00E6BE3A"
@@ -337,9 +347,10 @@ class OscamReadersScreen(Screen):
             return "\\c00FF0000Off\\c00E6BE3A"
         return status
 
-    # FETCH WEBIF - MODIFIED TO HANDLE BOTH AUTH/NON-AUTH
+    # -----------------------
+    # FETCH WEBIF
+    # -----------------------
     def fetchWebif(self):
-        # Try with authentication first
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
             req = Request(OSCAM_URL)
@@ -347,14 +358,15 @@ class OscamReadersScreen(Screen):
             return urlopen(req, timeout=5).read().decode("utf-8", "ignore")
         except:
             pass
-        # Fallback without authentication
         try:
             req = Request(OSCAM_URL)
             return urlopen(req, timeout=5).read().decode("utf-8", "ignore")
         except:
             return ""
 
+    # -----------------------
     # PARSE SERVER
+    # -----------------------
     def parseServer(self):
 
         readers = []
@@ -399,7 +411,9 @@ class OscamReadersScreen(Screen):
         push()
         return readers
 
+    # -----------------------
     # STATUS DETECTION
+    # -----------------------
     def detectStatus(self, html, reader):
 
         proto = reader["proto"]
@@ -415,6 +429,7 @@ class OscamReadersScreen(Screen):
             return "Unknown", 3
 
         info = block.group(0).lower()
+
         if "cardok" in info or "connected" in info:
             state = "connected"
             priority = 1
@@ -433,13 +448,14 @@ class OscamReadersScreen(Screen):
 
         return state, priority
 
+    # -----------------------
     # MAIN RELOAD
+    # -----------------------
     def reload(self):
 
         readers = self.parseServer()
         html = self.fetchWebif()
 
-        # Show centered message if WebIF unreachable
         if not html:
             self["list"].setText("")
             self["error"].setText("OSCam WebIF Unreachable")
@@ -458,11 +474,11 @@ class OscamReadersScreen(Screen):
             status, prio = self.detectStatus(html, r)
             colored_status = self.colorStatus(status, r["proto"])
 
-            line = "{:<{}}│{:<{}}│{:<{}}│{:<{}}│{}".format(
-                r["label"], W_READER,
-                r["host"], W_ADDRESS,
-                r["port"], W_PORT,
-                r["proto"], W_PROTOCOL,
+            line = "{}│{}│{}│{}│{}".format(
+                self.fit(r["label"], W_READER),
+                self.fit(r["host"], W_ADDRESS),
+                self.fit(r["port"], W_PORT),
+                self.fit(r["proto"], W_PROTOCOL),
                 colored_status
             )
 
