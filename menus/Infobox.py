@@ -4,7 +4,6 @@ from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
-from Components.MenuList import MenuList
 from enigma import eTimer
 import os, re, base64, time, subprocess, json
 
@@ -15,6 +14,7 @@ except:
 
 # ---------------- CONFIG ----------------
 OSCAM_URL = "http://127.0.0.1:8888/reader.html"
+NCAM_URL = "http://127.0.0.1:8181/reader.html"
 USER = "admin"
 PASS = "password"
 CONFIG_BASE = "/etc/tuxbox/config"
@@ -68,7 +68,7 @@ def human_speed(bytes_per_sec):
 class Infobox(Screen):
     skin = f"""
 <screen name="infobox" position="center,center" size="1920,1080">
-<ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
+<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
 <eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
@@ -192,14 +192,12 @@ class Infobox(Screen):
     # ---------------- BUTTON ACTIONS ----------------
     def openSystemMonitor(self): self.session.open(SystemMonitorScreen)
     def openIPTV(self): self.session.open(PlaceholderScreen,"IPTV")
-    def openNCam(self): self.session.open(PlaceholderScreen,"NCam")
-    def showOscam(self): self.session.open(OscamReadersScreen)
+    def openNCam(self): self.session.open(NCamReadersScreen)
+    def showOscam(self): self.session.open(OSCamReadersScreen)
 
 # ============================================================
 # SYSTEM MONITOR SCREEN
 # ============================================================
-# -*- coding: utf-8 -*-
-
 class SystemMonitorScreen(Screen):
     skin = f"""
 <screen name="SystemMonitor" position="center,center" size="1920,1080">
@@ -229,20 +227,15 @@ class SystemMonitorScreen(Screen):
         )
 
     def build_text(self):
-        # --- System Info ---
         img = run_cmd("grep '^distro=' /etc/image-version | cut -d= -f2")
         ver = run_cmd("grep '^version=' /etc/image-version | cut -d= -f2")
         py = run_cmd("python3 -V | awk '{print $2}'")
         arch = run_cmd("uname -m")
         ker = run_cmd("uname -r")
-        
-        # --- Hardware Info ---
         model = safe_read("/proc/stb/info/model")
         uptime = run_cmd("uptime -p")
         load = run_cmd("awk '{print $1}' /proc/loadavg")
         temp = run_cmd("cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf \"%.1fC\",$1/1000}'")
-        
-        # --- Resources ---
         ram = run_cmd("free -h | awk '/Mem:/ {print $3\" / \"$2}'")
         flash = run_cmd("df -h / | awk 'NR==2 {print $3\" / \"$2}'")
 
@@ -266,11 +259,11 @@ class SystemMonitorScreen(Screen):
         text.append("-" * 35)
         text.append("• RAM Usage   : %s" % ram)
         text.append("• Flash Usage : %s" % flash)
-        
+
         return "\n".join(text)
 
 # ============================================================
-# PLACEHOLDER SCREEN FOR IPTV / NCam
+# PLACEHOLDER SCREEN
 # ============================================================
 class PlaceholderScreen(Screen):
     skin = f"""
@@ -283,12 +276,13 @@ class PlaceholderScreen(Screen):
         Screen.__init__(self, session)
         self["actions"] = ActionMap(["OkCancelActions"], {"cancel": self.close})
 
+
 # ============================================================
 # OSCAM READERS SCREEN
 # ============================================================
 CONFIG_BASE = "/etc/tuxbox/config"
 
-class OscamReadersScreen(Screen):
+class OSCamReadersScreen(Screen):
 
     skin = """
 <screen name="OscamReadersScreen" position="center,center" size="1920,1080">
@@ -332,7 +326,6 @@ class OscamReadersScreen(Screen):
     # --------------------------------------------------
     def getConfigPath(self):
 
-        # 1) Detect running oscam process and -c path
         try:
             for pid in os.listdir("/proc"):
                 if not pid.isdigit():
@@ -356,7 +349,6 @@ class OscamReadersScreen(Screen):
         except:
             pass
 
-        # 2) Fallback scan
         if not os.path.exists(CONFIG_BASE):
             return None
 
@@ -457,36 +449,40 @@ class OscamReadersScreen(Screen):
         return readers
 
     # -----------------------
-    # STATUS DETECTION
+    # STATUS DETECTION (UNCHANGED)
     # -----------------------
     def detectStatus(self, html, reader):
 
         proto = reader["proto"]
 
         if reader["status"] == "OFF":
-            return "Unreachable", 3
-
-        if not html:
-            return "Unknown", 3
-
-        block = re.search(r">" + re.escape(reader["label"]) + r"<.*?</tr>", html, re.I | re.S)
-        if not block:
-            return "Unknown", 3
-
-        info = block.group(0).lower()
-
-        if "cardok" in info or "connected" in info:
-            state = "connected"
-            priority = 1
-        elif "online" in info:
-            state = "Off"
-            priority = 2
-        elif "offline" in info or "error" in info or "disconnected" in info:
             state = "Unreachable"
             priority = 3
-        else:
+        elif not html:
             state = "Unknown"
-            priority = 3
+            priority = 4
+        else:
+            block = re.search(r">" + re.escape(reader["label"]) + r"<.*?</tr>", html, re.I | re.S)
+            if not block:
+                state = "Unknown"
+                priority = 4
+            else:
+                info = block.group(0).lower()
+                if "cardok" in info:
+                    state = "CardOK"
+                    priority = 1
+                elif "connected" in info:
+                    state = "Connected"
+                    priority = 2
+                elif "online" in info:
+                    state = "Off"
+                    priority = 3
+                elif "offline" in info or "error" in info or "disconnected" in info:
+                    state = "Unreachable"
+                    priority = 4
+                else:
+                    state = "Unknown"
+                    priority = 4
 
         if proto in ("cccam", "newcamd", "mgcamd"):
             priority += 10
@@ -494,7 +490,7 @@ class OscamReadersScreen(Screen):
         return state, priority
 
     # -----------------------
-    # MAIN RELOAD
+    # MAIN RELOAD (SORT ONLY FOR SCREEN)
     # -----------------------
     def reload(self):
 
@@ -527,11 +523,221 @@ class OscamReadersScreen(Screen):
                 colored_status
             )
 
-            rows.append((prio, line))
+            rows.append((status.lower(), line))
 
-        rows.sort(key=lambda x: x[0])
+        # Only change: CardOK → Connected → Off → rest
+        sort_order = {"cardok": 1, "connected": 2, "off": 3}
+        rows.sort(key=lambda x: sort_order.get(x[0], 4))
 
         lines = [""]
         lines.extend(row for _, row in rows)
 
+        self["list"].setText("\n".join(lines))
+
+
+class NCamReadersScreen(Screen):
+    skin = """
+<screen name="NCamReadersScreen" position="center,center" size="1920,1080">
+<ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
+<eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
+<eLabel text="● NCam Readers Status" position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
+<eLabel text=" Label                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
+<eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
+<widget name="list" position="100,225" size="1720,625" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
+<widget name="error" position="0,225" size="1920,625" font="Bold;44" halign="center" valign="center" foregroundColor="#FF0000" transparent="1" zPosition="7"/>
+<widget name="title" position="0,950" size="1920,50" font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="12"/>
+</screen>
+"""
+
+    NCAM_URL = "http://127.0.0.1:8181/reader.html"
+
+    def __init__(self, session):
+        Screen.__init__(self, session)
+        self["title"] = Label("NCam Readers Status")
+        self["list"] = ScrollLabel("")
+        self["error"] = Label("")
+
+        self["actions"] = ActionMap(
+            ["OkCancelActions","DirectionActions"],
+            {
+                "cancel": self.close,
+                "up": self["list"].pageUp,
+                "down": self["list"].pageDown,
+            }
+        )
+
+        self.reload()
+
+    # ----------------------- CONFIG PATH -----------------------
+    def getConfigPath(self):
+        try:
+            for pid in os.listdir("/proc"):
+                if not pid.isdigit():
+                    continue
+                cmdline_path = os.path.join("/proc", pid, "cmdline")
+                if not os.path.exists(cmdline_path):
+                    continue
+                cmdline = open(cmdline_path,"rb").read().decode("utf-8","ignore")
+                if "ncam" in cmdline.lower():
+                    parts = cmdline.split("\x00")
+                    for i, part in enumerate(parts):
+                        if part == "-c" and i + 1 < len(parts):
+                            config_dir = parts[i+1]
+                            candidate = os.path.join(config_dir,"ncam.server")
+                            if os.path.exists(candidate):
+                                return candidate
+        except:
+            pass
+
+        root_candidate = os.path.join(CONFIG_BASE,"ncam.server")
+        if os.path.exists(root_candidate):
+            return root_candidate
+
+        for root, dirs, files in os.walk(CONFIG_BASE):
+            if "ncam.server" in files:
+                return os.path.join(root,"ncam.server")
+        return None
+
+    # ----------------------- FIT -----------------------
+    def fit(self, text, width):
+        text = str(text)
+        if len(text) > width:
+            return text[:width-1]+"…"
+        return text.ljust(width)
+
+    # ----------------------- STATUS COLOR -----------------------
+    def colorStatus(self, status, proto):
+        s = status.lower()
+        if s == "cardok":
+            return "\\c0000FF00CardOK\\c00E6BE3A"
+        if s == "connected":
+            return "\\c0000FF00connected\\c00E6BE3A"
+        if s == "off":
+            return "\\c00FF0000Off\\c00E6BE3A"
+        return status
+
+    # ----------------------- FETCH WEBIF -----------------------
+    def fetchWebif(self):
+        try:
+            req = Request(self.NCAM_URL)
+            return urlopen(req, timeout=5).read().decode("utf-8","ignore")
+        except:
+            return ""
+
+    # ----------------------- PARSE SERVER -----------------------
+    def parseServer(self):
+        readers = []
+        config_path = self.getConfigPath()
+        if not config_path:
+            return readers
+
+        reader = ""
+        host = "-"
+        port = "-"
+        proto = "-"
+        status = "ON"
+
+        def push():
+            if reader:
+                readers.append({
+                    "label": reader,
+                    "host": host,
+                    "port": port,
+                    "proto": proto.lower(),
+                    "status": status
+                })
+
+        for raw in open(config_path):
+            line = raw.strip()
+            if line.startswith("[reader]"):
+                push()
+                reader, host, port, proto, status = "", "-", "-", "-", "ON"
+            elif line.startswith("label"):
+                reader = line.split("=",1)[1].strip()
+            elif line.startswith("protocol"):
+                proto = line.split("=",1)[1].strip()
+            elif line.startswith("device"):
+                parts = line.split("=",1)[1].split(",")
+                host = parts[0].strip()
+                if len(parts) > 1:
+                    port = parts[1].strip()
+            elif line.startswith("enable"):
+                if line.split("=")[1].strip() == "0":
+                    status = "OFF"
+        push()
+        return readers
+
+    # ----------------------- DETECT STATUS -----------------------
+    def detectStatus(self, html, reader):
+        proto = reader["proto"]
+        if reader["status"] == "OFF":
+            return "Off", 3
+        if not html:
+            return "Unknown", 4
+
+        block = re.search(r">"+re.escape(reader["label"])+r"<.*?</tr>", html, re.I|re.S)
+        if not block:
+            return "Unknown", 4
+
+        info = block.group(0).lower()
+
+        if proto == "emu" or "cardok" in info:
+            state = "CardOK"
+            priority = 1
+        elif "connected" in info:
+            state = "connected"
+            priority = 2
+        elif "offline" in info or "error" in info or "disconnected" in info:
+            state = "Unreachable"
+            priority = 4
+        elif "online" in info:
+            state = "Off"
+            priority = 3
+        else:
+            state = "Unknown"
+            priority = 4
+
+        return state, priority
+
+    # ----------------------- MAIN RELOAD -----------------------
+    def reload(self):
+        readers = self.parseServer()
+        html = self.fetchWebif()
+
+        if not html:
+            self["list"].setText("")
+            self["error"].setText("NCam WebIF Unreachable")
+            return
+        else:
+            self["error"].setText("")
+
+        rows = []
+
+        W_READER = 22
+        W_ADDRESS = 27
+        W_PORT = 10
+        W_PROTOCOL = 14
+
+        for r in readers:
+            status, prio = self.detectStatus(html, r)
+            colored_status = self.colorStatus(status, r["proto"])
+
+            line = "{}│{}│{}│{}│{}".format(
+                self.fit(r["label"], W_READER),
+                self.fit(r["host"], W_ADDRESS),
+                self.fit(r["port"], W_PORT),
+                self.fit(r["proto"], W_PROTOCOL),
+                colored_status
+            )
+
+            rows.append((prio, line))
+
+        # Sort by priority: CardOK → connected → Off → others
+        rows.sort(key=lambda x: x[0])
+        lines = [""] + [row for _, row in rows]
         self["list"].setText("\n".join(lines))
