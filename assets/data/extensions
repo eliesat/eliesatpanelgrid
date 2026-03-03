@@ -561,7 +561,7 @@ Status: Plg Uti
 Pluginskinmover='https://gitlab.com/eliesat/extensions/-/raw/main/pluginskinmover/pluginskinmover.sh'
 
 Package: Plutotv
-Version: 20240831     اي بي تي في مجاني
+Version: 3.02     اي بي تي في مجاني
 Status: Plg Free
 Plutotv='https://gitlab.com/eliesat/extensions/-/raw/main/plutotv/plutotv.sh'
 
