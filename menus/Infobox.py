@@ -17,7 +17,7 @@ except:
 OSCAM_URL = "http://127.0.0.1:8888/reader.html"
 USER = "admin"
 PASS = "password"
-CONFIG = "/etc/tuxbox/config/oscam.server"
+CONFIG_BASE = "/etc/tuxbox/config"
 BG = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"
 
 # ---------------- UTILS ----------------
@@ -286,6 +286,8 @@ class PlaceholderScreen(Screen):
 # ============================================================
 # OSCAM READERS SCREEN
 # ============================================================
+CONFIG_BASE = "/etc/tuxbox/config"
+
 class OscamReadersScreen(Screen):
 
     skin = """
@@ -324,6 +326,49 @@ class OscamReadersScreen(Screen):
         )
 
         self.reload()
+
+    # --------------------------------------------------
+    # SMART CONFIG DETECTION (NO LOGIC CHANGE ELSEWHERE)
+    # --------------------------------------------------
+    def getConfigPath(self):
+
+        # 1) Detect running oscam process and -c path
+        try:
+            for pid in os.listdir("/proc"):
+                if not pid.isdigit():
+                    continue
+
+                cmdline_path = os.path.join("/proc", pid, "cmdline")
+                if not os.path.exists(cmdline_path):
+                    continue
+
+                cmdline = open(cmdline_path, "rb").read().decode("utf-8", "ignore")
+
+                if "oscam" in cmdline.lower():
+                    parts = cmdline.split("\x00")
+
+                    for i, part in enumerate(parts):
+                        if part == "-c" and i + 1 < len(parts):
+                            config_dir = parts[i + 1]
+                            candidate = os.path.join(config_dir, "oscam.server")
+                            if os.path.exists(candidate):
+                                return candidate
+        except:
+            pass
+
+        # 2) Fallback scan
+        if not os.path.exists(CONFIG_BASE):
+            return None
+
+        root_candidate = os.path.join(CONFIG_BASE, "oscam.server")
+        if os.path.exists(root_candidate):
+            return root_candidate
+
+        for root, dirs, files in os.walk(CONFIG_BASE):
+            if "oscam.server" in files:
+                return os.path.join(root, "oscam.server")
+
+        return None
 
     # -----------------------
     # STRICT WIDTH FORMATTER
@@ -370,8 +415,8 @@ class OscamReadersScreen(Screen):
     def parseServer(self):
 
         readers = []
-
-        if not os.path.exists(CONFIG):
+        config_path = self.getConfigPath()
+        if not config_path:
             return readers
 
         reader = ""
@@ -390,7 +435,7 @@ class OscamReadersScreen(Screen):
                     "status": status
                 })
 
-        for raw in open(CONFIG):
+        for raw in open(config_path):
             line = raw.strip()
             if line.startswith("[reader]"):
                 push()
