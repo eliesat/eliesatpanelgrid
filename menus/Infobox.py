@@ -72,7 +72,7 @@ class Infobox(Screen):
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
 <eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
-<widget name="list" position="120,140" size="1680,720" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
+<widget name="list" position="120,140" size="1680,720" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
 <eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
 <eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
 <eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
@@ -205,7 +205,7 @@ class SystemMonitorScreen(Screen):
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
 <eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
-<widget name="list" position="120,140" size="1680,720" font="Regular;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
+<widget name="list" position="120,140" size="1680,720" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
 <eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="10"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="10"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="10"/>
@@ -288,7 +288,7 @@ class OSCamReadersScreen(Screen):
 <screen name="OscamReadersScreen" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
 <eLabel text=" Label                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
 <eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
@@ -540,7 +540,7 @@ class NCamReadersScreen(Screen):
 <screen name="NCamReadersScreen" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● NCam Readers Status" position="350,20" size="1400,60" font="Bold;32" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
 <eLabel text=" Label                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
 <eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
