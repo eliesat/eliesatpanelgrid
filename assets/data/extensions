@@ -716,7 +716,7 @@ Status: Plg Free
 Tvgarden='https://gitlab.com/eliesat/extensions/-/raw/main/tvgarden/tvgarden.sh'
 
 Package: Vavoo-plugin
-Version: 1.49     اي بي تي في مجاني
+Version: 1.50     اي بي تي في مجاني
 Status: Plg Free
 Vavoo-plugin='https://gitlab.com/eliesat/extensions/-/raw/main/vavoo/vavoo.sh'
 
@@ -771,7 +771,7 @@ Status: Plg Uti
 Worldcam='https://gitlab.com/eliesat/extensions/-/raw/main/worldcam/worldcam.sh'
 
 Package: Xcplugin-forever
-Version: 5.0     مشغل اي بي تي في
+Version: 5.1     مشغل اي بي تي في
 Status: Plg Ipt
 Xcplugin-forever='https://gitlab.com/eliesat/extensions/-/raw/main/xcplugin-forever/xcplugin-forever.sh'
 
