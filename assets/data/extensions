@@ -431,7 +431,7 @@ Status: Plg Enc
 Levi45emulator='https://gitlab.com/eliesat/extensions/-/raw/main/levi45emulator/levi45emulator.sh'
 
 Package: Levi45settings
-Version: 1.5     ملف قنوات
+Version: 1.6     ملف قنوات
 Status: Plg Set
 Levi45settings='https://gitlab.com/eliesat/extensions/-/raw/main/levi45settings/levi45settings.sh'
 
