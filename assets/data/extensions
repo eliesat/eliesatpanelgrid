@@ -241,7 +241,7 @@ Status: Plg Sub
 Epgtranslator='https://gitlab.com/eliesat/extensions/-/raw/main/epgtranslator/epgtranslator.sh'
 
 Package: Estalker
-Version: 1.27     مشغل بورتلات اي بي تي في
+Version: 1.28     مشغل بورتلات اي بي تي في
 Status: Plg Ipt
 Estalker='https://gitlab.com/eliesat/extensions/-/raw/main/estalker/estalker.sh'
 
