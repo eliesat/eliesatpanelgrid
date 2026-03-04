@@ -17,6 +17,7 @@ from Components.config import (
 from Components.MenuList import MenuList
 from Components.Language import language
 
+from Plugins.Extensions.ElieSatPanelGrid.menus.Infobox import OSCamReadersScreen
 from Plugins.Extensions.ElieSatPanelGrid.__init__ import Version
 from Plugins.Extensions.ElieSatPanelGrid.menus.Helpers import (
     get_local_ip, check_internet, get_image_name,
@@ -80,7 +81,7 @@ class Cccamadder(Screen, ConfigListScreen):
         self["right_bar"] = Label("\n".join(list("By ElieSat")))
 
         # Colored buttons
-        self["red"] = Label("Check Path")
+        self["red"] = Label("Oscam Status")
         self["green"] = Label("Restore")
         self["yellow"] = Label("Send And Backup")
         self["blue"] = Label("Manage Readers")
@@ -196,7 +197,7 @@ class Cccamadder(Screen, ConfigListScreen):
     # Buttons
     # ----------------------------
     def open_red_job(self):
-        self.session.open(MessageBox, f"Panel folder:\n{self.panel_dir}", MessageBox.TYPE_INFO, timeout=5)
+        self.session.open(OSCamReadersScreen)
 
     def open_green_job(self):
         self.session.open(GreenJobScreen)
