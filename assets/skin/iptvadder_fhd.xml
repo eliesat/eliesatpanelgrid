@@ -81,7 +81,7 @@
         <widget name="playlists" position="160,500" size="1100,400" zPosition="12"
             font="Bold;32" halign="left" valign="top"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
-        <widget name="panel_path" position="150,780" size="1100,160" zPosition="12"
+        <widget name="panel_path" position="150,740" size="1100,240" zPosition="12"
             font="Bold;32" halign="left" valign="top"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
         <widget name="left_bar" position="10,160" size="60,760" zPosition="20"
