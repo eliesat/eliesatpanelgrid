@@ -78,7 +78,7 @@
             enableWrapAround="1" valign="center"
             selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png"
         />
-        <widget name="playlists" position="160,400" size="1100,400" zPosition="12"
+        <widget name="playlists" position="160,500" size="1100,400" zPosition="12"
             font="Bold;32" halign="left" valign="top"
             foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
         <widget name="panel_path" position="150,780" size="1100,160" zPosition="12"

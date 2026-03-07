@@ -79,10 +79,10 @@
         enableWrapAround="1" valign="center"
         selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/icon/selection.png" />
 
-    <widget name="playlists" position="107,267" size="733,267" zPosition="12"
+    <widget name="playlists" position="107,307" size="733,267" zPosition="12"
         font="Bold;24" halign="left" valign="top"
         foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
-    <widget name="panel_path" position="100,520" size="733,107" zPosition="12"
+    <widget name="panel_path" position="100,447" size="733,107" zPosition="12"
         font="Bold;24" halign="left" valign="top"
         foregroundColor="yellow" backgroundColor="#000000" transparent="1" />
 
@@ -90,7 +90,6 @@
     <eLabel position="0,90" size="55,580" zPosition="2" backgroundColor="#000000" />
     <eLabel position="1225,90" size="55,580" zPosition="2" backgroundColor="#000000" />
 
-    <!-- Left / Right vertical bars (fixed like EliesatPanel) -->
     <widget name="left_bar"
         position="15,110" size="40,500" zPosition="20"
         font="Regular;18" halign="center" valign="top"
