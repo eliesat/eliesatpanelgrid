@@ -48,6 +48,7 @@ class Iptvadder(Screen, ConfigListScreen):
                 ("custom", "custom"),
                 ("serverx1", "serverx1"),
                 ("serverx2", "serverx2"),
+                ("serverx3", "serverx3"),  # FIX: added missing label
                 ("jepro1", "server jepro1"),
                 ("jepro2", "server jepro2"),
                 ("ultra", "server ultra"),
@@ -142,8 +143,9 @@ class Iptvadder(Screen, ConfigListScreen):
         label = config_element.value
         mapping = {
             "custom": "http://url.com",
-            "serverx1": "https://vipxtv.net",
-            "serverx2": "http://sjl4p.otvipserv.com",
+            "serverx1": "http://sjl4p.otvipserv.com",
+            "serverx2": "http://vipxtv.net",
+            "serverx3": "http://servx.pro",
             "jepro1": "http://live.u8k.pro",
             "jepro2": "http://a345d.info",
             "ultra": "http://ultra.gotop.me",
@@ -234,6 +236,7 @@ class Iptvadder(Screen, ConfigListScreen):
         if len(lines) < 2:
             self["panel_path"].setText("No subscription to restore")
             return
+
         subscription_line = lines[1]
 
         def yes_restore():
@@ -292,7 +295,6 @@ class Iptvadder(Screen, ConfigListScreen):
             subfile = os.path.join(self.panel_dir, "isubscription.txt")
             open(subfile, "w").close()
 
-        # Reset defaults
         self.label.setValue("custom")
         self.url.setValue("http://url.com")
         self.port.setValue("80")
