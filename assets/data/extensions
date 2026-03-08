@@ -286,7 +286,7 @@ Status: Plg Spo
 Footonsat='https://gitlab.com/eliesat/extensions/-/raw/main/footonsat/footonsat.sh'
 
 Package: Foreca
-Version: 1.3.4     حالة الطقس
+Version: 1.0.6     حالة الطقس
 Status: Plg Wea
 Foreca='https://gitlab.com/eliesat/extensions/-/raw/main/foreca/foreca.sh'
 
@@ -721,7 +721,7 @@ Status: Plg Free
 Tvgarden='https://gitlab.com/eliesat/extensions/-/raw/main/tvgarden/tvgarden.sh'
 
 Package: Vavoo-plugin
-Version: 1.51     اي بي تي في مجاني
+Version: 1.57     اي بي تي في مجاني
 Status: Plg Free
 Vavoo-plugin='https://gitlab.com/eliesat/extensions/-/raw/main/vavoo/vavoo.sh'
 
