@@ -763,7 +763,7 @@ class IptvScreen(Screen):
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
 <eLabel text="● IPTV Servers Monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
-<eLabel text=" SERVER                      │PLUGIN            │EXPIRES      │ACT │MAX │STATUS"
+<eLabel text=" SERVER                     │PLUGIN              │EXPIRES     │ACT  │MAX  │STATUS"
 position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
 <eLabel text="────────────────────────────────────────────────────────────────────────────"
 position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A"/>
@@ -811,9 +811,7 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
         return text.ljust(width)
 
     def queryApi(self, host, user, password):
-
         url = "http://{}/player_api.php?username={}&password={}".format(host, user, password)
-
         try:
             req = Request(url, headers={"User-Agent":"XStreamity-Monitor"})
             data = urlopen(req, timeout=5).read().decode("utf-8","ignore")
@@ -822,16 +820,12 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
             return None
 
     def parsePlaylists(self):
-
         rows = []
-
         for root, dirs, files in os.walk(self.BASE_DIR):
-
             if "playlists.txt" not in files:
                 continue
 
             playlist = os.path.join(root,"playlists.txt")
-
             plugin = "default"
             if root != self.BASE_DIR:
                 plugin = os.path.basename(root)
@@ -842,9 +836,7 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
                 continue
 
             for line in lines:
-
                 line = line.strip()
-
                 if not line or line.startswith("#"):
                     continue
 
@@ -867,21 +859,16 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
                 maxc = "0"
 
                 if api:
-
                     info = api.get("user_info",{})
-
                     status = info.get("status","Unknown")
                     active = str(info.get("active_cons","0"))
                     maxc = str(info.get("max_connections","0"))
-
                     exp = info.get("exp_date")
-
                     if exp:
                         try:
                             expires = datetime.fromtimestamp(int(exp)).strftime("%d-%m-%Y")
                         except:
                             pass
-
                 else:
                     status = "No Reply"
 
@@ -897,37 +884,37 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
         return rows
 
     def colorStatus(self, status):
-
         s = status.lower()
-
         if s == "active":
             return "\\c0000FF00Active\\c00E6BE3A"
-
         if s == "no reply":
             return "\\c00FF0000No Reply\\c00E6BE3A"
-
         return status
 
     def buildTable(self, rows):
-
+        # column widths, PLUGIN increased
         W_HOST = 28
-        W_PLUGIN = 16
+        W_PLUGIN = 20   # widened
         W_EXP = 12
-        W_ACTIVE = 6
-        W_MAX = 6
+        W_ACTIVE = 5
+        W_MAX = 5
 
         formatted = []
 
         for r in rows:
-
             status = self.colorStatus(r["status"])
+            host = self.fit(r["host"], W_HOST)
+            plugin = self.fit(r["plugin"], W_PLUGIN)
+            exp = self.fit(r["expires"], W_EXP)
+            active = self.fit(r["active"], W_ACTIVE)
+            maxc = self.fit(r["max"], W_MAX)
 
             line = "{}│{}│{}│{}│{}│{}".format(
-                self.fit(r["host"],W_HOST),
-                self.fit(r["plugin"],W_PLUGIN),
-                self.fit(r["expires"],W_EXP),
-                self.fit(r["active"],W_ACTIVE),
-                self.fit(r["max"],W_MAX),
+                host,
+                plugin,
+                exp,
+                active,
+                maxc,
                 status
             )
 
@@ -940,20 +927,15 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
             formatted.append((priority,line))
 
         formatted.sort(key=lambda x: x[0])
-
         return "\n".join([row for _,row in formatted])
 
     def reload(self):
-
         rows = self.parsePlaylists()
-
         if not rows:
             self["list"].setText("")
             self["error"].setText("No IPTV playlists found")
             return
 
         self["error"].setText("")
-
         table = self.buildTable(rows)
-
         self["list"].setText("\n" + table)
