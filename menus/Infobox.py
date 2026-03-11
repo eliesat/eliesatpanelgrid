@@ -191,7 +191,7 @@ class Infobox(Screen):
 
     # ---------------- BUTTON ACTIONS ----------------
     def openSystemMonitor(self): self.session.open(SystemMonitorScreen)
-    def openIPTV(self): self.session.open(PlaceholderScreen,"IPTV")
+    def openIPTV(self): self.session.open(IptvScreen)
     def openNCam(self): self.session.open(NCamReadersScreen)
     def showOscam(self): self.session.open(OSCamReadersScreen)
 
@@ -261,21 +261,6 @@ class SystemMonitorScreen(Screen):
         text.append("• Flash Usage : %s" % flash)
 
         return "\n".join(text)
-
-# ============================================================
-# PLACEHOLDER SCREEN
-# ============================================================
-class PlaceholderScreen(Screen):
-    skin = f"""
-<screen name="Placeholder" position="center,center" size="1920,1080">
-<ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
-<eLabel text="Coming Soon..." position="0,450" size="1920,80" font="Bold;48" halign="center" foregroundColor="#E6BE3A"/>
-</screen>
-"""
-    def __init__(self, session, title="Coming Soon"):
-        Screen.__init__(self, session)
-        self["actions"] = ActionMap(["OkCancelActions"], {"cancel": self.close})
-
 
 # ============================================================
 # OSCAM READERS SCREEN
@@ -741,3 +726,239 @@ class NCamReadersScreen(Screen):
         rows.sort(key=lambda x: x[0])
         lines = [""] + [row for _, row in rows]
         self["list"].setText("\n".join(lines))
+
+
+import os
+import re
+import json
+from datetime import datetime
+from urllib.request import Request, urlopen
+
+from Screens.Screen import Screen
+from Components.Label import Label
+from Components.ScrollLabel import ScrollLabel
+from Components.ActionMap import ActionMap
+
+
+class IptvScreen(Screen):
+
+    skin = """
+<screen name="IptvScreen" position="center,center" size="1920,1080">
+<ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
+<eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
+<eLabel text="● IPTV Servers Monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
+<eLabel text=" SERVER                      │PLUGIN            │EXPIRES      │ACT │MAX │STATUS"
+position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<eLabel text="────────────────────────────────────────────────────────────────────────────"
+position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A"/>
+<widget name="list" position="100,225" size="1720,625" font="Console;30"
+foregroundColor="#E6BE3A" transparent="1" scrollbarMode="showOnDemand"/>
+<widget name="error" position="0,225" size="1920,625" font="Bold;44"
+halign="center" valign="center" foregroundColor="#FF0000" transparent="1"/>
+<widget name="title" position="0,950" size="1920,50"
+font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="12"/>
+</screen>
+"""
+
+    BASE_DIR = "/etc/enigma2"
+
+    def __init__(self, session):
+        Screen.__init__(self, session)
+
+        self["title"] = Label("IPTV Servers Status")
+        self["list"] = ScrollLabel("")
+        self["error"] = Label("")
+
+        self["actions"] = ActionMap(
+            ["OkCancelActions","DirectionActions"],
+            {
+                "cancel": self.close,
+                "up": self["list"].pageUp,
+                "down": self["list"].pageDown,
+            }
+        )
+
+        self.reload()
+
+    # ------------------------------------------
+    # text fit helper
+    # ------------------------------------------
+
+    def fit(self, text, width):
+        text = str(text)
+        if len(text) > width:
+            return text[:width-1] + "…"
+        return text.ljust(width)
+
+    # ------------------------------------------
+    # API query
+    # ------------------------------------------
+
+    def queryApi(self, host, user, password):
+
+        url = "http://{}/player_api.php?username={}&password={}".format(host, user, password)
+
+        try:
+            req = Request(url, headers={"User-Agent":"XStreamity-Monitor"})
+            data = urlopen(req, timeout=5).read().decode("utf-8","ignore")
+            return json.loads(data)
+        except:
+            return None
+
+    # ------------------------------------------
+    # Parse playlists.txt files
+    # ------------------------------------------
+
+    def parsePlaylists(self):
+
+        rows = []
+
+        for root, dirs, files in os.walk(self.BASE_DIR):
+
+            if "playlists.txt" not in files:
+                continue
+
+            playlist = os.path.join(root,"playlists.txt")
+
+            plugin = "default"
+            if root != self.BASE_DIR:
+                plugin = os.path.basename(root)
+
+            try:
+                lines = open(playlist).read().splitlines()
+            except:
+                continue
+
+            for line in lines:
+
+                line = line.strip()
+
+                if not line or line.startswith("#"):
+                    continue
+
+                user = re.search(r'username=([^&]+)', line)
+                password = re.search(r'password=([^&]+)', line)
+                host = re.search(r'://([^/]+)', line)
+
+                if not user or not password or not host:
+                    continue
+
+                user = user.group(1)
+                password = password.group(1)
+                host = host.group(1)
+
+                api = self.queryApi(host,user,password)
+
+                status = "Unknown"
+                expires = "-"
+                active = "0"
+                maxc = "0"
+
+                if api:
+
+                    info = api.get("user_info",{})
+
+                    status = info.get("status","Unknown")
+                    active = str(info.get("active_cons","0"))
+                    maxc = str(info.get("max_connections","0"))
+
+                    exp = info.get("exp_date")
+
+                    if exp:
+                        try:
+                            expires = datetime.fromtimestamp(int(exp)).strftime("%d-%m-%Y")
+                        except:
+                            pass
+
+                else:
+                    status = "No Reply"
+
+                rows.append({
+                    "host":host,
+                    "plugin":plugin,
+                    "expires":expires,
+                    "active":active,
+                    "max":maxc,
+                    "status":status
+                })
+
+        return rows
+
+    # ------------------------------------------
+    # Status color
+    # ------------------------------------------
+
+    def colorStatus(self, status):
+
+        s = status.lower()
+
+        if s == "active":
+            return "\\c0000FF00Active\\c00E6BE3A"
+
+        if s == "no reply":
+            return "\\c00FF0000No Reply\\c00E6BE3A"
+
+        return status
+
+    # ------------------------------------------
+    # Build table
+    # ------------------------------------------
+
+    def buildTable(self, rows):
+
+        W_HOST = 28
+        W_PLUGIN = 16
+        W_EXP = 12
+        W_ACTIVE = 6
+        W_MAX = 6
+
+        formatted = []
+
+        for r in rows:
+
+            status = self.colorStatus(r["status"])
+
+            line = "{}│{}│{}│{}│{}│{}".format(
+                self.fit(r["host"],W_HOST),
+                self.fit(r["plugin"],W_PLUGIN),
+                self.fit(r["expires"],W_EXP),
+                self.fit(r["active"],W_ACTIVE),
+                self.fit(r["max"],W_MAX),
+                status
+            )
+
+            priority = 3
+            if r["status"] == "Active":
+                priority = 1
+            elif r["status"] == "No Reply":
+                priority = 2
+
+            formatted.append((priority,line))
+
+        formatted.sort(key=lambda x: x[0])
+
+        return "\n".join([row for _,row in formatted])
+
+    # ------------------------------------------
+    # reload screen
+    # ------------------------------------------
+
+    def reload(self):
+
+        rows = self.parsePlaylists()
+
+        if not rows:
+            self["list"].setText("")
+            self["error"].setText("No IPTV playlists found")
+            return
+
+        self["error"].setText("")
+
+        table = self.buildTable(rows)
+
+        self["list"].setText("\n" + table)
