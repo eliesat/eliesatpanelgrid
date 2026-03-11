@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+import os
+import re
+import json
+from datetime import datetime
+from urllib.request import Request, urlopen
+
+from Screens.Screen import Screen
+from Components.Label import Label
+from Components.ScrollLabel import ScrollLabel
+from Components.ActionMap import ActionMap
+
+
 
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
@@ -206,27 +218,43 @@ class SystemMonitorScreen(Screen):
 <eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
 <widget name="list" position="120,140" size="1680,720" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
-<eLabel position="0,1075" size="480,5" backgroundColor="red" transparent="0" zPosition="10"/>
-<eLabel position="480,1075" size="480,5" backgroundColor="green" transparent="0" zPosition="10"/>
-<eLabel position="960,1075" size="480,5" backgroundColor="yellow" transparent="0" zPosition="10"/>
-<eLabel position="1440,1075" size="480,5" backgroundColor="blue" transparent="0" zPosition="10"/>
+
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+
+<eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="10"/>
+<eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="10"/>
+<eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="10"/>
+<eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="10"/>
 </screen>
 """
 
     def __init__(self, session):
         Screen.__init__(self, session)
+
         self["list"] = ScrollLabel(self.build_text())
 
         self["actions"] = ActionMap(
-            ["OkCancelActions","DirectionActions"],
+            ["OkCancelActions", "DirectionActions", "ColorActions"],
             {
                 "cancel": self.close,
                 "up": self["list"].pageUp,
-                "down": self["list"].pageDown
-            }
+                "down": self["list"].pageDown,
+                "red": self.openSystemMonitor,
+                "green": self.openIPTV,
+                "yellow": self.openNCam,
+                "blue": self.showOscam
+            },
+            -1
         )
 
+    # ============================================================
+    # BUILD SYSTEM TEXT
+    # ============================================================
     def build_text(self):
+
         img = run_cmd("grep '^distro=' /etc/image-version | cut -d= -f2")
         ver = run_cmd("grep '^version=' /etc/image-version | cut -d= -f2")
         py = run_cmd("python3 -V | awk '{print $2}'")
@@ -240,6 +268,7 @@ class SystemMonitorScreen(Screen):
         flash = run_cmd("df -h / | awk 'NR==2 {print $3\" / \"$2}'")
 
         text = []
+
         text.append("○ System")
         text.append("-" * 35)
         text.append("• Image Name    : %s" % img)
@@ -248,6 +277,7 @@ class SystemMonitorScreen(Screen):
         text.append("• Architecture  : %s" % arch)
         text.append("• Kernel        : %s" % ker)
         text.append("")
+
         text.append("○ Hardware")
         text.append("-" * 35)
         text.append("• Model     : %s" % model)
@@ -255,6 +285,7 @@ class SystemMonitorScreen(Screen):
         text.append("• CPU Temp  : %s" % temp)
         text.append("• CPU Load  : %s" % load)
         text.append("")
+
         text.append("○ Resources")
         text.append("-" * 35)
         text.append("• RAM Usage   : %s" % ram)
@@ -262,6 +293,21 @@ class SystemMonitorScreen(Screen):
 
         return "\n".join(text)
 
+    # ============================================================
+    # BUTTON ACTIONS
+    # ============================================================
+
+    def openSystemMonitor(self):
+        self.session.open(SystemMonitorScreen)
+
+    def openIPTV(self):
+        self.session.open(IptvScreen)
+
+    def openNCam(self):
+        self.session.open(NCamReadersScreen)
+
+    def showOscam(self):
+        self.session.open(OSCamReadersScreen)
 # ============================================================
 # OSCAM READERS SCREEN
 # ============================================================
@@ -280,6 +326,10 @@ class OSCamReadersScreen(Screen):
 <widget name="list" position="100,225" size="1720,625" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
 <widget name="error" position="0,225" size="1920,625" font="Bold;44" halign="center" valign="center" foregroundColor="#FF0000" transparent="1" zPosition="7"/>
 <eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="9"/>
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
 <eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
@@ -306,9 +356,6 @@ class OSCamReadersScreen(Screen):
 
         self.reload()
 
-    # --------------------------------------------------
-    # SMART CONFIG DETECTION (NO LOGIC CHANGE ELSEWHERE)
-    # --------------------------------------------------
     def getConfigPath(self):
 
         try:
@@ -347,18 +394,12 @@ class OSCamReadersScreen(Screen):
 
         return None
 
-    # -----------------------
-    # STRICT WIDTH FORMATTER
-    # -----------------------
     def fit(self, text, width):
         text = str(text)
         if len(text) > width:
             return text[:width - 1] + "…"
         return text.ljust(width)
 
-    # -----------------------
-    # STATUS COLOR ENGINE
-    # -----------------------
     def colorStatus(self, status, proto):
         s = status.lower()
         if proto == "emu":
@@ -369,9 +410,6 @@ class OSCamReadersScreen(Screen):
             return "\\c00FF0000Off\\c00E6BE3A"
         return status
 
-    # -----------------------
-    # FETCH WEBIF
-    # -----------------------
     def fetchWebif(self):
         try:
             auth = base64.b64encode(("%s:%s" % (USER, PASS)).encode()).decode()
@@ -386,9 +424,6 @@ class OSCamReadersScreen(Screen):
         except:
             return ""
 
-    # -----------------------
-    # PARSE SERVER
-    # -----------------------
     def parseServer(self):
 
         readers = []
@@ -433,9 +468,6 @@ class OSCamReadersScreen(Screen):
         push()
         return readers
 
-    # -----------------------
-    # STATUS DETECTION (UNCHANGED)
-    # -----------------------
     def detectStatus(self, html, reader):
 
         proto = reader["proto"]
@@ -474,9 +506,6 @@ class OSCamReadersScreen(Screen):
 
         return state, priority
 
-    # -----------------------
-    # MAIN RELOAD (SORT ONLY FOR SCREEN)
-    # -----------------------
     def reload(self):
 
         readers = self.parseServer()
@@ -532,6 +561,10 @@ class NCamReadersScreen(Screen):
 <widget name="list" position="100,225" size="1720,625" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
 <widget name="error" position="0,225" size="1920,625" font="Bold;44" halign="center" valign="center" foregroundColor="#FF0000" transparent="1" zPosition="7"/>
 <widget name="title" position="0,950" size="1920,50" font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
 <eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
@@ -588,14 +621,12 @@ class NCamReadersScreen(Screen):
                 return os.path.join(root,"ncam.server")
         return None
 
-    # ----------------------- FIT -----------------------
     def fit(self, text, width):
         text = str(text)
         if len(text) > width:
             return text[:width-1]+"…"
         return text.ljust(width)
 
-    # ----------------------- STATUS COLOR -----------------------
     def colorStatus(self, status, proto):
         s = status.lower()
         if s == "cardok":
@@ -606,7 +637,6 @@ class NCamReadersScreen(Screen):
             return "\\c00FF0000Off\\c00E6BE3A"
         return status
 
-    # ----------------------- FETCH WEBIF -----------------------
     def fetchWebif(self):
         try:
             req = Request(self.NCAM_URL)
@@ -614,7 +644,6 @@ class NCamReadersScreen(Screen):
         except:
             return ""
 
-    # ----------------------- PARSE SERVER -----------------------
     def parseServer(self):
         readers = []
         config_path = self.getConfigPath()
@@ -657,7 +686,6 @@ class NCamReadersScreen(Screen):
         push()
         return readers
 
-    # ----------------------- DETECT STATUS -----------------------
     def detectStatus(self, html, reader):
         proto = reader["proto"]
         if reader["status"] == "OFF":
@@ -689,7 +717,6 @@ class NCamReadersScreen(Screen):
 
         return state, priority
 
-    # ----------------------- MAIN RELOAD -----------------------
     def reload(self):
         readers = self.parseServer()
         html = self.fetchWebif()
@@ -728,18 +755,6 @@ class NCamReadersScreen(Screen):
         self["list"].setText("\n".join(lines))
 
 
-import os
-import re
-import json
-from datetime import datetime
-from urllib.request import Request, urlopen
-
-from Screens.Screen import Screen
-from Components.Label import Label
-from Components.ScrollLabel import ScrollLabel
-from Components.ActionMap import ActionMap
-
-
 class IptvScreen(Screen):
 
     skin = """
@@ -758,6 +773,10 @@ foregroundColor="#E6BE3A" transparent="1" scrollbarMode="showOnDemand"/>
 halign="center" valign="center" foregroundColor="#FF0000" transparent="1"/>
 <widget name="title" position="0,950" size="1920,50"
 font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
 <eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
@@ -785,19 +804,11 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
 
         self.reload()
 
-    # ------------------------------------------
-    # text fit helper
-    # ------------------------------------------
-
     def fit(self, text, width):
         text = str(text)
         if len(text) > width:
             return text[:width-1] + "…"
         return text.ljust(width)
-
-    # ------------------------------------------
-    # API query
-    # ------------------------------------------
 
     def queryApi(self, host, user, password):
 
@@ -809,10 +820,6 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
             return json.loads(data)
         except:
             return None
-
-    # ------------------------------------------
-    # Parse playlists.txt files
-    # ------------------------------------------
 
     def parsePlaylists(self):
 
@@ -889,10 +896,6 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
 
         return rows
 
-    # ------------------------------------------
-    # Status color
-    # ------------------------------------------
-
     def colorStatus(self, status):
 
         s = status.lower()
@@ -904,10 +907,6 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
             return "\\c00FF0000No Reply\\c00E6BE3A"
 
         return status
-
-    # ------------------------------------------
-    # Build table
-    # ------------------------------------------
 
     def buildTable(self, rows):
 
@@ -943,10 +942,6 @@ font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
         formatted.sort(key=lambda x: x[0])
 
         return "\n".join([row for _,row in formatted])
-
-    # ------------------------------------------
-    # reload screen
-    # ------------------------------------------
 
     def reload(self):
 
