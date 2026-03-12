@@ -27,7 +27,6 @@ if not os.path.exists(scriptpath):
 
 class Scripts(Screen):
     def __init__(self, session):
-        # Load correct skin
         width, height = getDesktop(0).size().width(), getDesktop(0).size().height()
         skin_file = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/scripts_fhd.xml" \
             if width >= 1920 else "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/skin/scripts_hd.xml"
@@ -61,7 +60,7 @@ class Scripts(Screen):
         self["script_name"] = Label("")
         self["page_info"] = Label("Page 1/1")
 
-        # Persistent MenuList
+        # Menu list
         self["list"] = MenuList([])
         self["list"].onSelectionChanged.append(self.updateSelection)
 
@@ -69,9 +68,9 @@ class Scripts(Screen):
         self["actions"] = ActionMap(
             ["OkCancelActions", "ColorActions"],
             {
-                "ok": self.run,        # keep original console behavior
+                "ok": self.run,
                 "green": self.update,
-                "yellow": self.bgrun,  # yellow runs like OpenScript
+                "yellow": self.bgrun,
                 "red": self.remove,
                 "blue": self.restart,
                 "up": self.moveUp,
@@ -83,28 +82,45 @@ class Scripts(Screen):
             -1,
         )
 
-        # Load scripts
         self.loadScripts()
 
-    # -------------------------
-    # Scripts list
-    # -------------------------
+    # --------------------------------------------------
+    # Load scripts
+    # --------------------------------------------------
     def loadScripts(self):
         self.scripts = []
+        self.display_list = []
+
         if os.path.exists(scriptpath):
             self.scripts = [x for x in os.listdir(scriptpath) if x.endswith(".sh") or x.endswith(".py")]
+
         self.scripts.sort()
-        self["list"].setList(self.scripts)
+
+        for script in self.scripts:
+            self.display_list.append("• %s" % script)
+
+        self["list"].setList(self.display_list)
         self.updateSelection()
 
+    # --------------------------------------------------
+    # Update selection info
+    # --------------------------------------------------
     def updateSelection(self):
         idx = self["list"].getCurrentIndex()
         total = len(self.scripts)
-        self["script_name"].setText(self.scripts[idx] if self.scripts else _("No scripts found"))
+
+        if self.scripts and idx < len(self.scripts):
+            self["script_name"].setText("• %s" % self.scripts[idx])
+        else:
+            self["script_name"].setText(_("No scripts found"))
+
         self.total_pages = max(1, (total + self.items_per_page - 1) // self.items_per_page)
-        self.current_page = (idx // self.items_per_page) + 1
+        self.current_page = (idx // self.items_per_page) + 1 if total else 1
         self["page_info"].setText("Page %d/%d" % (self.current_page, self.total_pages))
 
+    # --------------------------------------------------
+    # Navigation
+    # --------------------------------------------------
     def moveUp(self):
         self["list"].moveUp()
         self.updateSelection()
@@ -123,16 +139,19 @@ class Scripts(Screen):
         self["list"].setIndex(idx)
         self.updateSelection()
 
-    # -------------------------
-    # OK button: run script in Console (original behavior)
-    # -------------------------
+    # --------------------------------------------------
+    # Run script in console
+    # --------------------------------------------------
     def run(self):
-        script = self["list"].getCurrent()
+        idx = self["list"].getCurrentIndex()
+        script = self.scripts[idx] if self.scripts else None
+
         if not script:
             self.session.open(MessageBox, _("No script selected!"), MessageBox.TYPE_INFO)
             return
 
         full_path = join(scriptpath, script)
+
         if not exists(full_path):
             self.session.open(MessageBox, _("Script not found!"), MessageBox.TYPE_ERROR)
             return
@@ -145,20 +164,21 @@ class Scripts(Screen):
 
         self.session.open(Console, _("Executing: %s") % script, [cmd])
 
-    # -------------------------
-    # Yellow button: run like OpenScript
-    # -------------------------
+    # --------------------------------------------------
+    # Background run
+    # --------------------------------------------------
     def bgrun(self):
-        script = self["list"].getCurrent()
+        idx = self["list"].getCurrentIndex()
+        script = self.scripts[idx] if self.scripts else None
+
         if not script:
-            if self.session and hasattr(self.session, "open"):
-                self.session.open(MessageBox, _("No script selected!"), MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _("No script selected!"), MessageBox.TYPE_INFO)
             return
 
         full_path = join(scriptpath, script)
+
         if not exists(full_path):
-            if self.session and hasattr(self.session, "open"):
-                self.session.open(MessageBox, _("Script not found!"), MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Script not found!"), MessageBox.TYPE_ERROR)
             return
 
         if full_path.endswith(".sh"):
@@ -182,28 +202,23 @@ class Scripts(Screen):
             self.container.appClosed_conn = self.container.appClosed.connect(self.finishExecution)
 
         self.container.execute(cmd)
-        if self.session and hasattr(self.session, "open"):
-            self.session.open(MessageBox, _("Script is running... check log after finish!"), MessageBox.TYPE_INFO, timeout=3)
+        self.session.open(MessageBox, _("Script is running... check log after finish!"), MessageBox.TYPE_INFO, timeout=3)
 
-    # -------------------------
-    # Logging and finish
-    # -------------------------
+    # --------------------------------------------------
+    # Logging
+    # --------------------------------------------------
     def logData(self, data):
         with open(self.log_file, "a") as f:
             f.write(data.decode())
             f.flush()
 
     def finishExecution(self, retval):
-        if not self.session or not hasattr(self.session, "open"):
-            return
         if retval == 0:
             self.session.openWithCallback(self.openLog, MessageBox, _("Execution completed!"), MessageBox.TYPE_INFO)
         else:
             self.session.openWithCallback(self.openLog, MessageBox, _("Error while running (Code: %d)") % retval, MessageBox.TYPE_ERROR)
 
     def openLog(self, callback=None):
-        if not self.session or not hasattr(self.session, "open"):
-            return
         if exists(self.log_file):
             try:
                 from .File_Commander import File_Commander
@@ -213,33 +228,29 @@ class Scripts(Screen):
         else:
             self.session.open(MessageBox, _("Log file not found!"), MessageBox.TYPE_WARNING)
 
-    # -------------------------
+    # --------------------------------------------------
     # Other actions
-    # -------------------------
+    # --------------------------------------------------
     def restart(self):
-        if self.session and hasattr(self.session, "open"):
-            self.session.open(Console, _("Restarting Enigma2..."), ["killall -9 enigma2"])
+        self.session.open(Console, _("Restarting Enigma2..."), ["killall -9 enigma2"])
 
     def remove(self):
-        if self.session and hasattr(self.session, "open"):
-            self.session.openWithCallback(self.xremove, MessageBox, _('Remove all scripts?'), MessageBox.TYPE_YESNO)
+        self.session.openWithCallback(self.xremove, MessageBox, _('Remove all scripts?'), MessageBox.TYPE_YESNO)
 
     def xremove(self, answer=False):
         if answer:
             os_system('rm -rf /usr/script/*')
             self.loadScripts()
-            if self.session and hasattr(self.session, "open"):
-                self.session.open(MessageBox, _('Scripts successfully removed!'), MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _('Scripts successfully removed!'), MessageBox.TYPE_INFO)
 
     def update(self):
-        if self.session and hasattr(self.session, "open"):
-            self.session.open(Console, _("Installing scripts please wait..."), [
-                "wget --no-check-certificate https://raw.githubusercontent.com/eliesat/scripts/main/installer.sh -qO - | /bin/sh"
-            ])
+        self.session.open(Console, _("Installing scripts please wait..."), [
+            "wget --no-check-certificate https://raw.githubusercontent.com/eliesat/scripts/main/installer.sh -qO - | /bin/sh"
+        ])
 
-    # -------------------------
-    # Cleanup on close
-    # -------------------------
+    # --------------------------------------------------
+    # Cleanup
+    # --------------------------------------------------
     def doClose(self):
         try:
             if hasattr(self, "container"):
@@ -248,4 +259,3 @@ class Scripts(Screen):
         except:
             pass
         Screen.doClose(self)
-
