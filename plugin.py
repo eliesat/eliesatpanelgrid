@@ -66,7 +66,6 @@ class SplashScreen(Screen):
     PACKAGE = "/tmp/eliesatpanelgrid-main.tar.gz"
 
     def __init__(self, session):
-
         self.skin_type = detect_skin_type()
         self.skin = SKIN_HD_XML if self.skin_type == "HD" else SKIN_FHD_XML
         Screen.__init__(self, session)
@@ -74,7 +73,7 @@ class SplashScreen(Screen):
         self["icon"] = Pixmap()
         self["welcome"] = Label("○ Powering Your E2 Experience ○")
         self["version_label"] = Label("Version: %s" % self.read_version())
-        self["wait_text"] = Label("Upgrading the panel: 0%")
+        self["wait_text"] = Label("")
         self["progress_bar"] = ProgressBar()
         self["progress_bar"].setValue(0)
         self["progress_bar"].show()
@@ -103,7 +102,7 @@ class SplashScreen(Screen):
         except:
             return "Unknown"
 
-        # ---------- VERSION CHECK ----------
+    # ---------- VERSION CHECK ----------
     def check_version(self):
         self.version_timer.stop()
         local = self.read_version()
@@ -111,16 +110,11 @@ class SplashScreen(Screen):
 
         try:
             content = requests.get(url, timeout=5).text
-
-            # --- extract remote version ---
             m = re.search(r"Version\s*=\s*['\"](.+?)['\"]", content)
             remote = m.group(1) if m else None
-
-            # --- extract changelog ---
             c = re.search(r"changelog\s*=\s*['\"](.+?)['\"]", content)
             changelog = c.group(1) if c else ""
 
-            # --- show update question ---
             if remote and remote != local:
                 message = (
                     "New version %s is available.\n"
@@ -143,8 +137,11 @@ class SplashScreen(Screen):
     # ---------- UPDATE ----------
     def update_answer(self, answer):
         if not answer:
+            # User chose not to upgrade → start menu download
             self.start_github_process()
             return
+
+        # Only show upgrade message if user agreed
         self["progress_bar"].show()
         self["progress_bar"].setValue(0)
         self.display_progress = 0
@@ -154,27 +151,25 @@ class SplashScreen(Screen):
         self["wait_text"].setText("Upgrading the panel: 0%")
         self.download_update()
 
-    # ---------- DOWNLOAD + INSTALL REAL-TIME ----------
+    # ---------- SAFE SINGLE-THREADED DOWNLOAD ----------
     def download_update(self):
         try:
             self.req = requests.get(self.UPDATE_URL, stream=True, timeout=10)
             self.total_size = int(self.req.headers.get("content-length", 0))
             self.update_file = open(self.PACKAGE, "wb")
             self.chunk_iter = self.req.iter_content(chunk_size=32768)
+            self.display_progress = 0
+            self.downloaded = 0
+            self.phase = "download"
+
+            self.upgrade_timer = eTimer()
+            self.upgrade_timer.callback.append(self.download_and_install_tick)
+            self.upgrade_timer.start(50, True)
         except Exception as e:
             print("Update start error:", e)
             self.start_github_process()
-            return
 
-        # Update UI immediately at 0%
-        self.display_progress = 0
-        self["progress_bar"].setValue(0)
-        self["wait_text"].setText("Upgrading the panel: 0%")
-
-        self.upgrade_timer = eTimer()
-        self.upgrade_timer.callback.append(self.download_and_install_tick)
-        self.upgrade_timer.start(50, True)
-
+    # ---------- DOWNLOAD + INSTALL REAL-TIME ----------
     def download_and_install_tick(self):
         target_progress = self.display_progress
         if self.phase == "download":
@@ -223,7 +218,8 @@ class SplashScreen(Screen):
 
         # Update UI
         self["progress_bar"].setValue(self.display_progress)
-        self["wait_text"].setText("Upgrading the panel: %d%%" % self.display_progress)
+        if self.phase in ["download", "install"]:
+            self["wait_text"].setText("Upgrading the panel: %d%%" % self.display_progress)
 
         if self.phase != "done":
             self.upgrade_timer.start(50, True)
@@ -312,4 +308,3 @@ def Plugins(**kwargs):
             fnc=main,
         ),
     ]
-
