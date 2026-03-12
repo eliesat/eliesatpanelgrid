@@ -37,7 +37,7 @@ class Abt(Screen):
     <eLabel text="● About ElieSatPanel"
         position="350,0" size="1400,50" zPosition="11"
         font="Bold;32" halign="left" valign="center" noWrap="1"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="0" />
 
     <!-- Left / Right bars -->
@@ -48,21 +48,21 @@ class Abt(Screen):
     <widget name="about_text"
         position="200,180" size="1200,800" zPosition="12"
         font="Bold;32" halign="left" valign="top"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
 
     <!-- Page indicator -->
     <widget name="page_info"
         position="{self.width-220},940" size="200,60" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
 
     <!-- Date -->
     <widget source="global.CurrentTime" render="Label"
         position="1350,180" size="500,35" zPosition="12"
         font="Bold;32" halign="center" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1">
         <convert type="ClockToText">Format %A %d %B</convert>
     </widget>
@@ -71,7 +71,7 @@ class Abt(Screen):
     <widget source="global.CurrentTime" render="Label"
         position="1350,220" size="500,35" zPosition="12"
         font="Bold;32" halign="center" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1">
         <convert type="ClockToText">Format %H:%M:%S</convert>
     </widget>
@@ -80,44 +80,44 @@ class Abt(Screen):
     <widget name="image_name"
         position="1470,420" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
     <widget name="python_ver"
         position="1470,460" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
     <widget name="local_ip"
         position="1470,500" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
     <widget name="StorageInfo"
         position="1470,540" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
     <widget name="RAMInfo"
         position="1470,580" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
     <widget name="net_status"
         position="1470,620" size="500,35" zPosition="12"
         font="Bold;32" halign="left" valign="center"
-        foregroundColor="yellow" backgroundColor="#000000"
+        foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="1" />
 
     <!-- Vertical texts -->
     <widget name="left_bar"
         position="20,160" size="60,{self.height-210}" zPosition="20"
         font="Regular;26" halign="center" valign="top"
-        noWrap="1" foregroundColor="yellow" backgroundColor="#000000"
+        noWrap="1" foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="0" />
     <widget name="right_bar"
         position="{self.width-60},160" size="60,{self.height-210}" zPosition="20"
         font="Regular;26" halign="center" valign="top"
-        noWrap="1" foregroundColor="yellow" backgroundColor="#000000"
+        noWrap="1" foregroundColor="#E6BE3A" backgroundColor="#000000"
         transparent="0" />
 </screen>
 """
