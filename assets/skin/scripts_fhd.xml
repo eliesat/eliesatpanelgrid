@@ -13,12 +13,6 @@
         font="Bold;32" halign="left" valign="center"
         foregroundColor="#E6BE3A" backgroundColor="#000000" />
 
-    <!-- Info text -->
-    <eLabel text="Select and press OK to execute"
-        position="320,940" size="700,50" zPosition="1"
-        font="Bold;36" halign="center"
-        foregroundColor="#FF8C00" backgroundColor="#000000" />
-
     <widget name="list"
     position="80,180"
     size="1180,600"
