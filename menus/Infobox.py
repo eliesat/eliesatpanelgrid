@@ -215,7 +215,7 @@ class SystemMonitorScreen(Screen):
 <screen name="SystemMonitor" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="{BG}" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel text="● System monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,110" size="1740,780" backgroundColor="#000000" transparent="0" zPosition="-1"/>
 <widget name="list" position="120,140" size="1680,720" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5"/>
 
@@ -319,22 +319,22 @@ class OSCamReadersScreen(Screen):
 <screen name="OscamReadersScreen" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel text="● Oscam readers monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
 <eLabel text=" Label                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
 <eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
 <widget name="list" position="100,225" size="1720,625" font="Console;30" foregroundColor="#E6BE3A" transparent="1" zPosition="5" scrollbarMode="showOnDemand"/>
 <widget name="error" position="0,225" size="1920,625" font="Bold;44" halign="center" valign="center" foregroundColor="#FF0000" transparent="1" zPosition="7"/>
 <eLabel position="0,1015" size="1920,50" backgroundColor="#000000" zPosition="9"/>
-<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
-<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
-<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
-<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0"/>
+<eLabel position="0,1020" size="480,40" text="System Monitor" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel position="480,1020" size="480,40" text="IPTV" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel position="960,1020" size="480,40" text="NCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel position="1440,1020" size="480,40" text="OSCam" font="Bold;30" halign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="0,1075" size="480,5" backgroundColor="red" zPosition="12"/>
 <eLabel position="480,1075" size="480,5" backgroundColor="green" zPosition="12"/>
 <eLabel position="960,1075" size="480,5" backgroundColor="yellow" zPosition="12"/>
 <eLabel position="1440,1075" size="480,5" backgroundColor="blue" zPosition="12"/>
-<widget name="title" position="0,950" size="1920,50" font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="title" position="0,950" size="1920,50" font="Bold;28" halign="center" foregroundColor="#E6BE3A" transparent="1" zPosition="11"/>
 </screen>
 """
 
@@ -554,7 +554,7 @@ class NCamReadersScreen(Screen):
 <screen name="NCamReadersScreen" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● Welcome to ElieSatPanel – Enjoy the best plugins, addons and tools for your E2 box." position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
+<eLabel text="● Ncam readers monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="0" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
 <eLabel text=" Label                │ADDRESS                    │PORT      │PROTOCOL      │STATUS" position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
 <eLabel text="────────────────────────────────────────────────────────────────────────────────────" position="100,185" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="6"/>
@@ -761,7 +761,7 @@ class IptvScreen(Screen):
 <screen name="IptvScreen" position="center,center" size="1920,1080">
 <ePixmap position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg" zPosition="-10"/>
 <eLabel position="0,0" size="1920,130" backgroundColor="#000000" zPosition="10"/>
-<eLabel text="● IPTV Servers Monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
+<eLabel text="● IPTV servers monitor" position="350,20" size="1400,60" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000" zPosition="11"/>
 <eLabel position="90,120" size="1740,780" backgroundColor="#000000" zPosition="-1"/>
 <eLabel text=" SERVER                     │PLUGIN              │EXPIRES     │ACT  │MAX  │STATUS"
 position="100,150" size="1720,40" font="Console;30" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
