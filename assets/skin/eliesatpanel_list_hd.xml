@@ -1,4 +1,4 @@
-<screen name="eliesatpanel" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder">
+<screen name="eliesatpanel_list" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder">
 
     <!-- ================= BACKGROUND (MUST BE FIRST) ================= -->
     <ePixmap position="0,0" size="1280,720" zPosition="0"

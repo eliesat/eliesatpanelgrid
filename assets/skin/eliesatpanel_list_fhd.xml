@@ -1,4 +1,4 @@
-<screen name="eliesatpanel" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
+<screen name="eliesatpanel_list" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
 
     <!-- ================= BACKGROUND ================= -->
     <ePixmap position="0,0" size="1920,1080" zPosition="0"
@@ -123,7 +123,7 @@
         foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="1"/>
 
     <!-- Download Info -->
-    <widget name="download_info" position="0,910" size="1920,100" zPosition="12"
+    <widget name="download_info" position="0,930" size="1920,100" zPosition="12"
         font="Bold;32" halign="center" valign="left"
         foregroundColor="#E6BE3A" backgroundColor="#000000" transparent="1" />
 
