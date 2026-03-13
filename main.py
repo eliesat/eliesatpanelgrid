@@ -88,34 +88,51 @@ installer = 'https://raw.githubusercontent.com/eliesat/eliesatpanelgrid/main/__i
 
 
 # ---------------- FLEXIBLE MENU ----------------
+# ---------- IMAGE DETECTION ----------
+def getImageType():
+    try:
+        if fileExists("/etc/opkg/all-feed.conf"):
+            with open("/etc/opkg/all-feed.conf", "r") as f:
+                data = f.read().lower()
+                if "openpli" in data:
+                    return "openpli"
+                if "openatv" in data:
+                    return "openatv"
+                if "openbh" in data:
+                    return "openbh"
+                if "openvision" in data:
+                    return "openvision"
+    except Exception:
+        pass
+    return "unknown"
+
+
 class FlexibleMenu(GUIComponent):
     _cached_logos = {}
 
     def __init__(self, list_):
         GUIComponent.__init__(self)
+
         self.l = eListboxPythonMultiContent()
         self.list = list_ or []
         self.entries = dict()
         self.onSelectionChanged = []
         self.current = 0
         self.total_pages = 1
-        self._moving = False  # debounce for smooth nav
+        self._moving = False
 
-        # -------------------- HD/FHD dynamic defaults --------------------
+        IMAGE = getImageType()
+
+        # ---------------- HD/FHD defaults ----------------
         if getDesktop(0).size().width() >= 1920:
-            self.normalFont = gFont("Bold", 30)
-            self.selFont = gFont("Bold", 30)
-            self.boxwidth = 240
-            self.boxheight = 240
-            self.activeboxwidth = 285
-            self.activeboxheight = 285
-            self.margin = 30
-            self.panelheight = 570
-            self.itemPerPage = 18
-            self.columns = 6
-        else:
-            self.normalFont = gFont("Bold", 20)
-            self.selFont = gFont("Bold", 20)
+
+            if IMAGE == "openpli":
+                self.normalFont = gFont("Regular", 30)
+                self.selFont = gFont("Regular", 30)
+            else:
+                self.normalFont = gFont("Bold", 30)
+                self.selFont = gFont("Bold", 30)
+
             self.boxwidth = 240
             self.boxheight = 240
             self.activeboxwidth = 285
@@ -125,22 +142,54 @@ class FlexibleMenu(GUIComponent):
             self.itemPerPage = 18
             self.columns = 6
 
+        else:
+
+            if IMAGE == "openpli":
+                self.normalFont = gFont("Regular", 20)
+                self.selFont = gFont("Regular", 20)
+            else:
+                self.normalFont = gFont("Bold", 20)
+                self.selFont = gFont("Bold", 20)
+
+            self.boxwidth = 240
+            self.boxheight = 240
+            self.activeboxwidth = 285
+            self.activeboxheight = 285
+            self.margin = 30
+            self.panelheight = 570
+            self.itemPerPage = 18
+            self.columns = 6
+
+        # ---------- pager icons ----------
         self.ptr_pagerleft = None
         self.ptr_pagerright = None
+
         try:
-            self.ptr_pagerleft = LoadPixmap(resolveFilename(SCOPE_PLUGINS, "Extensions/ElieSatPanelGrid/assets/icon/pager_left.png"))
+            self.ptr_pagerleft = LoadPixmap(
+                resolveFilename(
+                    SCOPE_PLUGINS,
+                    "Extensions/ElieSatPanelGrid/assets/icon/pager_left.png"
+                )
+            )
         except Exception:
-            self.ptr_pagerleft = None
+            pass
+
         try:
-            self.ptr_pagerright = LoadPixmap(resolveFilename(SCOPE_PLUGINS, "Extensions/ElieSatPanelGrid/assets/icon/pager_right.png"))
+            self.ptr_pagerright = LoadPixmap(
+                resolveFilename(
+                    SCOPE_PLUGINS,
+                    "Extensions/ElieSatPanelGrid/assets/icon/pager_right.png"
+                )
+            )
         except Exception:
-            self.ptr_pagerright = None
+            pass
 
         self.itemPixmap = None
         self.selPixmap = None
         self.listWidth = 0
         self.listHeight = 0
 
+        # ---------- pager symbols ----------
         if PY3:
             import html
             self.selectedicon = str(html.unescape("&#xe837;"))
@@ -155,50 +204,68 @@ class FlexibleMenu(GUIComponent):
                 self.selectedicon = "*"
                 self.unselectedicon = "."
 
+    GUI_WIDGET = eListbox
+
+    # ------------------------------------------------
+
     def applySkin(self, desktop, parent):
         attribs = []
+
         for (attrib, value) in getattr(self, "skinAttributes", []):
             try:
+
                 if attrib == "itemPerPage":
                     self.itemPerPage = int(value)
                     self.columns = max(1, self.itemPerPage // 2)
+
                 elif attrib == "panelheight":
                     self.panelheight = int(value)
+
                 elif attrib == "margin":
                     self.margin = int(value)
+
                 elif attrib == "boxSize":
                     if "," in value:
                         self.boxwidth, self.boxheight = [int(v) for v in value.split(",")]
                     else:
                         self.boxwidth = self.boxheight = int(value)
+
                 elif attrib == "activeSize":
                     if "," in value:
                         self.activeboxwidth, self.activeboxheight = [int(v) for v in value.split(",")]
                     else:
                         self.activeboxwidth = self.activeboxheight = int(value)
+
                 elif attrib == "size":
                     self.listWidth, self.listHeight = [int(v) for v in value.split(",")]
                     if self.instance:
                         self.instance.resize(eSize(self.listWidth, self.listHeight))
+
                 elif attrib == "itemPixmap":
                     self.itemPixmap = LoadPixmap(value)
+
                 elif attrib == "selPixmap":
                     self.selPixmap = LoadPixmap(value)
+
                 else:
                     attribs.append((attrib, value))
+
             except Exception:
                 continue
 
         self.l.setFont(0, self.normalFont)
         self.l.setFont(1, self.selFont)
         self.l.setItemHeight(self.panelheight)
+
         self.skinAttributes = attribs
         self.buildEntry()
+
         return GUIComponent.applySkin(self, desktop, parent)
 
-    GUI_WIDGET = eListbox
+    # ------------------------------------------------
 
     def postWidgetCreate(self, instance):
+
         self.instance = instance
         instance.setContent(self.l)
         instance.setSelectionEnable(0)
@@ -212,66 +279,93 @@ class FlexibleMenu(GUIComponent):
         self.pagelabel.setFont(gFont("Icons", 18))
         self.pagelabel.setVAlign(eLabel.alignCenter)
         self.pagelabel.setHAlign(eLabel.alignCenter)
+
         self.pagelabel.setBackgroundColor(parseColor("#FF272727"))
         self.pagelabel.setTransparent(1)
         self.pagelabel.setZPosition(100)
+
         self.pagelabel.move(ePoint(0, self.panelheight - 10))
         self.pagelabel.resize(eSize(1660, 20))
 
         self.pager_center.setBackgroundColor(parseColor("#00272727"))
+
         self.pager_left.resize(eSize(20, 20))
         self.pager_right.resize(eSize(20, 20))
+
         try:
+
             if self.ptr_pagerleft:
                 self.pager_left.setPixmap(self.ptr_pagerleft)
+
             if self.ptr_pagerright:
                 self.pager_right.setPixmap(self.ptr_pagerright)
+
             self.pager_left.setScale(2)
             self.pager_right.setScale(2)
+
             self.pager_left.setAlphatest(2)
             self.pager_right.setAlphatest(2)
+
         except Exception:
             pass
+
         self.pager_left.hide()
         self.pager_right.hide()
         self.pager_center.hide()
         self.pagelabel.hide()
 
-        # Force first full draw after instance is ready
         from threading import Timer
         Timer(0.05, self.setL).start()
+
+    # ------------------------------------------------
 
     def preWidgetRemove(self, instance):
         instance.setContent(None)
         self.instance = None
 
+    # ------------------------------------------------
+
     def selectionChanged(self):
+
         for f in self.onSelectionChanged:
             try:
                 f()
             except Exception:
                 pass
 
+    # ------------------------------------------------
+
     def setList(self, list_):
+
         self.list = list_ or []
+
         if self.instance:
             self.setL(True)
 
+    # ------------------------------------------------
+
     def buildEntry(self):
+
         self.entries.clear()
+
         if not self.list:
             return
+
         width = self.boxwidth + self.margin
         height = self.boxheight + self.margin
+
         xoffset = (self.activeboxwidth - self.boxwidth) // 2
         yoffset = (self.activeboxheight - self.boxheight) // 2
+
         x = 0
         y = 0
         count = 0
         page = 1
-        self.total_pages = int(math.ceil(float(len(self.list)) / self.itemPerPage)) if self.itemPerPage > 0 else 1
+
+        self.total_pages = int(math.ceil(float(len(self.list)) / self.itemPerPage))
 
         for elem in self.list:
+
             try:
                 name = elem[0]
             except Exception:
@@ -283,72 +377,148 @@ class FlexibleMenu(GUIComponent):
                 y = 0
 
             logo = self._cached_logos.get(name)
+
             if not logo:
+
                 try:
+
                     icon_name = name.lower().replace(" ", "_") + ".png"
-                    logoPath = resolveFilename(SCOPE_PLUGINS, f"Extensions/ElieSatPanelGrid/assets/icons/{icon_name}")
+
+                    logoPath = resolveFilename(
+                        SCOPE_PLUGINS,
+                        "Extensions/ElieSatPanelGrid/assets/icons/" + icon_name
+                    )
+
                     if not fileExists(logoPath):
-                        logoPath = resolveFilename(SCOPE_PLUGINS, "Extensions/ElieSatPanelGrid/assets/icons/default.png")
+
+                        logoPath = resolveFilename(
+                            SCOPE_PLUGINS,
+                            "Extensions/ElieSatPanelGrid/assets/icons/default.png"
+                        )
+
                     if fileExists(logoPath):
+
                         logo = LoadPixmap(logoPath)
                         self._cached_logos[name] = logo
+
                 except Exception:
                     logo = None
 
             self.entries[name] = {
+
                 "active": (
-                    MultiContentEntryPixmap(pos=(x, y), size=(self.activeboxwidth, self.activeboxheight), png=self.selPixmap, flags=BT_SCALE),
-                    MultiContentEntryPixmapAlphaTest(pos=(x, y), size=(self.activeboxwidth, self.activeboxheight - 40), png=logo, flags=BT_SCALE | BT_ALIGN_CENTER | BT_KEEP_ASPECT_RATIO),
-                    MultiContentEntryText(pos=(x, y + self.activeboxheight - 40), size=(self.activeboxwidth, 30), font=0, text=name, flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER, color=0x00FF8C00),
+
+                    MultiContentEntryPixmap(
+                        pos=(x, y),
+                        size=(self.activeboxwidth, self.activeboxheight),
+                        png=self.selPixmap,
+                        flags=BT_SCALE
+                    ),
+
+                    MultiContentEntryPixmapAlphaTest(
+                        pos=(x, y),
+                        size=(self.activeboxwidth, self.activeboxheight - 40),
+                        png=logo,
+                        flags=BT_SCALE | BT_ALIGN_CENTER | BT_KEEP_ASPECT_RATIO
+                    ),
+
+                    MultiContentEntryText(
+                        pos=(x, y + self.activeboxheight - 40),
+                        size=(self.activeboxwidth, 35),
+                        font=0,
+                        text=name,
+                        flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER,
+                        color=0x00FF8C00
+                    ),
+
                 ),
+
                 "u_active": (
-                    MultiContentEntryPixmap(pos=(x + xoffset, y + yoffset), size=(self.boxwidth, self.boxheight), png=self.itemPixmap, flags=BT_SCALE),
-                    MultiContentEntryPixmapAlphaTest(pos=(x + xoffset, y + yoffset), size=(self.boxwidth, self.boxheight - 40), png=logo, flags=BT_SCALE | BT_ALIGN_CENTER | BT_KEEP_ASPECT_RATIO),
-                    MultiContentEntryText(pos=(x + xoffset, y + yoffset + self.boxheight - 40), size=(self.boxwidth, 30), font=0, text=name, flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER),
+
+                    MultiContentEntryPixmap(
+                        pos=(x + xoffset, y + yoffset),
+                        size=(self.boxwidth, self.boxheight),
+                        png=self.itemPixmap,
+                        flags=BT_SCALE
+                    ),
+
+                    MultiContentEntryPixmapAlphaTest(
+                        pos=(x + xoffset, y + yoffset),
+                        size=(self.boxwidth, self.boxheight - 40),
+                        png=logo,
+                        flags=BT_SCALE | BT_ALIGN_CENTER | BT_KEEP_ASPECT_RATIO
+                    ),
+
+                    MultiContentEntryText(
+                        pos=(x + xoffset, y + yoffset + self.boxheight - 40),
+                        size=(self.boxwidth, 35),
+                        font=0,
+                        text=name,
+                        flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER
+                    ),
+
                 ),
+
                 "page": page
             }
 
             x += width
             count += 1
+
             if count % self.columns == 0:
                 x = 0
                 y += height
 
         self.setL()
 
+    # ------------------------------------------------
+
     def setL(self, refresh=False):
+
         if refresh:
             self.entries.clear()
             self.buildEntry()
             return
+
         if not self.entries or not self.list:
             self.l.setList([])
             return
 
         res = [None]
+
         if self.current >= len(self.list):
             self.current = len(self.list) - 1
+
         current_key = self.list[self.current][0]
+
         current = self.entries.get(current_key)
+
         if not current:
             current_key = next(iter(self.entries))
             current = self.entries[current_key]
             self.current = 0
 
         current_page = current["page"]
+
         for _, value in self.entries.items():
             if value["page"] == current_page and value != current:
                 res.extend(value["u_active"])
+
         res.extend(current["active"])
+
         try:
             self.l.setList([res])
         except Exception:
             self.l.setList([])
+
         self.setpage()
 
+    # ------------------------------------------------
+
     def setpage(self):
+
         if self.total_pages <= 1:
+
             try:
                 self.pager_left.hide()
                 self.pager_right.hide()
@@ -356,38 +526,54 @@ class FlexibleMenu(GUIComponent):
                 self.pagelabel.hide()
             except Exception:
                 pass
+
             return
 
         self.pagetext = ""
+
         for i in range(1, self.total_pages + 1):
+
             if i == self.getCurrentPage():
                 self.pagetext += " " + self.selectedicon
             else:
                 self.pagetext += " " + self.unselectedicon
+
         self.pagetext += " "
+
         self.pagelabel.setText(self.pagetext)
 
         try:
             w = int(self.pagelabel.calculateSize().width() / 2)
         except Exception:
             w = 100
+
         y = self.panelheight - 10
+
         try:
+
             self.pager_center.resize(eSize(w * 2, 20))
             self.pager_center.move(ePoint((self.listWidth // 2) - w + 20, y))
+
             self.pager_left.move(ePoint((self.listWidth // 2) - w, y))
             self.pager_right.move(ePoint((self.listWidth // 2) + (w - 16), y))
+
             self.pager_left.show()
             self.pager_right.show()
             self.pager_center.show()
             self.pagelabel.show()
+
         except Exception:
             pass
 
+    # ------------------------------------------------
+
     def getCurrentPage(self):
+
         if not self.entries or not self.list:
             return 0
+
         current = self.entries.get(self.list[self.current][0])
+
         return current["page"] if current else 0
 
     # -------------------- Optimized Smooth Navigation --------------------
