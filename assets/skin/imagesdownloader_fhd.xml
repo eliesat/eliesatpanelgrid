@@ -7,7 +7,7 @@
     <!-- Header -->
     <eLabel position="0,0" size="1920,130" zPosition="10" backgroundColor="#000000"/>
     <eLabel text="● Images Downloader – Feeds: OpenSPA, OpenATV, OpenHDF, OpenViX, OpenPLI, OpenblackHole ....."
-        position="350,0" size="1400,50" zPosition="11"
+        position="350,0" size="1600,50" zPosition="11"
         font="Bold;32" halign="left" valign="center"
         foregroundColor="#E6BE3A" backgroundColor="#000000"/>
 
