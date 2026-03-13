@@ -29,6 +29,7 @@ from enigma import (
     RT_VALIGN_CENTER,
 )
 
+
 # ---------------- FLEXIBLE MENU ----------------
 class FlexibleMenu(GUIComponent):
     """A grid-like flexible menu that accepts a list of (title, description) pairs."""
@@ -46,10 +47,29 @@ class FlexibleMenu(GUIComponent):
         self.current = 0
         self.total_pages = 1
 
+        # -------------------- IMAGE DETECTION --------------------
+        def isOpenPLi():
+            try:
+                if fileExists("/etc/opkg/all-feed.conf"):
+                    with open("/etc/opkg/all-feed.conf", "r") as f:
+                        data = f.read().lower()
+                        if "openpli" in data:
+                            return True
+            except:
+                pass
+            return False
+
+        is_pli = isOpenPLi()
+        # -----------------------------------------------------------
+
         # HD/FHD dynamic defaults
         if getDesktop(0).size().width() >= 1920:
-            self.normalFont = gFont("Bold", 30)
-            self.selFont = gFont("Bold", 30)
+            if is_pli:
+                self.normalFont = gFont("Regular", 30)
+                self.selFont = gFont("Regular", 30)
+            else:
+                self.normalFont = gFont("Bold", 30)
+                self.selFont = gFont("Bold", 30)
             self.boxwidth = 240
             self.boxheight = 240
             self.activeboxwidth = 285
@@ -59,8 +79,12 @@ class FlexibleMenu(GUIComponent):
             self.itemPerPage = 18
             self.columns = 6
         else:
-            self.normalFont = gFont("Bold", 20)
-            self.selFont = gFont("Bold", 20)
+            if is_pli:
+                self.normalFont = gFont("Regular", 20)
+                self.selFont = gFont("Regular", 20)
+            else:
+                self.normalFont = gFont("Bold", 20)
+                self.selFont = gFont("Bold", 20)
             self.boxwidth = 160
             self.boxheight = 180
             self.activeboxwidth = 210
@@ -217,7 +241,6 @@ class FlexibleMenu(GUIComponent):
         isFHD = getDesktop(0).size().width() >= 1920
         self.total_pages = int(math.ceil(float(len(self.list)) / self.itemPerPage)) if self.itemPerPage > 0 else 1
 
-        # Dynamically get icon based on parent class
         cls_name = getattr(getattr(self, "parent", None), "__class__", None)
         cls_name = cls_name.__name__.lower() if cls_name else "default"
 
@@ -259,23 +282,22 @@ class FlexibleMenu(GUIComponent):
                 text_width = self.activeboxwidth
                 text_x = x + xoffset + (self.boxwidth - text_width) // 2
 
-                # Active / inactive entries
                 active_texts = (
                     MultiContentEntryText(pos=(x, y + self.activeboxheight - (60 if isFHD else 65)),
-                                          size=(text_width, 30), font=0, text=name,
+                                          size=(text_width, 35), font=0, text=name,
                                           flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER,
                                           color=0x00FF8C00),
                     MultiContentEntryText(pos=(x, y + self.activeboxheight - (30 if isFHD else 45)),
-                                          size=(text_width, 30), font=0, text=version,
+                                          size=(text_width, 35), font=0, text=version,
                                           flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER,
                                           color=0x00FF8C00),
                 )
                 inactive_texts = (
                     MultiContentEntryText(pos=(text_x, y + yoffset + self.boxheight - (60 if isFHD else 65)),
-                                          size=(text_width, 30), font=0, text=name,
+                                          size=(text_width, 35), font=0, text=name,
                                           flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER),
                     MultiContentEntryText(pos=(text_x, y + yoffset + self.boxheight - (30 if isFHD else 45)),
-                                          size=(text_width, 30), font=0, text=version,
+                                          size=(text_width, 35), font=0, text=version,
                                           flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER),
                 )
 
@@ -300,6 +322,7 @@ class FlexibleMenu(GUIComponent):
                 if (idx % self.columns) == (self.columns - 1):
                     x = 0
                     y += height
+
         self.setL()
 
     # --------------------- LIST DISPLAY ---------------------
@@ -437,4 +460,3 @@ class FlexibleMenu(GUIComponent):
             self.current = 0
         if self.instance:
             self.setL()
-
