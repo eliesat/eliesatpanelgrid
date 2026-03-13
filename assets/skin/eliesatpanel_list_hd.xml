@@ -41,11 +41,11 @@
                     MultiContentEntryText(pos = (493, 5), size = (467, 33), font=2, flags = RT_HALIGN_LEFT, color=0x00E6BE3A, text = 3)
                 ],
                 "fonts": [
-                    gFont("Bold", 21),
+                    gFont("Regular", 21),
                     gFont("Regular", 19),
                     gFont("Regular", 19)
                 ],
-                "itemHeight": 44
+                "itemHeight": 40
             }
         </convert>
     </widget>
