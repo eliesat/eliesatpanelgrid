@@ -106,10 +106,10 @@ class Scripts(Screen):
     # Update selection info
     # --------------------------------------------------
     def updateSelection(self):
-        idx = self["list"].getCurrentIndex()
+        idx = self.getCurrentIndex()
         total = len(self.scripts)
 
-        if self.scripts and idx < len(self.scripts):
+        if self.scripts and idx < total:
             self["script_name"].setText("• %s" % self.scripts[idx])
         else:
             self["script_name"].setText(_("No scripts found"))
@@ -117,6 +117,18 @@ class Scripts(Screen):
         self.total_pages = max(1, (total + self.items_per_page - 1) // self.items_per_page)
         self.current_page = (idx // self.items_per_page) + 1 if total else 1
         self["page_info"].setText("Page %d/%d" % (self.current_page, self.total_pages))
+
+    # --------------------------------------------------
+    # Current index helper (new for OpenPLi 9.2)
+    # --------------------------------------------------
+    def getCurrentIndex(self):
+        try:
+            return self["list"].getSelectedIndex()
+        except:
+            current = self["list"].getCurrent()
+            if current is not None:
+                return self["list"].index(current)
+            return 0
 
     # --------------------------------------------------
     # Navigation
@@ -130,12 +142,12 @@ class Scripts(Screen):
         self.updateSelection()
 
     def pageLeft(self):
-        idx = max(0, self["list"].getCurrentIndex() - self.items_per_page)
+        idx = max(0, self.getCurrentIndex() - self.items_per_page)
         self["list"].setIndex(idx)
         self.updateSelection()
 
     def pageRight(self):
-        idx = min(len(self.scripts) - 1, self["list"].getCurrentIndex() + self.items_per_page)
+        idx = min(len(self.scripts) - 1, self.getCurrentIndex() + self.items_per_page)
         self["list"].setIndex(idx)
         self.updateSelection()
 
@@ -143,17 +155,17 @@ class Scripts(Screen):
     # Run script in console
     # --------------------------------------------------
     def run(self):
-        idx = self["list"].getCurrentIndex()
+        idx = self.getCurrentIndex()
         script = self.scripts[idx] if self.scripts else None
 
         if not script:
-            self.session.open(MessageBox, _("No script selected!"), MessageBox.TYPE_INFO)
+            self.safeMessageBox(_("No script selected!"), MessageBox.TYPE_INFO)
             return
 
         full_path = join(scriptpath, script)
 
         if not exists(full_path):
-            self.session.open(MessageBox, _("Script not found!"), MessageBox.TYPE_ERROR)
+            self.safeMessageBox(_("Script not found!"), MessageBox.TYPE_ERROR)
             return
 
         if full_path.endswith(".sh"):
@@ -168,17 +180,17 @@ class Scripts(Screen):
     # Background run
     # --------------------------------------------------
     def bgrun(self):
-        idx = self["list"].getCurrentIndex()
+        idx = self.getCurrentIndex()
         script = self.scripts[idx] if self.scripts else None
 
         if not script:
-            self.session.open(MessageBox, _("No script selected!"), MessageBox.TYPE_INFO)
+            self.safeMessageBox(_("No script selected!"), MessageBox.TYPE_INFO)
             return
 
         full_path = join(scriptpath, script)
 
         if not exists(full_path):
-            self.session.open(MessageBox, _("Script not found!"), MessageBox.TYPE_ERROR)
+            self.safeMessageBox(_("Script not found!"), MessageBox.TYPE_ERROR)
             return
 
         if full_path.endswith(".sh"):
@@ -202,7 +214,7 @@ class Scripts(Screen):
             self.container.appClosed_conn = self.container.appClosed.connect(self.finishExecution)
 
         self.container.execute(cmd)
-        self.session.open(MessageBox, _("Script is running... check log after finish!"), MessageBox.TYPE_INFO, timeout=3)
+        self.safeMessageBox(_("Script is running... check log after finish!"), MessageBox.TYPE_INFO, timeout=3)
 
     # --------------------------------------------------
     # Logging
@@ -224,9 +236,22 @@ class Scripts(Screen):
                 from .File_Commander import File_Commander
                 self.session.open(File_Commander, self.log_file)
             except Exception as e:
-                self.session.open(MessageBox, _("Error opening log viewer: %s") % str(e), MessageBox.TYPE_ERROR)
+                self.safeMessageBox(_("Error opening log viewer: %s") % str(e), MessageBox.TYPE_ERROR)
         else:
-            self.session.open(MessageBox, _("Log file not found!"), MessageBox.TYPE_WARNING)
+            self.safeMessageBox(_("Log file not found!"), MessageBox.TYPE_WARNING)
+
+    # --------------------------------------------------
+    # Safe MessageBox (avoids modal crash)
+    # --------------------------------------------------
+    def safeMessageBox(self, text, type=MessageBox.TYPE_INFO, timeout=None):
+        try:
+            if hasattr(self.session, "modal") and self.session.modal:
+                self.session.open(MessageBox, text, type=type, timeout=timeout)
+            else:
+                # fallback: non-modal
+                self.session.open(MessageBox, text, type=type, timeout=timeout)
+        except:
+            pass
 
     # --------------------------------------------------
     # Other actions
@@ -241,7 +266,7 @@ class Scripts(Screen):
         if answer:
             os_system('rm -rf /usr/script/*')
             self.loadScripts()
-            self.session.open(MessageBox, _('Scripts successfully removed!'), MessageBox.TYPE_INFO)
+            self.safeMessageBox(_('Scripts successfully removed!'), MessageBox.TYPE_INFO)
 
     def update(self):
         self.session.open(Console, _("Installing scripts please wait..."), [
