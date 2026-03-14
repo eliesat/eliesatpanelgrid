@@ -342,7 +342,7 @@ class FlexibleMenu(GUIComponent):
         if self.instance:
             self.setL(True)
 
-    # ------------------------------------------------
+# ------------------------------------------------
 
     def buildEntry(self):
 
@@ -450,13 +450,12 @@ class FlexibleMenu(GUIComponent):
                     ),
 
                     MultiContentEntryText(
-                        pos=(x + xoffset, y + yoffset + self.boxheight - 40),
-                        size=(self.boxwidth, 35),
-                        font=0,
-                        text=name,
-                        flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER
-                    ),
-
+    pos=(x + xoffset - 20, y + yoffset + self.boxheight - 40),
+    size=(self.boxwidth + 40, 35),
+    font=0,
+    text=name,
+    flags=RT_HALIGN_CENTER | RT_VALIGN_CENTER
+),
                 ),
 
                 "page": page
