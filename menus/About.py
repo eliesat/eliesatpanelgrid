@@ -16,117 +16,60 @@ from enigma import getDesktop
 
 
 class Abt(Screen):
+
     def __init__(self, session):
-        # Determine screen resolution
+
         screen_width = getDesktop(0).size().width()
+
         if screen_width >= 1920:
-            self.width, self.height = 1920, 1080
+            skin = """
+<screen name="About" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder" title="About">
+<ePixmap position="0,0" zPosition="-1" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
+<eLabel position="0,0" size="1920,130" zPosition="10" backgroundColor="#000000"/>
+<eLabel text="● About ElieSatPanel" position="350,0" size="1400,50" zPosition="11" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<eLabel position="0,130" size="80,870" zPosition="10" backgroundColor="#000000"/>
+<eLabel position="1840,130" size="80,870" zPosition="10" backgroundColor="#000000"/>
+<widget name="about_text" position="200,180" size="1200,780" zPosition="12" font="Bold;32" halign="left" valign="top" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="page_info" position="1700,940" size="200,60" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget source="global.CurrentTime" render="Label" position="1350,180" size="500,35" zPosition="12" font="Bold;32" halign="center" valign="center" foregroundColor="#E6BE3A" transparent="1"><convert type="ClockToText">Format %A %d %B</convert></widget>
+<widget source="global.CurrentTime" render="Label" position="1350,220" size="500,35" zPosition="12" font="Bold;32" halign="center" valign="center" foregroundColor="#E6BE3A" transparent="1"><convert type="ClockToText">Format %H:%M:%S</convert></widget>
+<widget name="image_name" position="1470,420" size="420,35" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="python_ver" position="1470,460" size="420,35" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="local_ip" position="1470,500" size="420,35" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="StorageInfo" position="1470,540" size="420,35" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="RAMInfo" position="1470,580" size="420,35" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="net_status" position="1470,620" size="420,35" zPosition="12" font="Bold;32" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="left_bar" position="20,160" size="60,860" zPosition="20" font="Regular;26" halign="center" valign="top" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<widget name="right_bar" position="1860,160" size="60,860" zPosition="20" font="Regular;26" halign="center" valign="top" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+</screen>
+"""
         else:
-            self.width, self.height = 1280, 720
-
-        # Skin
-        self.skin = f"""
-<screen name="About" position="0,0" size="{self.width},{self.height}" backgroundColor="transparent" flags="wfNoBorder" title="About">
-    <ePixmap position="0,0" zPosition="-1" size="{self.width},{self.height}"
-        pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
-
-    <!-- Top black bar -->
-    <eLabel position="0,0" size="{self.width},130" zPosition="10" backgroundColor="#000000" />
-
-    <!-- Title -->
-    <eLabel text="● About ElieSatPanel"
-        position="350,0" size="1400,50" zPosition="11"
-        font="Bold;32" halign="left" valign="center" noWrap="1"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="0" />
-
-    <!-- Left / Right bars -->
-    <eLabel position="0,130" size="80,{self.height-210}" zPosition="10" backgroundColor="#000000" />
-    <eLabel position="{self.width-80},130" size="80,{self.height-210}" zPosition="10" backgroundColor="#000000" />
-
-    <!-- Scrollable About text -->
-    <widget name="about_text"
-        position="200,180" size="1200,800" zPosition="12"
-        font="Bold;32" halign="left" valign="top"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-
-    <!-- Page indicator -->
-    <widget name="page_info"
-        position="{self.width-220},940" size="200,60" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-
-    <!-- Date -->
-    <widget source="global.CurrentTime" render="Label"
-        position="1350,180" size="500,35" zPosition="12"
-        font="Bold;32" halign="center" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1">
-        <convert type="ClockToText">Format %A %d %B</convert>
-    </widget>
-
-    <!-- Clock -->
-    <widget source="global.CurrentTime" render="Label"
-        position="1350,220" size="500,35" zPosition="12"
-        font="Bold;32" halign="center" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1">
-        <convert type="ClockToText">Format %H:%M:%S</convert>
-    </widget>
-
-    <!-- System info -->
-    <widget name="image_name"
-        position="1470,420" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-    <widget name="python_ver"
-        position="1470,460" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-    <widget name="local_ip"
-        position="1470,500" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-    <widget name="StorageInfo"
-        position="1470,540" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-    <widget name="RAMInfo"
-        position="1470,580" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-    <widget name="net_status"
-        position="1470,620" size="500,35" zPosition="12"
-        font="Bold;32" halign="left" valign="center"
-        foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="1" />
-
-    <!-- Vertical texts -->
-    <widget name="left_bar"
-        position="20,160" size="60,{self.height-210}" zPosition="20"
-        font="Regular;26" halign="center" valign="top"
-        noWrap="1" foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="0" />
-    <widget name="right_bar"
-        position="{self.width-60},160" size="60,{self.height-210}" zPosition="20"
-        font="Regular;26" halign="center" valign="top"
-        noWrap="1" foregroundColor="#E6BE3A" backgroundColor="#000000"
-        transparent="0" />
+            skin = """
+<screen name="About" position="0,0" size="1280,720" backgroundColor="transparent" flags="wfNoBorder" title="About">
+<ePixmap position="0,0" zPosition="-1" size="1280,720" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid/assets/background/panel_bg.jpg"/>
+<eLabel position="0,0" size="1280,90" zPosition="10" backgroundColor="#000000"/>
+<eLabel text="● About ElieSatPanel" position="200,0" size="900,40" zPosition="11" font="Bold;24" halign="left" valign="center" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<eLabel position="0,90" size="60,560" zPosition="10" backgroundColor="#000000"/>
+<eLabel position="1220,90" size="60,560" zPosition="10" backgroundColor="#000000"/>
+<widget name="about_text" position="120,120" size="760,480" zPosition="12" font="Regular;22" halign="left" valign="top" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="page_info" position="1040,640" size="200,40" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget source="global.CurrentTime" render="Label" position="900,120" size="340,30" zPosition="12" font="Regular;22" halign="center" valign="center" foregroundColor="#E6BE3A" transparent="1"><convert type="ClockToText">Format %A %d %B</convert></widget>
+<widget source="global.CurrentTime" render="Label" position="900,150" size="340,30" zPosition="12" font="Regular;22" halign="center" valign="center" foregroundColor="#E6BE3A" transparent="1"><convert type="ClockToText">Format %H:%M:%S</convert></widget>
+<widget name="image_name" position="900,260" size="340,30" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="python_ver" position="900,290" size="340,30" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="local_ip" position="900,320" size="340,30" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="StorageInfo" position="900,350" size="340,30" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="RAMInfo" position="900,380" size="340,30" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="net_status" position="900,410" size="340,30" zPosition="12" font="Regular;22" halign="left" valign="center" foregroundColor="#E6BE3A" transparent="1"/>
+<widget name="left_bar" position="10,100" size="40,540" zPosition="20" font="Regular;18" halign="center" valign="top" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
+<widget name="right_bar" position="1230,100" size="40,540" zPosition="20" font="Regular;18" halign="center" valign="top" foregroundColor="#E6BE3A" backgroundColor="#000000"/>
 </screen>
 """
 
+        self.skin = skin
         Screen.__init__(self, session)
         self.session = session
-        self.setTitle(_("About ElieSatPanel"))
 
-        # Scrollable text
         about_lines = [
             "● ElieSatPanel, Enjoy a smoother Enigma2 experience!",
             "Lightweight Enigma2 plugin",
@@ -137,7 +80,6 @@ class Abt(Screen):
             "  • Scrollable news, updates & GitHub info",
             "  • Version always visible",
             "  • Works on HD & FHD screens",
-            "  • Customizable left/right bars",
             "",
             "◆ Version Info:",
             "  Beta (weekly updates)",
@@ -152,20 +94,13 @@ class Abt(Screen):
             "",
             "◆ Note:",
             "  Thank you for using ElieSatPanel!",
-            "  Feedback and suggestions are welcome.",
-            "",
         ]
 
         self["about_text"] = ScrollLabel("\n".join(about_lines))
-
-        # Page info
         self["page_info"] = Label("Page 1/1")
-
-        # Vertical bars
         self["left_bar"] = Label("\n".join(list("Version " + Version)))
         self["right_bar"] = Label("\n".join(list("By ElieSat")))
 
-        # System info
         self["image_name"] = Label("Image: " + get_image_name())
         self["local_ip"] = Label("IP: " + get_local_ip())
         self["StorageInfo"] = Label(get_storage_info())
@@ -173,7 +108,6 @@ class Abt(Screen):
         self["python_ver"] = Label("Python: " + get_python_version())
         self["net_status"] = Label("Net: " + check_internet())
 
-        # Actions
         self["actions"] = ActionMap(
             ["OkCancelActions", "DirectionActions"],
             {
@@ -191,4 +125,3 @@ class Abt(Screen):
 
     def pageDown(self):
         self["about_text"].pageDown()
-
