@@ -21,16 +21,11 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 PLUGIN_URL = "https://github.com/eliesat/eliesatpanelgrid/archive/main.tar.gz"
 SCRIPTS_URL = "https://github.com/eliesat/scripts/archive/main.tar.gz"
 
-FURY_SCRIPT_URL = "https://gitlab.com/eliesat/skins/-/raw/main/all/fury-fhd/fury-fhdq.sh"
-
 PLUGIN_TMP = "/tmp/eliesatpanelgrid-main.tar.gz"
 SCRIPTS_TMP = "/tmp/scripts-main.tar.gz"
-FURY_TMP = "/tmp/fury-fhdq.sh"
 
 PLUGIN_DIR = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid"
 SCRIPTS_PATH = "/usr/script/Eliesat-Eliesatpanel.sh"
-FURY_SKIN_DIR = "/usr/share/enigma2/Fury-FHD"
-ENIGMA_SETTINGS = "/etc/enigma2/settings"
 
 OUTPUT_LOG = "/tmp/panel.txt"
 
@@ -81,7 +76,6 @@ def get_image():
         with open("/etc/issue") as f:
             image_text = f.readline().strip()
 
-    # Clean up literal escape sequences like \n \l
     image_text = image_text.replace("\\n", "").replace("\\l", "").strip()
     return image_text
 
@@ -110,47 +104,6 @@ def download(url, dest):
 def extract_tar(tar_path, dest="/tmp"):
     with tarfile.open(tar_path, "r:gz") as tar:
         tar.extractall(path=dest, numeric_owner=False)
-
-
-# --------------------------------------------------
-# FURY INSTALL LOGIC
-# --------------------------------------------------
-
-def install_and_force_fury(silent=False):
-    """
-    Install Fury-FHD if missing and force it as primary skin.
-    If silent=True, do not print messages (used when Fury is already installed).
-    """
-    try:
-        fury_missing = not os.path.isdir(FURY_SKIN_DIR)
-
-        if fury_missing:
-            if not silent:
-                log("OpenPLi detected with Python < 3.10")
-                log("Some features may not work correctly")
-                log("Downloading and installing Fury-FHD please wait...")
-            download(FURY_SCRIPT_URL, FURY_TMP)
-            if os.path.exists(FURY_TMP):
-                run(f"chmod +x {FURY_TMP}", silent=True)
-                run(f"/bin/sh {FURY_TMP}", silent=True)
-                os.remove(FURY_TMP)
-
-        # Always force primary skin
-        if os.path.exists(ENIGMA_SETTINGS):
-            with open(ENIGMA_SETTINGS, "r") as f:
-                lines = f.readlines()
-
-            with open(ENIGMA_SETTINGS, "w") as f:
-                for line in lines:
-                    if not line.startswith("config.skin.primary_skin="):
-                        f.write(line)
-                f.write("config.skin.primary_skin=Fury-FHD/skin.xml\n")
-
-        if fury_missing and not silent:
-            log("Fury-FHD successfully installed and set as primary.")
-
-    except Exception as e:
-        log(f"ERROR during Fury setup: {e}")
 
 
 # --------------------------------------------------
@@ -198,15 +151,6 @@ if "dream" in image.lower() or shutil.which("dpkg"):
 if sys.version_info.major == 2:
     log("ERROR: Python 2 is NOT supported")
     sys.exit(1)
-
-# OpenPLi + Python < 3.10 → Fury handling
-if "openpli" in image.lower() and sys.version_info.major == 3 and sys.version_info.minor < 10:
-    if os.path.isdir(FURY_SKIN_DIR):
-        # Fury already installed → force silently
-        install_and_force_fury(silent=True)
-    else:
-        # Fury missing → install normally (with messages)
-        install_and_force_fury(silent=False)
 
 pkg_manager = detect_package_manager()
 
