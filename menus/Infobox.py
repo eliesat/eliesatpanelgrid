@@ -251,12 +251,43 @@ class SystemMonitorScreen(Screen):
         )
 
     # ============================================================
+    # UNIVERSAL IMAGE DETECTION
+    # ============================================================
+    def get_image_info(self):
+        try:
+            # OpenATV / OE-A
+            if os.path.exists("/etc/image-version"):
+                name = run_cmd("grep '^distro=' /etc/image-version | cut -d= -f2")
+                ver = run_cmd("grep '^version=' /etc/image-version | cut -d= -f2")
+                if name:
+                    return f"{name} {ver}"
+
+            # OpenPLi
+            if os.path.exists("/etc/issue"):
+                issue = safe_read("/etc/issue").split("\\n")[0]
+                if issue:
+                    return issue
+
+            # OpenBlackHole
+            if os.path.exists("/etc/bhversion"):
+                return f"OpenBlackHole {safe_read('/etc/bhversion')}"
+
+            # fallback using opkg
+            opkg = run_cmd("opkg status | grep -i image | head -1")
+            if opkg:
+                return opkg
+
+        except:
+            pass
+
+        return "Unknown Image"
+
+    # ============================================================
     # BUILD SYSTEM TEXT
     # ============================================================
     def build_text(self):
 
-        img = run_cmd("grep '^distro=' /etc/image-version | cut -d= -f2")
-        ver = run_cmd("grep '^version=' /etc/image-version | cut -d= -f2")
+        image = self.get_image_info()
         py = run_cmd("python3 -V | awk '{print $2}'")
         arch = run_cmd("uname -m")
         ker = run_cmd("uname -r")
@@ -271,11 +302,10 @@ class SystemMonitorScreen(Screen):
 
         text.append("○ System")
         text.append("-" * 35)
-        text.append("• Image Name    : %s" % img)
-        text.append("• Image Version : %s" % ver)
-        text.append("• Python        : %s" % py)
-        text.append("• Architecture  : %s" % arch)
-        text.append("• Kernel        : %s" % ker)
+        text.append("• Image Name & Version : %s" % image)
+        text.append("• Python              : %s" % py)
+        text.append("• Architecture        : %s" % arch)
+        text.append("• Kernel              : %s" % ker)
         text.append("")
 
         text.append("○ Hardware")
@@ -308,6 +338,7 @@ class SystemMonitorScreen(Screen):
 
     def showOscam(self):
         self.session.open(OSCamReadersScreen)
+
 # ============================================================
 # OSCAM READERS SCREEN
 # ============================================================
