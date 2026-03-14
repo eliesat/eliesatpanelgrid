@@ -2,8 +2,8 @@
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
-from Components.Pixmap import Pixmap
 from Components.Label import Label
+from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
 from Tools.LoadPixmap import LoadPixmap
 from enigma import eTimer, getDesktop
@@ -18,14 +18,14 @@ PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/ElieSatPanelGrid"
 # ---------------- FHD SKIN ----------------
 SKIN_FHD_XML = """
 <screen name="SplashScreenFHD" position="575,280" size="768,512" flags="wfNoBorder">
-    <widget name="bg_icon" position="center,center" size="768,512" backgroundColor="#000000" transparent="0"/>
-    <widget name="welcome" position="center,center-330" size="768,45" font="Bold;40"
-        halign="center" valign="center" foregroundColor="white" transparent="1"/>
+    <widget name="bg_icon" position="center,center" size="768,512" backgroundColor="#000000"/>
+    <widget name="splash_text" position="35,10" size="700,50" halign="center" valign="center"
+        font="Bold;40" foregroundColor="#FFFFFF" transparent="1"/>
     <widget name="icon" position="center,center" size="768,512" transparent="1"/>
     <widget name="version_label" position="428,center+70" size="300,50"
-        font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
+        font="Bold;30" halign="center" valign="center" foregroundColor="#FFFFFF"/>
     <widget name="wait_text" position="234,420" size="420,50"
-        font="Bold;30" halign="left" valign="center" foregroundColor="white" transparent="1"/>
+        font="Bold;30" halign="left" valign="center" foregroundColor="#FFFFFF"/>
     <widget name="progress_bar" position="174,470" size="420,25"
         zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
@@ -33,20 +33,17 @@ SKIN_FHD_XML = """
 
 # ---------------- HD SKIN ----------------
 SKIN_HD_XML = """
-<screen name="SplashScreenHD" position="320,180" size="640,360" flags="wfNoBorder">
-    <widget name="bg_icon" position="center,center" size="640,360" backgroundColor="#000000"/>
-    <widget name="welcome" position="center,center-220" size="640,40"
-        font="Bold;30" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="icon" position="center,center" size="640,360" transparent="1"/>
-    <widget name="version_label" position="360,center+50" size="200,40"
-        font="Bold;24" halign="center" valign="center" foregroundColor="white"/>
-    <widget name="wait_text" position="210,290" size="500,40"
-        font="Bold;24" halign="left" valign="center" foregroundColor="white" transparent="1"/>
-    <widget name="progress_bar" position="65,330" size="500,20"
-        zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
+<screen name="SplashScreenHD" position="center,center" size="640,360" flags="wfNoBorder">
+<widget name="bg_icon" position="0,0" size="640,360" backgroundColor="#000000"/>
+<widget name="splash_text" position="20,10" size="600,40" halign="center" valign="center" font="Bold;28" foregroundColor="#FFFFFF" transparent="1"/>
+<widget name="icon" position="center,center" size="640,360" transparent="1"/>
+<widget name="version_label" position="340,240" size="260,40" font="Bold;22" halign="center" valign="center" foregroundColor="#FFFFFF"/>
+<widget name="wait_text" position="120,300" size="400,35" font="Bold;22" halign="left" valign="center" foregroundColor="#FFFFFF"/>
+<widget name="progress_bar" position="120,330" size="400,18" zPosition="2" backgroundColor="#555555" foregroundColor="#FFFFFF"/>
 </screen>
 """
 
+# ---------------- SKIN DETECTION ----------------
 def detect_skin_type():
     try:
         return "FHD" if getDesktop(0).size().width() >= 1920 else "HD"
@@ -61,7 +58,6 @@ class SplashScreen(Screen):
     FOLDER_PATH = "assets/data"
     BRANCH = "main"
     DEST_FOLDER = os.path.join(PLUGIN_PATH, "assets/data")
-
     UPDATE_URL = "https://github.com/eliesat/eliesatpanelgrid/archive/main.tar.gz"
     PACKAGE = "/tmp/eliesatpanelgrid-main.tar.gz"
 
@@ -70,21 +66,41 @@ class SplashScreen(Screen):
         self.skin = SKIN_HD_XML if self.skin_type == "HD" else SKIN_FHD_XML
         Screen.__init__(self, session)
 
+        # Widgets
         self["icon"] = Pixmap()
-        self["welcome"] = Label("○ Powering Your E2 Experience ○")
+        self["splash_text"] = Label("")  # Now properly in skin
         self["version_label"] = Label("Version: %s" % self.read_version())
-        self["wait_text"] = Label("")
+        self["wait_text"] = Label()
         self["progress_bar"] = ProgressBar()
         self["progress_bar"].setValue(0)
         self["progress_bar"].show()
 
+        # Load icon and set splash text after layout
         self.onLayoutFinish.append(self.load_icon)
+        self.onLayoutFinish.append(self.set_splash_text)
+        self.onLayoutFinish.append(self.fix_label_colors)
 
+        # Version check
         self.version_timer = eTimer()
         self.version_timer.callback.append(self.check_version)
         self.version_timer.start(100, True)
 
-    # ---------- ICON ----------
+    # ---------- SET POWERING TEXT ----------
+    def set_splash_text(self):
+        try:
+            self["splash_text"].setText("○ Powering Your E2 Experience ○")
+        except Exception as e:
+            print("Failed to set splash text:", e)
+
+    # ---------- FIX LABEL COLORS ----------
+    def fix_label_colors(self):
+        try:
+            self["version_label"].instance.setForegroundColor(0xFFFFFF)
+            self["wait_text"].instance.setForegroundColor(0xFFFFFF)
+        except Exception as e:
+            print("Label color fix error:", e)
+
+    # ---------- LOAD ICON ----------
     def load_icon(self):
         icon = "splash_icon_hd.png" if self.skin_type == "HD" else "splash_icon.png"
         path = os.path.join(PLUGIN_PATH, "assets/background", icon)
@@ -93,7 +109,7 @@ class SplashScreen(Screen):
             if pixmap:
                 self["icon"].instance.setPixmap(pixmap)
 
-    # ---------- VERSION ----------
+    # ---------- READ LOCAL VERSION ----------
     def read_version(self):
         try:
             with open(os.path.join(PLUGIN_PATH, "__init__.py")) as f:
@@ -102,26 +118,21 @@ class SplashScreen(Screen):
         except:
             return "Unknown"
 
-    # ---------- VERSION CHECK ----------
+    # ---------- CHECK REMOTE VERSION ----------
     def check_version(self):
         self.version_timer.stop()
         local = self.read_version()
         url = f"https://raw.githubusercontent.com/{self.REPO_OWNER}/{self.REPO_NAME}/{self.BRANCH}/__init__.py"
-
         try:
             content = requests.get(url, timeout=5).text
             m = re.search(r"Version\s*=\s*['\"](.+?)['\"]", content)
             remote = m.group(1) if m else None
             c = re.search(r"changelog\s*=\s*['\"](.+?)['\"]", content)
             changelog = c.group(1) if c else ""
-
             if remote and remote != local:
                 message = (
-                    "New version %s is available.\n"
-                    "%s\n"
-                    "Do you want to upgrade?"
+                    "New version %s is available.\n%s\nDo you want to upgrade?"
                 ) % (remote, changelog)
-
                 self.session.openWithCallback(
                     self.update_answer,
                     MessageBox,
@@ -130,18 +141,14 @@ class SplashScreen(Screen):
                 )
             else:
                 self.start_github_process()
-
         except:
             self.start_github_process()
 
-    # ---------- UPDATE ----------
+    # ---------- UPDATE ANSWER ----------
     def update_answer(self, answer):
         if not answer:
-            # User chose not to upgrade → start menu download
             self.start_github_process()
             return
-
-        # Only show upgrade message if user agreed
         self["progress_bar"].show()
         self["progress_bar"].setValue(0)
         self.display_progress = 0
@@ -151,7 +158,7 @@ class SplashScreen(Screen):
         self["wait_text"].setText("Upgrading the panel: 0%")
         self.download_update()
 
-    # ---------- SAFE SINGLE-THREADED DOWNLOAD ----------
+    # ---------- DOWNLOAD UPDATE ----------
     def download_update(self):
         try:
             self.req = requests.get(self.UPDATE_URL, stream=True, timeout=10)
@@ -169,7 +176,7 @@ class SplashScreen(Screen):
             print("Update start error:", e)
             self.start_github_process()
 
-    # ---------- DOWNLOAD + INSTALL REAL-TIME ----------
+    # ---------- DOWNLOAD + INSTALL TICK ----------
     def download_and_install_tick(self):
         target_progress = self.display_progress
         if self.phase == "download":
@@ -191,7 +198,6 @@ class SplashScreen(Screen):
                     print("Install error:", e)
                     self.start_github_process()
                     return
-
         elif self.phase == "install":
             if self.install_index < self.total_members:
                 member = self.members[self.install_index]
@@ -210,13 +216,11 @@ class SplashScreen(Screen):
                 target_progress = 100
                 self.phase = "done"
 
-        # Smooth increment
         if self.display_progress < target_progress:
             self.display_progress += max(1, (target_progress - self.display_progress)//3)
             if self.display_progress > target_progress:
                 self.display_progress = target_progress
 
-        # Update UI
         self["progress_bar"].setValue(self.display_progress)
         if self.phase in ["download", "install"]:
             self["wait_text"].setText("Upgrading the panel: %d%%" % self.display_progress)
@@ -228,20 +232,18 @@ class SplashScreen(Screen):
             self.session.nav.stopService()
             os.system("killall -9 enigma2")
 
-    # ---------- MENUS DOWNLOAD ----------
+    # ---------- DOWNLOAD MENU FILES ----------
     def start_github_process(self):
         self["progress_bar"].show()
         self["progress_bar"].setValue(0)
         self["wait_text"].setText("Uploading menus: 0%")
         os.makedirs(self.DEST_FOLDER, exist_ok=True)
-
         api = f"https://api.github.com/repos/{self.REPO_OWNER}/{self.REPO_NAME}/contents/{self.FOLDER_PATH}?ref={self.BRANCH}"
         try:
             files = requests.get(api).json()
         except:
             self.open_panel()
             return
-
         self.files_to_download = files
         self.current_file_index = 0
         self.download_timer = eTimer()
@@ -276,17 +278,14 @@ class SplashScreen(Screen):
             print("Launch error:", e)
         self.close()
 
-
 # ---------------- ENTRY ----------------
 def main(session, **kwargs):
     session.open(SplashScreen)
-
 
 def menuHook(menuid, **kwargs):
     if menuid == "mainmenu":
         return [("ElieSatPanelGrid", main, "eliesat_panel_grid", 46)]
     return []
-
 
 def Plugins(**kwargs):
     return [
